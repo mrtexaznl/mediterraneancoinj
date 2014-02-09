@@ -88,7 +88,7 @@ public class AddressTest {
     
     @Test
     public void getNetwork() throws Exception {
-        NetworkParameters params = Address.getParametersFromAddress("17kzeh4N8g49GFvdDzSf8PjaPfyoD1MndL");
+        NetworkParameters params = Address.getParametersFromAddress("MZ3Zoam3CkaEKGLLVc63PN7S7bnUmVdqs7");
         assertEquals(MainNetParams.get().getId(), params.getId());
         params = Address.getParametersFromAddress("n4eA2nbYqErp7H6jebchxAN59DmNpksexv");
         assertEquals(TestNet3Params.get().getId(), params.getId());
