@@ -36,7 +36,7 @@ public class TestNet3Params extends NetworkParameters {
         interval = INTERVAL;
         targetTimespan = TARGET_TIMESPAN;
         proofOfWorkLimit = Utils.decodeCompactBits(0x1d00ffffL);
-        port = 19273;
+        port = 19373;
         addressHeader = 111;
         p2shHeader = 196;
         acceptableAddressCodes = new int[] { addressHeader, p2shHeader };

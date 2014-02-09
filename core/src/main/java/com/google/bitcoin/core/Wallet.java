@@ -628,8 +628,8 @@ public class Wallet implements Serializable, BlockChainListener, PeerFilterProvi
             BigInteger valueSentToMe = tx.getValueSentToMe(this);
             BigInteger valueSentFromMe = tx.getValueSentFromMe(this);
             if (log.isInfoEnabled()) {
-                log.info(String.format("Received a pending transaction %s that spends %s BTC from our own wallet," +
-                        " and sends us %s BTC", tx.getHashAsString(), Utils.bitcoinValueToFriendlyString(valueSentFromMe),
+                log.info(String.format("Received a pending transaction %s that spends %s MED from our own wallet," +
+                        " and sends us %s MED", tx.getHashAsString(), Utils.bitcoinValueToFriendlyString(valueSentFromMe),
                         Utils.bitcoinValueToFriendlyString(valueSentToMe)));
             }
             if (tx.getConfidence().getSource().equals(TransactionConfidence.Source.UNKNOWN)) {
@@ -819,7 +819,7 @@ public class Wallet implements Serializable, BlockChainListener, PeerFilterProvi
         BigInteger valueSentToMe = tx.getValueSentToMe(this);
         BigInteger valueDifference = valueSentToMe.subtract(valueSentFromMe);
 
-        log.info("Received tx{} for {} BTC: {} [{}] in block {}", sideChain ? " on a side chain" : "",
+        log.info("Received tx{} for {} MED: {} [{}] in block {}", sideChain ? " on a side chain" : "",
                 bitcoinValueToFriendlyString(valueDifference), tx.getHashAsString(), relativityOffset,
                 block != null ? block.getHeader().getHash() : "(unit test)");
 
@@ -2280,7 +2280,7 @@ public class Wallet implements Serializable, BlockChainListener, PeerFilterProvi
         try {
             StringBuilder builder = new StringBuilder();
             BigInteger balance = getBalance(BalanceType.ESTIMATED);
-            builder.append(String.format("Wallet containing %s BTC (%d satoshis) in:%n",
+            builder.append(String.format("Wallet containing %s MED (%d satoshis) in:%n",
                     bitcoinValueToPlainString(balance), balance.longValue()));
             builder.append(String.format("  %d pending transactions%n", pending.size()));
             builder.append(String.format("  %d unspent transactions%n", unspent.size()));

@@ -64,7 +64,7 @@ public class AddressTest {
         */
 
         Address b = new Address(mainParams, "MZ3Zoam3CkaEKGLLVc63PN7S7bnUmVdqs7");
-        assertEquals("4a22c3c4cbb31e4d03b15550636762bda0baf85a", Utils.bytesToHexString(b.getHash160()));
+        assertEquals("13d2261c348202c4ec65cf0d90edeb58bb8a30e9", Utils.bytesToHexString(b.getHash160()));
     }
     
     @Test
