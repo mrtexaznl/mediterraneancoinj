@@ -37,6 +37,9 @@ import java.util.List;
 
 import static com.google.bitcoin.core.Utils.doubleDigest;
 import static com.google.bitcoin.core.Utils.doubleDigestTwoBuffers;
+import java.security.GeneralSecurityException;
+import java.util.logging.Level;
+import org.mediterraneancoin.miner.SuperHasher;
 
 /**
  * <p>A block is a group of transactions, and is one of the fundamental data structures of the Bitcoin system.
@@ -86,6 +89,7 @@ public class Block extends Message {
 
     /** Stores the hash of the block. If null, getHash() will recalculate it. */
     private transient Sha256Hash hash;
+    private transient Sha256Hash hybridHash;
 
     private transient boolean headerParsed;
     private transient boolean transactionsParsed;
@@ -508,6 +512,23 @@ public class Block extends Message {
             throw new RuntimeException(e); // Cannot happen.
         }
     }
+    
+    private Sha256Hash calculateHybridHash() throws GeneralSecurityException {
+        try {
+            SuperHasher hasher = new SuperHasher();            
+            
+            ByteArrayOutputStream bos = new UnsafeByteArrayOutputStream(HEADER_SIZE);
+            writeHeader(bos);
+            
+            byte [] t = hasher.singleHash(bos.toByteArray());
+            
+            return new Sha256Hash(Utils.reverseBytes( t ));
+        } catch (IOException e) {
+            throw new RuntimeException(e); // Cannot happen.
+        }
+    }    
+    
+    
 
     /**
      * Returns the hash of the block (which for a valid, solved block should be below the target) in the form seen on
@@ -517,6 +538,10 @@ public class Block extends Message {
     public String getHashAsString() {
         return getHash().toString();
     }
+    
+    public String getHybridHashAsString() {
+        return getHash().toString();
+    }    
 
     /**
      * Returns the hash of the block (which for a valid, solved block should be
@@ -527,6 +552,16 @@ public class Block extends Message {
             hash = calculateHash();
         return hash;
     }
+    
+    public Sha256Hash getHybridHash() {
+        if (hybridHash == null)
+            try {
+                 hybridHash = calculateHybridHash();
+            } catch (GeneralSecurityException ex) {
+                java.util.logging.Logger.getLogger(Block.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return hybridHash;
+    }    
 
     /**
      * The number that is one greater than the largest representable SHA-256
@@ -628,7 +663,7 @@ public class Block extends Message {
         maybeParseHeader();
         BigInteger target = Utils.decodeCompactBits(difficultyTarget);
         if (target.compareTo(BigInteger.ZERO) <= 0 || target.compareTo(params.proofOfWorkLimit) > 0)
-            throw new VerificationException("Difficulty target is bad: " + target.toString());
+            throw new VerificationException("Difficulty target is bad: " + target.toString() + " or " + difficultyTarget);
         return target;
     }
 
@@ -644,11 +679,11 @@ public class Block extends Message {
         // field is of the right value. This requires us to have the preceeding blocks.
         BigInteger target = getDifficultyTargetAsInteger();
 
-        BigInteger h = getHash().toBigInteger();
+        BigInteger h = getHybridHash().toBigInteger();
         if (h.compareTo(target) > 0) {
             // Proof of work check failed!
             if (throwException)
-                throw new VerificationException("Hash is higher than target: " + getHashAsString() + " vs "
+                throw new VerificationException("Hash is higher than target: " + getHybridHashAsString() + " vs "
                         + target.toString(16));
             else
                 return false;
