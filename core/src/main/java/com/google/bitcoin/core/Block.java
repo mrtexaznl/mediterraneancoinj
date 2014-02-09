@@ -543,7 +543,7 @@ public class Block extends Message {
     }
     
     public String getHybridHashAsString() {
-        return getHash().toString();
+        return getHybridHash().toString();
     }    
 
     /**

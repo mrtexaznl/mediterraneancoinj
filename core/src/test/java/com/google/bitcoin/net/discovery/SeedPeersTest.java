@@ -29,6 +29,9 @@ public class SeedPeersTest {
     @Test
     public void getPeer_one() throws Exception{
         SeedPeers seedPeers = new SeedPeers(MainNetParams.get());
+        
+        InetSocketAddress peer = seedPeers.getPeer();
+        
         assertThat(seedPeers.getPeer(), notNullValue());
     }
     

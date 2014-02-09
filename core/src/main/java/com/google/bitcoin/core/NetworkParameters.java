@@ -105,10 +105,11 @@ public abstract class NetworkParameters implements Serializable {
             //
             //   "12/14/2013 10:03 AM Members of the governing African National Congress pay final tributes to Nelson Mandela"
             byte[] bytes = Hex.decode
-                    ("04ffff001d01044c6b31322f31342f323031332031303a303320414d204d656d62657273206f662074686520676f7665726e696e67204166726963616e204e6174696f6e616c20436f6e6772657373207061792066696e616c20747269627574657320746f204e656c736f6e204d616e64656c61");
+                    ("04ffff001d01044c6b31322f31342f323031332031303a303320414d204d656d62657273206f662074686520676f7665726e696e67204166726963616e204e6174696f6e616c20436f6e6772657373207061792066696e616c20747269627574657320746f204e656c736f6e204d616e64656c61"); // 
                   //("04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73");
                       
             t.addInput(new TransactionInput(n, t, bytes));
+            
             ByteArrayOutputStream scriptPubKeyBytes = new ByteArrayOutputStream();
             
             scriptPubKeyBytes.write( new byte[] { 02,00,00  } );
