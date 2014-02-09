@@ -43,7 +43,7 @@ public abstract class NetworkParameters implements Serializable {
     /**
      * The protocol version this library implements.
      */
-    public static final int PROTOCOL_VERSION = 70001;
+    public static final int PROTOCOL_VERSION = 70002;
 
     /**
      * The alert signing key originally owned by Satoshi, and now passed on to Gavin along with a few others.
@@ -119,8 +119,8 @@ public abstract class NetworkParameters implements Serializable {
         return genesisBlock;
     }
 
-    public static final int TARGET_TIMESPAN = 14 * 24 * 60 * 60;  // 2 weeks per difficulty cycle, on average.
-    public static final int TARGET_SPACING = 10 * 60;  // 10 minutes per block.
+    public static final int TARGET_TIMESPAN = 24 * 60 * 60 * 1 / 4;  // 2 weeks per difficulty cycle, on average.
+    public static final int TARGET_SPACING = 1 * 60;  // 10 minutes per block.
     public static final int INTERVAL = TARGET_TIMESPAN / TARGET_SPACING;
     
     /**
@@ -133,7 +133,7 @@ public abstract class NetworkParameters implements Serializable {
     /**
      * The maximum money to be generated
      */
-    public static final BigInteger MAX_MONEY = new BigInteger("21000000", 10).multiply(COIN);
+    public static final BigInteger MAX_MONEY = new BigInteger("200000000", 10).multiply(COIN);
 
     /** Alias for TestNet3Params.get(), use that instead. */
     @Deprecated
