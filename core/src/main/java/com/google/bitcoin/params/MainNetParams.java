@@ -40,9 +40,10 @@ public class MainNetParams extends NetworkParameters {
         genesisBlock.setDifficultyTarget(0x1d00ffffL);
         genesisBlock.setTime(1387020300L);
         genesisBlock.setNonce(0x13b3fca2);
+        genesisBlock.setGenesisMerkleRoot();
         id = ID_MAINNET;
         subsidyDecreaseBlockCount = 1036800;
-        spendableCoinbaseDepth = 100;
+        spendableCoinbaseDepth = 120;
         String genesisHash = genesisBlock.getHashAsString();
         checkState(genesisHash.equals("61bcf5b118ff2a3e823d3b9822c9be915cef9b5cc429e859bb4d8c121a034eef"),
                 genesisHash);
@@ -59,10 +60,8 @@ public class MainNetParams extends NetworkParameters {
         */
 
         dnsSeeds = new String[] {
-                "seed.bitcoin.sipa.be",        // Pieter Wuille
-                "dnsseed.bluematt.me",         // Matt Corallo
-                "dnsseed.bitcoin.dashjr.org",  // Luke Dashjr
-                "seed.bitcoinstats.com",       // Chris Decker
+                "dnsseed.mediterraneancoin.org"        // 
+   
         };
     }
 

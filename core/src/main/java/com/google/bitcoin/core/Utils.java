@@ -36,6 +36,8 @@ import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.util.concurrent.Uninterruptibles.sleepUninterruptibly;
+import java.security.GeneralSecurityException;
+import org.mediterraneancoin.miner.SuperHasher;
 
 /**
  * A collection of various utility methods that are helpful for working with the Bitcoin protocol.
@@ -189,6 +191,20 @@ public class Utils {
     public static byte[] doubleDigest(byte[] input) {
         return doubleDigest(input, 0, input.length);
     }
+    
+    public static byte[] hybridDigest(byte[] input) {
+        
+        try {
+            SuperHasher hasher = new SuperHasher();            
+ 
+            byte [] result = hasher.singleHash(input);
+            
+            return result;
+        } catch (GeneralSecurityException e) {
+            throw new RuntimeException(e); // Cannot happen.
+        }        
+         
+    }    
 
     /**
      * Calculates the SHA-256 hash of the given byte range, and then hashes the resulting hash again. This is

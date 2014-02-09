@@ -872,6 +872,12 @@ public class Block extends Message {
         merkleRoot = value;
         hash = null;
     }
+    
+    public void setGenesisMerkleRoot() {
+        unCacheHeader();
+        merkleRoot = new Sha256Hash("bf4f2bc176dddda8dad43c9302224e6c2b890663c29bcba6f5ad3b1b33d9ca1e");
+        hash = null;
+    }    
 
     /** Adds a transaction to this block. The nonce and merkle root are invalid after this. */
     public void addTransaction(Transaction t) {
