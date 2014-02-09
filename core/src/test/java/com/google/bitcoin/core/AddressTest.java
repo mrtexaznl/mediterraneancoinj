@@ -33,21 +33,37 @@ public class AddressTest {
     @Test
     public void stringification() throws Exception {
         // Test a testnet address.
+        /*
         Address a = new Address(testParams, Hex.decode("fda79a24e50ff70ff42f7d89585da5bd19d9e5cc"));
         assertEquals("n4eA2nbYqErp7H6jebchxAN59DmNpksexv", a.toString());
         assertFalse(a.isP2SHAddress());
+        */
 
-        Address b = new Address(mainParams, Hex.decode("4a22c3c4cbb31e4d03b15550636762bda0baf85a"));
-        assertEquals("17kzeh4N8g49GFvdDzSf8PjaPfyoD1MndL", b.toString());
+        Address b = new Address(mainParams, Hex.decode("13d2261c348202c4ec65cf0d90edeb58bb8a30e9"));
+        
+        /*
+        System.out.println(b.toString());
+        
+        Address c = new Address(mainParams, "MZ3Zoam3CkaEKGLLVc63PN7S7bnUmVdqs7");
+        
+        
+        String str = new String ( Hex.encode( c.getHash160() ) );
+        
+        System.out.println( str );
+        */
+        
+        assertEquals("MZ3Zoam3CkaEKGLLVc63PN7S7bnUmVdqs7", b.toString());
         assertFalse(b.isP2SHAddress());
     }
     
     @Test
     public void decoding() throws Exception {
+        /*
         Address a = new Address(testParams, "n4eA2nbYqErp7H6jebchxAN59DmNpksexv");
         assertEquals("fda79a24e50ff70ff42f7d89585da5bd19d9e5cc", Utils.bytesToHexString(a.getHash160()));
+        */
 
-        Address b = new Address(mainParams, "17kzeh4N8g49GFvdDzSf8PjaPfyoD1MndL");
+        Address b = new Address(mainParams, "MZ3Zoam3CkaEKGLLVc63PN7S7bnUmVdqs7");
         assertEquals("4a22c3c4cbb31e4d03b15550636762bda0baf85a", Utils.bytesToHexString(b.getHash160()));
     }
     
@@ -75,7 +91,7 @@ public class AddressTest {
 
         // Check the case of a mismatched network.
         try {
-            new Address(testParams, "17kzeh4N8g49GFvdDzSf8PjaPfyoD1MndL");
+            new Address(testParams, "MZ3Zoam3CkaEKGLLVc63PN7S7bnUmVdqs7");
             fail();
         } catch (WrongNetworkException e) {
             // Success.
@@ -89,7 +105,9 @@ public class AddressTest {
     @Test
     public void getNetwork() throws Exception {
         NetworkParameters params = Address.getParametersFromAddress("MZ3Zoam3CkaEKGLLVc63PN7S7bnUmVdqs7");
+        
         assertEquals(MainNetParams.get().getId(), params.getId());
+        
         params = Address.getParametersFromAddress("n4eA2nbYqErp7H6jebchxAN59DmNpksexv");
         assertEquals(TestNet3Params.get().getId(), params.getId());
     }
