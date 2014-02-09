@@ -172,7 +172,7 @@ public class PaymentSession {
         if (url == null)
             throw new PaymentRequestException.InvalidPaymentRequestURL("null paymentRequestUrl");
         try {
-            return fetchPaymentRequest(new URI(url), true, trustStorePath);
+            return fetchPaymentRequest(new URI(url), verifyPki, trustStorePath);
         } catch(URISyntaxException e) {
             throw new PaymentRequestException.InvalidPaymentRequestURL(e);
         }
@@ -186,8 +186,7 @@ public class PaymentSession {
                 connection.setRequestProperty("Accept", "application/bitcoin-paymentrequest");
                 connection.setUseCaches(false);
                 Protos.PaymentRequest paymentRequest = Protos.PaymentRequest.parseFrom(connection.getInputStream());
-                PaymentSession paymentSession = new PaymentSession(paymentRequest, verifyPki, trustStorePath);
-                return paymentSession;
+                return new PaymentSession(paymentRequest, verifyPki, trustStorePath);
             }
         });
     }
@@ -387,10 +386,49 @@ public class PaymentSession {
      * Information about the X509 signature's issuer and subject.
      */
     public static class PkiVerificationData {
-        public String name;
-        public PublicKey merchantSigningKey;
-        public TrustAnchor rootAuthority;
-        public String orgName;
+        /** Display name of the payment requestor, could be a domain name, email address, legal name, etc */
+        public final String name;
+        /** The "org" part of the payment requestors ID. */
+        public final String orgName;
+        /** SSL public key that was used to sign. */
+        public final PublicKey merchantSigningKey;
+        /** Object representing the CA that verified the merchant's ID */
+        public final TrustAnchor rootAuthority;
+        /** String representing the display name of the CA that verified the merchant's ID */
+        public final String rootAuthorityName;
+
+        private PkiVerificationData(@Nullable String name, @Nullable String orgName, PublicKey merchantSigningKey,
+                                    TrustAnchor rootAuthority) throws PaymentRequestException.PkiVerificationException {
+            this.name = name;
+            this.orgName = orgName;
+            this.merchantSigningKey = merchantSigningKey;
+            this.rootAuthority = rootAuthority;
+            this.rootAuthorityName = getNameFromCert(rootAuthority);
+        }
+
+        private String getNameFromCert(TrustAnchor rootAuthority) throws PaymentRequestException.PkiVerificationException {
+            org.spongycastle.asn1.x500.X500Name name = new X500Name(rootAuthority.getTrustedCert().getSubjectX500Principal().getName());
+            String commonName = null, org = null, location = null, country = null;
+            for (RDN rdn : name.getRDNs()) {
+                AttributeTypeAndValue pair = rdn.getFirst();
+                String val = ((ASN1String)pair.getValue()).getString();
+                if (pair.getType().equals(RFC4519Style.cn))
+                    commonName = val;
+                else if (pair.getType().equals(RFC4519Style.o))
+                    org = val;
+                else if (pair.getType().equals(RFC4519Style.l))
+                    location = val;
+                else if (pair.getType().equals(RFC4519Style.c))
+                    country = val;
+            }
+            if (org != null && location != null && country != null) {
+                return org + ", " + location + ", " + country;
+            } else {
+                if (commonName == null)
+                    throw new PaymentRequestException.PkiVerificationException("Could not find any identity info for root CA");
+                return commonName;
+            }
+        }
     }
 
     /**
@@ -462,13 +500,10 @@ public class PaymentSession {
                 else if (pair.getType().equals(RFC4519Style.o))
                     orgName = ((ASN1String)pair.getValue()).getString();
             }
-
+            if (entityName == null && orgName == null)
+                throw new PaymentRequestException.PkiVerificationException("Invalid certificate, no CN or O fields");
             // Everything is peachy. Return some useful data to the caller.
-            PkiVerificationData data = new PkiVerificationData();
-            data.name = entityName;
-            data.orgName = orgName;
-            data.merchantSigningKey = publicKey;
-            data.rootAuthority = result.getTrustAnchor();
+            PkiVerificationData data = new PkiVerificationData(entityName, orgName, publicKey, result.getTrustAnchor());
             // Cache the result so we don't have to re-verify if this method is called again.
             pkiVerificationData = data;
             return data;
@@ -511,33 +546,32 @@ public class PaymentSession {
             keyStore.load(is, defaultPassword);
             return keyStore;
         }
-        path = System.getProperty("javax.net.ssl.trustStore");
-        if (path == null) {
+        try {
             // Check if we are on Android.
-            try {
-                Class Build = Class.forName("android.os.Build");
-                Object version = Build.getDeclaredField("VERSION").get(Build);
-                // Build.VERSION_CODES.ICE_CREAM_SANDWICH is 14.
-                if (version.getClass().getDeclaredField("SDK_INT").getInt(version) >= 14) {
-                    // After ICS, Android provided this nice method for loading the keystore,
-                    // so we don't have to specify the location explicitly.
-                    KeyStore keystore = KeyStore.getInstance("AndroidCAStore");
-                    keystore.load(null, null);
-                    return keystore;
-                } else {
-                    keyStoreType = "BKS";
-                    path = System.getProperty("java.home") + "/etc/security/cacerts.bks".replace('/', File.separatorChar);
-                }
-            } catch (ClassNotFoundException e) {
-                // NOP. android.os.Build is not present, so we are not on Android.
-            } catch (NoSuchFieldException e) {
-                // This should never happen.
-            } catch (IllegalAccessException e) {
-                // This should never happen.
+            Class version = Class.forName("android.os.Build$VERSION");
+            // Build.VERSION_CODES.ICE_CREAM_SANDWICH is 14.
+            if (version.getDeclaredField("SDK_INT").getInt(version) >= 14) {
+                // After ICS, Android provided this nice method for loading the keystore,
+                // so we don't have to specify the location explicitly.
+                KeyStore keystore = KeyStore.getInstance("AndroidCAStore");
+                keystore.load(null, null);
+                return keystore;
+            } else {
+                keyStoreType = "BKS";
+                path = System.getProperty("java.home") + "/etc/security/cacerts.bks".replace('/', File.separatorChar);
             }
+        } catch (ClassNotFoundException e) {
+            // NOP. android.os.Build is not present, so we are not on Android. Fall through.
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);   // Should never happen.
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);   // Should never happen.
         }
         if (path == null) {
-            // We are not on Android. Try this default system location for Linux/Windows/OSX.
+            path = System.getProperty("javax.net.ssl.trustStore");
+        }
+        if (path == null) {
+            // Try this default system location for Linux/Windows/OSX.
             path = System.getProperty("java.home") + "/lib/security/cacerts".replace('/', File.separatorChar);
         }
         try {
@@ -546,7 +580,8 @@ public class PaymentSession {
             keyStore.load(is, defaultPassword);
             return keyStore;
         } catch (FileNotFoundException e) {
-            // If we failed to find a system trust store, load our own fallback trust store.
+            // If we failed to find a system trust store, load our own fallback trust store. This can fail on Android
+            // but we should never reach it there.
             KeyStore keyStore = KeyStore.getInstance("JKS");
             InputStream is = getClass().getResourceAsStream("cacerts");
             keyStore.load(is, defaultPassword);
