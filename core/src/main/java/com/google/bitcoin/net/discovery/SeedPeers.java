@@ -71,10 +71,18 @@ public class SeedPeers implements PeerDiscovery {
     }
 
     private InetSocketAddress[] allPeers() throws UnknownHostException {
-        InetSocketAddress[] addresses = new InetSocketAddress[seedAddrs.length];
+        /*InetSocketAddress[] addresses = new InetSocketAddress[seedAddrs.length];
         for (int i = 0; i < seedAddrs.length; ++i) {
             addresses[i] = new InetSocketAddress(convertAddress(seedAddrs[i]), params.getPort());
-        }
+        }*/
+        
+        InetSocketAddress[] addresses = new InetSocketAddress[4];
+        
+        addresses[0] = new InetSocketAddress("node1.mediterraneancoin.org", 9373);
+        addresses[1] = new InetSocketAddress("node2.mediterraneancoin.org", 9373);
+        addresses[2] = new InetSocketAddress("node3.mediterraneancoin.org", 9373);
+        addresses[3] = new InetSocketAddress("node4.mediterraneancoin.org", 9373);
+        
         return addresses;
     }
 
