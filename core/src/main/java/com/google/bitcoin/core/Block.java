@@ -179,6 +179,7 @@ public class Block extends Message {
         // This code is not actually necessary, as transient fields are initialized to the default value which is in
         // this case null. However it clears out a FindBugs warning and makes it explicit what we're doing.
         hash = null;
+        this.hybridHash = null;
     }
 
     private void parseHeader() throws ProtocolException {
@@ -484,6 +485,8 @@ public class Block extends Message {
             bytes = null;
         hash = null;
         checksum = null;
+        
+        this.hybridHash = null;
     }
 
     private void unCacheTransactions() {
@@ -871,12 +874,14 @@ public class Block extends Message {
         unCacheHeader();
         merkleRoot = value;
         hash = null;
+        this.hybridHash = null;
     }
     
     public void setGenesisMerkleRoot() {
         unCacheHeader();
         merkleRoot = new Sha256Hash("bf4f2bc176dddda8dad43c9302224e6c2b890663c29bcba6f5ad3b1b33d9ca1e");
         hash = null;
+        this.hybridHash = null;
     }    
 
     /** Adds a transaction to this block. The nonce and merkle root are invalid after this. */
@@ -900,6 +905,7 @@ public class Block extends Message {
         // Force a recalculation next time the values are needed.
         merkleRoot = null;
         hash = null;
+        this.hybridHash = null;
     }
 
     /** Returns the version of the block data structure as defined by the Bitcoin protocol. */
@@ -920,6 +926,7 @@ public class Block extends Message {
         unCacheHeader();
         this.prevBlockHash = prevBlockHash;
         this.hash = null;
+        this.hybridHash = null;
     }
 
     /**
@@ -942,6 +949,7 @@ public class Block extends Message {
         unCacheHeader();
         this.time = time;
         this.hash = null;
+        this.hybridHash = null;
     }
 
     /**
@@ -963,6 +971,7 @@ public class Block extends Message {
         unCacheHeader();
         this.difficultyTarget = compactForm;
         this.hash = null;
+        this.hybridHash = null;
     }
 
     /**
@@ -979,6 +988,7 @@ public class Block extends Message {
         unCacheHeader();
         this.nonce = nonce;
         this.hash = null;
+        this.hybridHash = null;
     }
 
     /** Returns an immutable list of transactions held in this block. */
