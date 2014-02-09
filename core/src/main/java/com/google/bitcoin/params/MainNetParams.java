@@ -50,7 +50,7 @@ public class MainNetParams extends NetworkParameters {
         id = ID_MAINNET;
         subsidyDecreaseBlockCount = 1036800;
         spendableCoinbaseDepth = 120;
-        String genesisHash = genesisBlock.getHybridHashAsString();
+        String genesisHash = genesisBlock.getHashAsString();
         checkState(genesisHash.equals("61bcf5b118ff2a3e823d3b9822c9be915cef9b5cc429e859bb4d8c121a034eef"),
                 genesisHash);
 
