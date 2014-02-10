@@ -19,6 +19,7 @@ package com.google.bitcoin.examples;
 import com.google.bitcoin.core.AbstractPeerEventListener;
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Peer;
+import com.google.bitcoin.core.PeerAddress;
 import com.google.bitcoin.core.PeerGroup;
 import com.google.bitcoin.net.discovery.DnsDiscovery;
 import com.google.bitcoin.params.MainNetParams;
@@ -35,8 +36,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Shows connected peers in a table view, so you can watch as they come and go.
@@ -65,7 +71,17 @@ public class PeerMonitor {
         peerGroup = new PeerGroup(params, null /* no chain */);
         peerGroup.setUserAgent("PeerMonitor", "1.0");
         peerGroup.setMaxConnections(4);
-        peerGroup.addPeerDiscovery(new DnsDiscovery(params));
+        
+        try {
+            peerGroup.addAddress( InetAddress.getLocalHost() );
+            
+            //peerGroup.addAddress( InetAddress.getByName("node1.mediterraneancoin.org") );
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(PeerMonitor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //peerGroup.addPeerDiscovery(new DnsDiscovery(params));
+        
         peerGroup.addEventListener(new AbstractPeerEventListener() {
             @Override
             public void onPeerConnected(final Peer peer, int peerCount) {
