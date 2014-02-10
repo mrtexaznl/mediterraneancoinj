@@ -67,7 +67,7 @@ public class BlockChainTest {
         testNetChain = new BlockChain(testNet, new Wallet(testNet), new MemoryBlockStore(testNet));
         Wallet.SendRequest.DEFAULT_FEE_PER_KB = BigInteger.ZERO;
 
-        unitTestParams = UnitTestParams.get();
+        unitTestParams = MainNetParams.get(); //UnitTestParams.get();
         wallet = new Wallet(unitTestParams) {
             @Override
             public void receiveFromBlock(Transaction tx, StoredBlock block, BlockChain.NewBlockType blockType,
