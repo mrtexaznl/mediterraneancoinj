@@ -18,6 +18,7 @@ package com.google.bitcoin.core;
 
 import com.google.bitcoin.net.discovery.PeerDiscovery;
 import com.google.bitcoin.net.discovery.PeerDiscoveryException;
+import com.google.bitcoin.params.MainNetParams;
 import com.google.bitcoin.params.UnitTestParams;
 import com.google.bitcoin.store.MemoryBlockStore;
 import com.google.bitcoin.utils.TestUtils;
@@ -45,7 +46,7 @@ import static org.junit.Assert.*;
 
 @RunWith(value = Parameterized.class)
 public class PeerGroupTest extends TestWithPeerGroup {
-    static final NetworkParameters params = UnitTestParams.get();
+    static final NetworkParameters params = MainNetParams.get(); //UnitTestParams.get();
     private BlockingQueue<Peer> connectedPeers;
     private BlockingQueue<Peer> disconnectedPeers;
     private PeerEventListener listener;
@@ -90,7 +91,7 @@ public class PeerGroupTest extends TestWithPeerGroup {
                 return m;
             }
         };
-        super.setUp(new MemoryBlockStore(UnitTestParams.get()));
+        super.setUp(new MemoryBlockStore(/*UnitTestParams*/ MainNetParams.get()));
         peerGroup.addWallet(wallet);
     }
 

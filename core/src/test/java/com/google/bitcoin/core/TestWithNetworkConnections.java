@@ -17,6 +17,7 @@
 package com.google.bitcoin.core;
 
 import com.google.bitcoin.net.*;
+import com.google.bitcoin.params.MainNetParams;
 import com.google.bitcoin.params.UnitTestParams;
 import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.MemoryBlockStore;
@@ -73,13 +74,13 @@ public class TestWithNetworkConnections {
     }
 
     public void setUp() throws Exception {
-        setUp(new MemoryBlockStore(UnitTestParams.get()));
+        setUp(new MemoryBlockStore(/*UnitTestParams.get()*/ MainNetParams.get()));
     }
     
     public void setUp(BlockStore blockStore) throws Exception {
         BriefLogFormatter.init();
 
-        unitTestParams = UnitTestParams.get();
+        unitTestParams = MainNetParams.get(); //UnitTestParams.get();
         Wallet.SendRequest.DEFAULT_FEE_PER_KB = BigInteger.ZERO;
         this.blockStore = blockStore;
         wallet = new Wallet(unitTestParams);

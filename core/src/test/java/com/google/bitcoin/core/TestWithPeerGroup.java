@@ -18,6 +18,7 @@ package com.google.bitcoin.core;
 
 import com.google.bitcoin.net.BlockingClientManager;
 import com.google.bitcoin.net.NioClientManager;
+import com.google.bitcoin.params.MainNetParams;
 import com.google.bitcoin.params.UnitTestParams;
 import com.google.bitcoin.store.BlockStore;
 import com.google.common.base.Preconditions;
@@ -31,7 +32,7 @@ import static org.junit.Assert.assertTrue;
  * Utility class that makes it easy to work with mock NetworkConnections in PeerGroups.
  */
 public class TestWithPeerGroup extends TestWithNetworkConnections {
-    protected static final NetworkParameters params = UnitTestParams.get();
+    protected static final NetworkParameters params = /*UnitTestParams.get()*/ MainNetParams.get();
     protected PeerGroup peerGroup;
 
     protected VersionMessage remoteVersionMessage;
