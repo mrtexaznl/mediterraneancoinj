@@ -35,6 +35,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import static com.google.common.base.Preconditions.*;
+import java.math.BigInteger;
+ 
 
 /**
  * <p>Vends hard-coded {@link StoredBlock}s for blocks throughout the chain. Checkpoints serve two purposes:</p>
@@ -69,6 +71,26 @@ public class CheckpointManager {
 
     protected final NetworkParameters params;
     protected final Sha256Hash dataHash;
+    
+    public CheckpointManager(NetworkParameters params) {
+        this.params = checkNotNull(params);
+        
+        StoredBlock block = new StoredBlock(params.genesisBlock, BigInteger.ZERO, 0);
+        
+        checkpoints.put( block.getHeader().getTimeSeconds(), block);
+        
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            
+            digest.digest("hi!".getBytes());
+            
+            dataHash = new Sha256Hash(digest.digest());
+        } catch (NoSuchAlgorithmException ex) {
+            throw new RuntimeException(ex);
+        }
+        
+        
+    }
 
     public CheckpointManager(NetworkParameters params, InputStream inputStream) throws IOException {
         this.params = checkNotNull(params);
@@ -155,11 +177,22 @@ public class CheckpointManager {
         checkArgument(!(store instanceof FullPrunedBlockStore), "You cannot use checkpointing with a full store.");
 
         time -= 86400 * 7;
+        
+        if (checkpoints == null) {
+            
+ 
+            CheckpointManager manager = new CheckpointManager(params);
+            StoredBlock checkpoint = manager.getCheckpointBefore(time);
+            store.put(checkpoint);
+            store.setChainHead(checkpoint);            
+            
+        } else {
 
-        BufferedInputStream stream = new BufferedInputStream(checkpoints);
-        CheckpointManager manager = new CheckpointManager(params, stream);
-        StoredBlock checkpoint = manager.getCheckpointBefore(time);
-        store.put(checkpoint);
-        store.setChainHead(checkpoint);
+            BufferedInputStream stream = new BufferedInputStream(checkpoints);
+            CheckpointManager manager = new CheckpointManager(params, stream);
+            StoredBlock checkpoint = manager.getCheckpointBefore(time);
+            store.put(checkpoint);
+            store.setChainHead(checkpoint);
+        }
     }
 }
