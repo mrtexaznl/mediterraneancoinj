@@ -28,6 +28,7 @@ import static com.google.common.base.Preconditions.checkState;
 public class TestNet2Params extends NetworkParameters {
     public TestNet2Params() {
         super();
+/*        
         id = ID_TESTNET;
         packetMagic = 0xfabfb5daL;
         port = 18333;
@@ -45,6 +46,28 @@ public class TestNet2Params extends NetworkParameters {
         subsidyDecreaseBlockCount = 210000;
         String genesisHash = genesisBlock.getHashAsString();
         checkState(genesisHash.equals("00000007199508e34a9ff81e6ec0c477a4cccff2a4767a8eee39c11db367b008"));
+        */
+        id = ID_TESTNET;
+        // Genesis hash is 000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943
+        //packetMagic = 0x0b110907;
+        packetMagic = 0xfcc1b7dc;
+        interval = INTERVAL;
+        targetTimespan = TARGET_TIMESPAN;
+        proofOfWorkLimit = Utils.decodeCompactBits(0x1d00ffffL);
+        port = 19373;
+        addressHeader = 111;
+        p2shHeader = 196;
+        acceptableAddressCodes = new int[] { addressHeader, p2shHeader };
+        dumpedPrivateKeyHeader = 239;
+        genesisBlock.setTime(1387020100L);
+        genesisBlock.setDifficultyTarget(0x1d0ffff0L);
+        genesisBlock.setNonce(272615450);
+        spendableCoinbaseDepth = 120;
+        subsidyDecreaseBlockCount = 210000;
+        String genesisHash = genesisBlock.getHashAsString();
+        checkState(genesisHash.equals("d773931e52ee66afbd00c0a78297049f5ccfec68c272085fab1bc6d59881be46"));
+        alertSigningKey = null; //Hex.decode("04302390343f91cc401d56d68b123028bf52e5fca1939df127f63c6467cdf9c8e2c14b61104cf817d0b780da337893ecc4aaff1309e536162dabbdb45200ca2b0a");
+        
         dnsSeeds = null;
     }
 
