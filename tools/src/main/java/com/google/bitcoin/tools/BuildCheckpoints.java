@@ -51,6 +51,11 @@ public class BuildCheckpoints {
         final PeerGroup peerGroup = new PeerGroup(params, chain);
         peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("192.168.0.50") );
         
+        peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node1.mediterraneancoin.org") );
+        peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node2.mediterraneancoin.org") );
+        peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node3.mediterraneancoin.org") );
+        peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node4.mediterraneancoin.org") );
+        
         peerGroup.setFastCatchupTimeSecs(now);
 
         final long oneMonthAgo = now - (86400 * 1);
