@@ -36,11 +36,11 @@ public class BuildCheckpoints {
         final BlockStore store = new MemoryBlockStore(params);
         final BlockChain chain = new BlockChain(params, store);
         final PeerGroup peerGroup = new PeerGroup(params, chain);
-        peerGroup.addAddress(InetAddress.getLocalHost());
+        peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("192.168.0.50") );
         long now = new Date().getTime() / 1000;
         peerGroup.setFastCatchupTimeSecs(now);
 
-        final long oneMonthAgo = now - (86400 * 30);
+        final long oneMonthAgo = now - (86400 * 1);
 
         chain.addListener(new AbstractBlockChainListener() {
             @Override
@@ -50,6 +50,9 @@ public class BuildCheckpoints {
                     System.out.println(String.format("Checkpointing block %s at height %d",
                             block.getHeader().getHash(), block.getHeight()));
                     checkpoints.put(height, block);
+                } else {
+                	if (height % 1000 == 0)
+                		System.out.println( height );
                 }
             }
         }, Threading.SAME_THREAD);
@@ -60,7 +63,7 @@ public class BuildCheckpoints {
         checkState(checkpoints.size() > 0);
 
         // Write checkpoint data out.
-        final FileOutputStream fileOutputStream = new FileOutputStream("checkpoints", false);
+        final FileOutputStream fileOutputStream = new FileOutputStream("/home/marco/checkpoints", false);
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         final DigestOutputStream digestOutputStream = new DigestOutputStream(fileOutputStream, digest);
         digestOutputStream.on(false);
@@ -87,8 +90,25 @@ public class BuildCheckpoints {
         // Sanity check the created file.
         CheckpointManager manager = new CheckpointManager(params, new FileInputStream("checkpoints"));
         checkState(manager.numCheckpoints() == checkpoints.size());
-        StoredBlock test = manager.getCheckpointBefore(1348310800);  // Just after block 200,000
-        checkState(test.getHeight() == 199584);
-        checkState(test.getHeader().getHashAsString().equals("000000000000002e00a243fe9aa49c78f573091d17372c2ae0ae5e0f24f55b52"));
+        StoredBlock test = manager.getCheckpointBefore(/*1348310800*/ System.currentTimeMillis() - 1000 * 3600 * 24L );  // Just after block 200,000
+        
+        System.out.println();
+        System.out.println();
+        
+        System.out.println(test);
+        
+        System.out.println();
+        System.out.println();
+        
+        System.out.println(test.getHeight());
+        
+        System.out.println();
+        System.out.println();
+        
+        System.out.println(test.getHeader().getHashAsString());
+        
+        
+        //checkState(test.getHeight() == 199584);
+        //checkState(test.getHeader().getHashAsString().equals("000000000000002e00a243fe9aa49c78f573091d17372c2ae0ae5e0f24f55b52"));
     }
 }

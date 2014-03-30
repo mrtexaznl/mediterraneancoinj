@@ -517,6 +517,9 @@ public class Block extends Message {
     }
     
     private Sha256Hash calculateHybridHash() throws GeneralSecurityException {
+        
+        System.out.println("calculateHybridHash");
+        
         try {
             SuperHasher hasher = new SuperHasher();            
             

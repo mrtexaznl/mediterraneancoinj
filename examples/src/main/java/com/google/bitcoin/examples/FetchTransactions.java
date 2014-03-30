@@ -17,6 +17,7 @@
 package com.google.bitcoin.examples;
 
 import com.google.bitcoin.core.*;
+import com.google.bitcoin.params.MainNetParams;
 import com.google.bitcoin.params.TestNet3Params;
 import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.MemoryBlockStore;
@@ -33,13 +34,16 @@ public class FetchTransactions {
     public static void main(String[] args) throws Exception {
         BriefLogFormatter.init();
         System.out.println("Connecting to node");
-        final NetworkParameters params = TestNet3Params.get();
+        final NetworkParameters params = MainNetParams.get(); //TestNet3Params.get();
 
         BlockStore blockStore = new MemoryBlockStore(params);
         BlockChain chain = new BlockChain(params, blockStore);
         PeerGroup peerGroup = new PeerGroup(params, chain);
         peerGroup.startAndWait();
         peerGroup.addAddress(new PeerAddress(InetAddress.getLocalHost(), params.getPort()));
+        
+        peerGroup.addAddress( new PeerAddress( InetAddress.getByName("node4.mediterraneancoin.org") ));
+        
         peerGroup.waitForPeers(1).get();
         Peer peer = peerGroup.getConnectedPeers().get(0);
 

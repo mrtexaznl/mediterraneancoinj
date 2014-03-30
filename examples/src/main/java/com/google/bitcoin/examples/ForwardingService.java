@@ -31,6 +31,7 @@ import java.io.File;
 import java.math.BigInteger;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import java.util.List;
 
 /**
  * ForwardingService demonstrates basic usage of the library. It sits on the network and when it receives coins, simply
@@ -77,9 +78,49 @@ public class ForwardingService {
         }
         
         kit.setBlockingStartup(false);
-
+        
         // Download the block chain and wait until it's done.
-        kit.startAndWait();
+        kit.startAndWait();        
+        
+        kit.chain().addListener( 
+                new BlockChainListener() {
+
+                    @Override
+                    public void notifyNewBestBlock(StoredBlock block) throws VerificationException {
+                        System.out.println("BlockChainListener - notifyNewBestBlock: " + block.toString());
+                        
+                        System.out.println("getHeader: " + block.getHeader().toString());
+                        System.out.println("getChainWork: " + block.getChainWork());
+                    }
+
+                    @Override
+                    public void reorganize(StoredBlock splitPoint, List<StoredBlock> oldBlocks, List<StoredBlock> newBlocks) throws VerificationException {
+                        System.out.println("BlockChainListener - reorganize");
+                    }
+
+                    @Override
+                    public boolean isTransactionRelevant(Transaction tx) throws ScriptException {
+                        System.out.println("BlockChainListener - isTransactionRelevant? " + tx.toString());
+                        return true;
+                    }
+
+                    @Override
+                    public void receiveFromBlock(Transaction tx, StoredBlock block, AbstractBlockChain.NewBlockType blockType, int relativityOffset) throws VerificationException {
+                        System.out.println("BlockChainListener - receiveFromBlock: ");
+                        System.out.println(tx.toString());
+                        System.out.println(block.toString());
+                        System.out.println(blockType);
+                    }
+
+                    @Override
+                    public void notifyTransactionIsInBlock(Sha256Hash txHash, StoredBlock block, AbstractBlockChain.NewBlockType blockType, int relativityOffset) throws VerificationException {
+                        System.out.println("");
+                    }
+                }
+                );
+        
+
+
 
         // We want to know when we receive money.
         kit.wallet().addEventListener(new AbstractWalletEventListener() {
