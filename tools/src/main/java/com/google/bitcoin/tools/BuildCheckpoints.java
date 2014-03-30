@@ -8,6 +8,7 @@ import com.google.bitcoin.utils.BriefLogFormatter;
 import com.google.bitcoin.utils.Threading;
 
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.net.InetAddress;
@@ -34,13 +35,33 @@ public class BuildCheckpoints {
         // Configure bitcoinj to fetch only headers, not save them to disk, connect to a local fully synced/validated
         // node and to save block headers that are on interval boundaries, as long as they are <1 month old.
         final BlockStore store = new MemoryBlockStore(params);
+        
+        long now = new Date().getTime() / 1000;
+        
+        File checkpointsFile = new File("/opt/checkpoints");
+        
+        if (checkpointsFile.exists()) {
+                // Replace path to the file here.
+            FileInputStream stream = new FileInputStream(checkpointsFile);
+            CheckpointManager.checkpoint(params, stream, store, now);
+        }                
+        
+        
         final BlockChain chain = new BlockChain(params, store);
         final PeerGroup peerGroup = new PeerGroup(params, chain);
         peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("192.168.0.50") );
-        long now = new Date().getTime() / 1000;
+        
         peerGroup.setFastCatchupTimeSecs(now);
 
         final long oneMonthAgo = now - (86400 * 1);
+        
+        
+        //boolean chainExistedAlready = chainFile.exists();
+        //blockStore = new SPVBlockStore(params, chainFile);
+        
+
+        
+        
 
         chain.addListener(new AbstractBlockChainListener() {
             @Override
@@ -51,7 +72,7 @@ public class BuildCheckpoints {
                             block.getHeader().getHash(), block.getHeight()));
                     checkpoints.put(height, block);
                 } else {
-                	if (height % 1000 == 0)
+                	if (height % 100 == 0)
                 		System.out.println( height );
                 }
             }
@@ -63,7 +84,7 @@ public class BuildCheckpoints {
         checkState(checkpoints.size() > 0);
 
         // Write checkpoint data out.
-        final FileOutputStream fileOutputStream = new FileOutputStream("/home/marco/checkpoints", false);
+        final FileOutputStream fileOutputStream = new FileOutputStream("/opt/checkpoints", false);
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         final DigestOutputStream digestOutputStream = new DigestOutputStream(fileOutputStream, digest);
         digestOutputStream.on(false);
@@ -88,9 +109,9 @@ public class BuildCheckpoints {
         store.close();
 
         // Sanity check the created file.
-        CheckpointManager manager = new CheckpointManager(params, new FileInputStream("checkpoints"));
+        CheckpointManager manager = new CheckpointManager(params, new FileInputStream("/opt/checkpoints"));
         checkState(manager.numCheckpoints() == checkpoints.size());
-        StoredBlock test = manager.getCheckpointBefore(/*1348310800*/ System.currentTimeMillis() - 1000 * 3600 * 24L );  // Just after block 200,000
+        StoredBlock test = manager.getCheckpointBefore(/*1348310800*/ System.currentTimeMillis() - 1000 * 3600 * 24L * 2);  // Just after block 200,000
         
         System.out.println();
         System.out.println();
