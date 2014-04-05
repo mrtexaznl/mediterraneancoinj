@@ -168,7 +168,7 @@ public class CheckpointManager {
      * time, then inserts it into the store and sets that to be the chain head. Useful when you have just created
      * a new store from scratch and want to use configure it all in one go.</p>
      *
-     * <p>Note that time is adjusted backwards by a week to account for possible clock drift in the block headers.</p>
+     * <p>Note that time is adjusted backwards by a day to account for possible clock drift in the block headers.</p>
      */
     public static void checkpoint(NetworkParameters params, InputStream checkpoints, BlockStore store, long time)
             throws IOException, BlockStoreException {
@@ -176,7 +176,7 @@ public class CheckpointManager {
         checkNotNull(store);
         checkArgument(!(store instanceof FullPrunedBlockStore), "You cannot use checkpointing with a full store.");
 
-        time -= 86400 * 7;
+        time -= 86400 * 1;
         
         if (checkpoints == null) {
             

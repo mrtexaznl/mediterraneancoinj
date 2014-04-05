@@ -28,6 +28,34 @@ import static com.google.common.base.Preconditions.checkState;
  * to a file which is then signed with your key.
  */
 public class BuildCheckpoints {
+	
+	public static File findMostRecentCheckpointFile(File folder) {	
+		
+		long timestamp = 0;
+	 
+		File[] listOfFiles = folder.listFiles();	
+		
+		File result = null;
+		
+		for (int i = 0; i < listOfFiles.length; i++) {
+			
+			File f = listOfFiles[i];
+			
+			if (f.isDirectory() || !f.getName().startsWith("checkpoints_new_"))
+				continue;
+			
+			if (f.lastModified() >= timestamp) {
+				result = f;
+				timestamp = f.lastModified();
+			}
+			
+		}
+		
+		return result;
+		
+	}
+	
+	
     public static void main(String[] args) throws Exception {
         BriefLogFormatter.init();
         final NetworkParameters params = MainNetParams.get();
@@ -42,7 +70,10 @@ public class BuildCheckpoints {
         
         long now = new Date().getTime() / 1000;
         
-        File checkpointsFile = new File("/opt/checkpoints");
+        File checkpointsFile =  findMostRecentCheckpointFile(new File("/opt/"));
+        		//new File("/opt/checkpoints");
+        
+        System.out.println("checkpoint file: " + checkpointsFile);
         
         if (checkpointsFile.exists()) {
                 // Replace path to the file here.
