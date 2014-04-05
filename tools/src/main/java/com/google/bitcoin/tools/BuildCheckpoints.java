@@ -10,11 +10,14 @@ import com.google.bitcoin.utils.Threading;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.security.DigestOutputStream;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.TreeMap;
 
@@ -29,8 +32,9 @@ public class BuildCheckpoints {
         BriefLogFormatter.init();
         final NetworkParameters params = MainNetParams.get();
 
+
         // Sorted map of UNIX time of block to StoredBlock object.
-        final TreeMap<Integer, StoredBlock> checkpoints = new TreeMap<Integer, StoredBlock>();
+        final TreeMap<Integer, StoredBlock> checkpoints = new TreeMap<Integer, StoredBlock>();        
 
         // Configure bitcoinj to fetch only headers, not save them to disk, connect to a local fully synced/validated
         // node and to save block headers that are on interval boundaries, as long as they are <1 month old.
@@ -58,7 +62,7 @@ public class BuildCheckpoints {
         
         peerGroup.setFastCatchupTimeSecs(now);
 
-        final long oneMonthAgo = now - (86400 * 1);
+        final long oneMonthAgo = now - 3600;//(86400 * 1);
         
         
         //boolean chainExistedAlready = chainFile.exists();
@@ -76,9 +80,20 @@ public class BuildCheckpoints {
                     System.out.println(String.format("Checkpointing block %s at height %d",
                             block.getHeader().getHash(), block.getHeight()));
                     checkpoints.put(height, block);
+                    
+                    try {
+						writeCheckpointFile(new File("/opt/checkpoints_new_" + height), checkpoints);
+					} catch (NoSuchAlgorithmException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                    
                 } else {
                 	if (height % 100 == 0)
-                		System.out.println( height );
+                		System.out.println("height: " + height );
                 }
             }
         }, Threading.SAME_THREAD);
@@ -86,29 +101,7 @@ public class BuildCheckpoints {
         peerGroup.startAndWait();
         peerGroup.downloadBlockChain();
 
-        checkState(checkpoints.size() > 0);
-
-        // Write checkpoint data out.
-        final FileOutputStream fileOutputStream = new FileOutputStream("/opt/checkpoints", false);
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        final DigestOutputStream digestOutputStream = new DigestOutputStream(fileOutputStream, digest);
-        digestOutputStream.on(false);
-        final DataOutputStream dataOutputStream = new DataOutputStream(digestOutputStream);
-        dataOutputStream.writeBytes("CHECKPOINTS 1");
-        dataOutputStream.writeInt(0);  // Number of signatures to read. Do this later.
-        digestOutputStream.on(true);
-        dataOutputStream.writeInt(checkpoints.size());
-        ByteBuffer buffer = ByteBuffer.allocate(StoredBlock.COMPACT_SERIALIZED_SIZE);
-        for (StoredBlock block : checkpoints.values()) {
-            block.serializeCompact(buffer);
-            dataOutputStream.write(buffer.array());
-            buffer.position(0);
-        }
-        dataOutputStream.close();
-        Sha256Hash checkpointsHash = new Sha256Hash(digest.digest());
-        System.out.println("Hash of checkpoints data is " + checkpointsHash);
-        digestOutputStream.close();
-        fileOutputStream.close();
+        
 
         peerGroup.stopAndWait();
         store.close();
@@ -136,5 +129,40 @@ public class BuildCheckpoints {
         
         //checkState(test.getHeight() == 199584);
         //checkState(test.getHeader().getHashAsString().equals("000000000000002e00a243fe9aa49c78f573091d17372c2ae0ae5e0f24f55b52"));
+    }
+    
+    public static void writeCheckpointFile(File fileName , TreeMap<Integer, StoredBlock> checkpoints) throws NoSuchAlgorithmException, IOException {
+    	
+    	
+
+        checkState(checkpoints.size() > 0);
+
+        // Write checkpoint data out.
+        final FileOutputStream fileOutputStream = new FileOutputStream(fileName /*"/opt/checkpoints_new"*/, false);
+        
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        
+        final DigestOutputStream digestOutputStream = new DigestOutputStream(fileOutputStream, digest);
+        
+        digestOutputStream.on(false);
+        
+        final DataOutputStream dataOutputStream = new DataOutputStream(digestOutputStream);
+        
+        dataOutputStream.writeBytes("CHECKPOINTS 1");
+        dataOutputStream.writeInt(0);  // Number of signatures to read. Do this later.
+        digestOutputStream.on(true);
+        dataOutputStream.writeInt(checkpoints.size());
+        ByteBuffer buffer = ByteBuffer.allocate(StoredBlock.COMPACT_SERIALIZED_SIZE);
+        for (StoredBlock block : checkpoints.values()) {
+            block.serializeCompact(buffer);
+            dataOutputStream.write(buffer.array());
+            buffer.position(0);
+        }
+        dataOutputStream.close();
+        Sha256Hash checkpointsHash = new Sha256Hash(digest.digest());
+        System.out.println("Hash of checkpoints data is " + checkpointsHash);
+        digestOutputStream.close();
+        fileOutputStream.close();    	
+    	
     }
 }

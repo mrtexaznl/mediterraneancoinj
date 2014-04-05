@@ -841,6 +841,12 @@ public abstract class AbstractBlockChain {
         long elapsed = System.currentTimeMillis() - now;
         if (elapsed > 50)
             log.info("Difficulty transition traversal took {}msec", elapsed);
+        
+        if (cursor == null) {
+        	log.error("checkDifficultyTransitions {} {}",  storedPrev, nextBlock);
+        	
+        	return;
+        }
 
         Block blockIntervalAgo = cursor.getHeader();
         int timespan = (int) (prev.getTimeSeconds() - blockIntervalAgo.getTimeSeconds());
