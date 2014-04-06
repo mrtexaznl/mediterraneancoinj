@@ -65,7 +65,7 @@ public class BuildCheckpoints {
         final TreeMap<Integer, StoredBlock> checkpoints = new TreeMap<Integer, StoredBlock>();        
 
         // Configure bitcoinj to fetch only headers, not save them to disk, connect to a local fully synced/validated
-        // node and to save block headers that are on interval boundaries, as long as they are <1 month old.
+        // node and to save block headers that are on interval boundaries, as long as they are <1 hour old.
         final BlockStore store = new MemoryBlockStore(params);
         
         long now = new Date().getTime() / 1000;
@@ -93,7 +93,7 @@ public class BuildCheckpoints {
         
         peerGroup.setFastCatchupTimeSecs(now);
 
-        final long oneMonthAgo = now - 3600;//(86400 * 1);
+        final long oneHourAgo = now - 3600;//(86400 * 1);
         
         
         //boolean chainExistedAlready = chainFile.exists();
@@ -107,7 +107,7 @@ public class BuildCheckpoints {
             @Override
             public void notifyNewBestBlock(StoredBlock block) throws VerificationException {
                 int height = block.getHeight();
-                if (height % params.getInterval() == 0 && block.getHeader().getTimeSeconds() <= oneMonthAgo) {
+                if (height % params.getInterval() == 0 && block.getHeader().getTimeSeconds() <= oneHourAgo) {
                     System.out.println(String.format("Checkpointing block %s at height %d",
                             block.getHeader().getHash(), block.getHeight()));
                     checkpoints.put(height, block);
