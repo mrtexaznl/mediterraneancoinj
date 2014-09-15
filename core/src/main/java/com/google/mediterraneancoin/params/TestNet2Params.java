@@ -53,7 +53,7 @@ public class TestNet2Params extends NetworkParameters {
         packetMagic = 0xfcc1b7dc;
         interval = INTERVAL;
         targetTimespan = TARGET_TIMESPAN;
-        proofOfWorkLimit = Utils.decodeCompactBits(0x1d00ffffL);
+        maxTarget = Utils.decodeCompactBits(0x1d00ffffL);
         port = 19373;
         addressHeader = 111;
         p2shHeader = 196;

@@ -26,6 +26,13 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkState;
+import com.google.mediterraneancoin.core.Coin;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.TransactionInput;
+import com.google.mediterraneancoin.core.TransactionOutput;
+import com.google.mediterraneancoin.script.ScriptChunk;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>The default risk analysis. Currently, it only is concerned with whether a tx/dependency is non-final or not, and

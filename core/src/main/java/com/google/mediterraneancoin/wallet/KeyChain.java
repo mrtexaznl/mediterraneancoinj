@@ -18,7 +18,7 @@ package com.google.mediterraneancoin.wallet;
 
 import com.google.mediterraneancoin.core.BloomFilter;
 import com.google.mediterraneancoin.core.ECKey;
-import com.google.bitcoin.wallet.KeyChainEventListener;
+import com.google.mediterraneancoin.wallet.KeyChainEventListener;
 import org.bitcoinj.wallet.Protos;
 
 import java.util.List;

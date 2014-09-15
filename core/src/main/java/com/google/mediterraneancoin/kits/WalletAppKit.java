@@ -17,24 +17,18 @@
 
 package com.google.mediterraneancoin.kits;
 
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/kits/WalletAppKit.java
+ 
 import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.net.discovery.DnsDiscovery;
+import com.google.mediterraneancoin.protocols.channels.StoredPaymentChannelClientStates;
+import com.google.mediterraneancoin.protocols.channels.StoredPaymentChannelServerStates;
 import com.google.mediterraneancoin.store.BlockStoreException;
 import com.google.mediterraneancoin.store.SPVBlockStore;
 import com.google.mediterraneancoin.store.WalletProtobufSerializer;
-=======
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.net.discovery.DnsDiscovery;
-import com.google.bitcoin.protocols.channels.StoredPaymentChannelClientStates;
-import com.google.bitcoin.protocols.channels.StoredPaymentChannelServerStates;
-import com.google.bitcoin.store.BlockStoreException;
-import com.google.bitcoin.store.SPVBlockStore;
-import com.google.bitcoin.store.WalletProtobufSerializer;
 import com.google.mediterraneancoin.wallet.DeterministicSeed;
-import com.google.bitcoin.wallet.KeyChainGroup;
+import com.google.mediterraneancoin.wallet.KeyChainGroup;
 import com.google.common.collect.ImmutableList;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/kits/WalletAppKit.java
+ 
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.Service;

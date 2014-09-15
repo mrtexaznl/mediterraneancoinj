@@ -6,6 +6,7 @@ import com.google.mediterraneancoin.core.TransactionConfidence;
 import com.google.mediterraneancoin.core.TransactionOutput;
 import com.google.mediterraneancoin.params.RegTestParams;
 import com.google.common.annotations.VisibleForTesting;
+import com.google.mediterraneancoin.core.Coin;
 
 import java.math.BigInteger;
 import java.util.*;

@@ -23,7 +23,7 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
-import org.mediterraneancoinj.wallet.Protos;
+import org.bitcoinj.wallet.Protos;
 import org.spongycastle.crypto.params.KeyParameter;
 
 import javax.annotation.Nullable;

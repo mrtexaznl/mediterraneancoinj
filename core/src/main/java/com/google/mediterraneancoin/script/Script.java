@@ -17,16 +17,11 @@
  */
 
 package com.google.mediterraneancoin.script;
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/script/Script.java
+ 
 import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.crypto.TransactionSignature;
 import com.google.mediterraneancoin.params.MainNetParams;
-=======
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.crypto.TransactionSignature;
-import com.google.common.base.Preconditions;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/script/Script.java
+ 
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,13 +36,9 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/script/Script.java
+ 
 import static com.google.mediterraneancoin.script.ScriptOpCodes.*;
-import static com.google.mediterraneancoin.core.Utils.bytesToHexString;
-=======
-import static com.google.bitcoin.script.ScriptOpCodes.*;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/script/Script.java
+ 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;

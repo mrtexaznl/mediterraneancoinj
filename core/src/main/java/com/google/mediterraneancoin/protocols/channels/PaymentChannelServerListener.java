@@ -14,8 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/protocols/channels/PaymentChannelServerListener.java
 package com.google.mediterraneancoin.protocols.channels;
 
 import com.google.mediterraneancoin.core.Sha256Hash;
@@ -24,19 +22,10 @@ import com.google.mediterraneancoin.core.Wallet;
 import com.google.mediterraneancoin.net.NioServer;
 import com.google.mediterraneancoin.net.ProtobufParser;
 import com.google.mediterraneancoin.net.StreamParserFactory;
-=======
-package com.google.bitcoin.protocols.channels;
-
-import com.google.bitcoin.core.Coin;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.TransactionBroadcaster;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.net.NioServer;
-import com.google.bitcoin.net.ProtobufParser;
-import com.google.bitcoin.net.StreamParserFactory;
+ 
 
 import com.google.protobuf.ByteString;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/protocols/channels/PaymentChannelServerListener.java
+
 import org.bitcoin.paymentchannel.Protos;
 
 import javax.annotation.Nullable;
@@ -47,6 +36,7 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.mediterraneancoin.core.Coin;
 
 /**
  * Implements a listening TCP server that can accept connections from payment channel clients, and invokes the provided

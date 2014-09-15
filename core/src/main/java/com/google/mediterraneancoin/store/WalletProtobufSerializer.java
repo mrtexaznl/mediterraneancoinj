@@ -14,32 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/store/WalletProtobufSerializer.java
+ 
 package com.google.mediterraneancoin.store;
+ 
 
 import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.core.TransactionConfidence.ConfidenceType;
-import com.google.mediterraneancoin.crypto.EncryptedPrivateKey;
 import com.google.mediterraneancoin.crypto.KeyCrypter;
 import com.google.mediterraneancoin.crypto.KeyCrypterScrypt;
 import com.google.mediterraneancoin.script.Script;
+import com.google.mediterraneancoin.signers.LocalTransactionSigner;
+import com.google.mediterraneancoin.signers.TransactionSigner;
+import com.google.mediterraneancoin.utils.ExchangeRate;
+import com.google.mediterraneancoin.utils.Fiat;
+import com.google.mediterraneancoin.wallet.KeyChainGroup;
 import com.google.mediterraneancoin.wallet.WalletTransaction;
-=======
-package com.google.bitcoin.store;
-
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.crypto.KeyCrypter;
-import com.google.bitcoin.crypto.KeyCrypterScrypt;
-import com.google.bitcoin.script.Script;
-import com.google.bitcoin.signers.LocalTransactionSigner;
-import com.google.bitcoin.signers.TransactionSigner;
-import com.google.bitcoin.utils.ExchangeRate;
-import com.google.bitcoin.utils.Fiat;
-import com.google.bitcoin.wallet.KeyChainGroup;
-import com.google.bitcoin.wallet.WalletTransaction;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/store/WalletProtobufSerializer.java
+ 
 import com.google.common.collect.Lists;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.CodedInputStream;

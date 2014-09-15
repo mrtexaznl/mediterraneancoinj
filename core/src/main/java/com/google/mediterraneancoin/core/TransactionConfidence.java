@@ -57,15 +57,9 @@ import static com.google.common.base.Preconditions.*;
  * <p>Alternatively, you may know that the transaction is "dead", that is, one or more of its inputs have
  * been double spent and will never confirm unless there is another re-org.</p>
  *
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/TransactionConfidence.java
- * <p>TransactionConfidence is updated via the {@link com.google.mediterraneancoin.core.TransactionConfidence#notifyWorkDone(Block)}
- * method to ensure the block depth and work done are up to date.</p>
- * To make a copy that won't be changed, use {@link com.google.mediterraneancoin.core.TransactionConfidence#duplicate()}.
-=======
  * <p>TransactionConfidence is updated via the {@link com.google.bitcoin.core.TransactionConfidence#incrementDepthInBlocks()}
  * method to ensure the block depth is up to date.</p>
  * To make a copy that won't be changed, use {@link com.google.bitcoin.core.TransactionConfidence#duplicate()}.
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/TransactionConfidence.java
  */
 public class TransactionConfidence implements Serializable {
     private static final long serialVersionUID = 4577920141400556444L;

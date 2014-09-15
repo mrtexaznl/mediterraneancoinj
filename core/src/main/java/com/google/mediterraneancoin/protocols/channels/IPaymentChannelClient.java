@@ -16,12 +16,10 @@
 
 package com.google.mediterraneancoin.protocols.channels;
 
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/protocols/channels/IPaymentChannelClient.java
+ 
+import com.google.mediterraneancoin.core.Coin;
 import com.google.mediterraneancoin.core.InsufficientMoneyException;
-=======
-import com.google.bitcoin.core.Coin;
-import com.google.bitcoin.core.InsufficientMoneyException;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/protocols/channels/IPaymentChannelClient.java
+ 
 import com.google.common.util.concurrent.ListenableFuture;
 
 import com.google.protobuf.ByteString;
@@ -135,11 +133,7 @@ public interface IPaymentChannelClient {
 
         /**
          * <p>Indicates the channel has been successfully opened and
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/protocols/channels/IPaymentChannelClient.java
-         * {@link com.google.mediterraneancoin.protocols.channels.PaymentChannelClient#incrementPayment(java.math.BigInteger)}
-=======
          * {@link com.google.bitcoin.protocols.channels.PaymentChannelClient#incrementPayment(Coin)}
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/protocols/channels/IPaymentChannelClient.java
          * may be called at will.</p>
          *
          * <p>Called while holding a lock on the {@link com.google.mediterraneancoin.protocols.channels.PaymentChannelClient}

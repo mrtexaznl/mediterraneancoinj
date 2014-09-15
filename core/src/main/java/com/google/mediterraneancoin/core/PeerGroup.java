@@ -1332,16 +1332,10 @@ public class PeerGroup extends AbstractExecutionThreadService implements Transac
     }
 
     /**
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/PeerGroup.java
-     * Returns a future that is triggered when the number of connected peers is equal to the given number of connected
-     * peers. By using this with {@link com.google.mediterraneancoin.core.PeerGroup#getMaxConnections()} you can wait until the
-     * network is fully online. To block immediately, just call get() on the result.
-=======
      * Returns a future that is triggered when the number of connected peers is equal to the given number of
      * peers. By using this with {@link com.google.bitcoin.core.PeerGroup#getMaxConnections()} you can wait until the
      * network is fully online. To block immediately, just call get() on the result. Just calls
      * {@link #waitForPeersOfVersion(int, long)} with zero as the protocol version.
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/PeerGroup.java
      *
      * @param numPeers How many peers to wait for.
      * @return a future that will be triggered when the number of connected peers >= numPeers

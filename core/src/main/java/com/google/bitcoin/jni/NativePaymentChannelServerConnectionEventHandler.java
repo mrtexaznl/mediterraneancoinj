@@ -1,6 +1,8 @@
 package com.google.bitcoin.jni;
 
-import com.google.mediterraneancoin.core.*;
+//import com.google.mediterraneancoin.core.*;
+import com.google.mediterraneancoin.core.Coin;
+import com.google.mediterraneancoin.core.Sha256Hash;
 import com.google.mediterraneancoin.protocols.channels.PaymentChannelCloseException;
 import com.google.mediterraneancoin.protocols.channels.ServerConnectionEventHandler;
 import com.google.protobuf.ByteString;

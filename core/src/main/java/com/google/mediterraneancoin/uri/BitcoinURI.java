@@ -39,6 +39,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.mediterraneancoin.core.Coin;
 
 /**
  * <p>Provides a standard implementation of a Bitcoin URI with support for the following:</p>

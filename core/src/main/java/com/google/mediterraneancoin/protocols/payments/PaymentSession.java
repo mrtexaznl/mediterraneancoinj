@@ -14,21 +14,15 @@
 
 package com.google.mediterraneancoin.protocols.payments;
 
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/protocols/payments/PaymentSession.java
+ 
 import com.google.mediterraneancoin.core.*;
+import com.google.mediterraneancoin.core.Wallet.SendRequest;
+import com.google.mediterraneancoin.crypto.TrustStoreLoader;
 import com.google.mediterraneancoin.params.MainNetParams;
-import com.google.mediterraneancoin.script.ScriptBuilder;
+import com.google.mediterraneancoin.protocols.payments.PaymentProtocol.PkiVerificationData;
 import com.google.mediterraneancoin.uri.BitcoinURI;
 import com.google.mediterraneancoin.utils.Threading;
-=======
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.core.Wallet.SendRequest;
-import com.google.bitcoin.crypto.TrustStoreLoader;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.protocols.payments.PaymentProtocol.PkiVerificationData;
-import com.google.bitcoin.uri.BitcoinURI;
-import com.google.bitcoin.utils.Threading;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/protocols/payments/PaymentSession.java
+
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;

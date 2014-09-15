@@ -852,15 +852,9 @@ public class Transaction extends ChildMessage implements Serializable {
 
     /**
      * Calculates a signature that is valid for being inserted into the input at the given position. This is simply
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Transaction.java
-     * a wrapper around calling {@link Transaction#hashForSignature(int, byte[], com.google.mediterraneancoin.core.Transaction.SigHash, boolean)}
-     * followed by {@link ECKey#sign(Sha256Hash, org.spongycastle.crypto.params.KeyParameter)} and then returning
-     * a new {@link TransactionSignature}.
-=======
      * a wrapper around calling {@link Transaction#hashForSignature(int, byte[], com.google.bitcoin.core.Transaction.SigHash, boolean)}
      * followed by {@link ECKey#sign(Sha256Hash)} and then returning a new {@link TransactionSignature}. The key
      * must be usable for signing as-is: if the key is encrypted it must be decrypted first external to this method.
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Transaction.java
      *
      * @param inputIndex Which input to calculate the signature for, as an index.
      * @param key The private key used to calculate the signature.

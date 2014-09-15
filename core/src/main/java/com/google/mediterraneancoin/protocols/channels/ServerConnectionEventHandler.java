@@ -16,18 +16,16 @@
 
 package com.google.mediterraneancoin.protocols.channels;
 
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/protocols/channels/ServerConnectionEventHandler.java
-import java.math.BigInteger;
+ import java.math.BigInteger;
 
 import com.google.mediterraneancoin.core.Sha256Hash;
 import com.google.mediterraneancoin.net.ProtobufParser;
-=======
-import com.google.bitcoin.core.Coin;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.net.ProtobufParser;
+ 
+import com.google.mediterraneancoin.core.Coin;
+ 
 
 import com.google.protobuf.ByteString;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/protocols/channels/ServerConnectionEventHandler.java
+
 import org.bitcoin.paymentchannel.Protos;
 
 import javax.annotation.Nullable;

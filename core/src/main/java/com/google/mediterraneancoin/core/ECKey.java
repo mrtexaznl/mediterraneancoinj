@@ -560,13 +560,8 @@ public class ECKey implements EncryptableItem, Serializable {
 
     /**
      * Signs the given hash and returns the R and S components as BigIntegers. In the Bitcoin protocol, they are
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/ECKey.java
-     * usually encoded using DER format, so you want {@link com.google.mediterraneancoin.core.ECKey.ECDSASignature#toASN1()}
-     * instead. However sometimes the independent components can be useful, for instance, if you're doing to do
-=======
      * usually encoded using ASN.1 format, so you want {@link com.google.bitcoin.core.ECKey.ECDSASignature#toASN1()}
      * instead. However sometimes the independent components can be useful, for instance, if you're going to do
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/ECKey.java
      * further EC maths on them.
      * @throws KeyCrypterException if this ECKey doesn't have a private part.
      */

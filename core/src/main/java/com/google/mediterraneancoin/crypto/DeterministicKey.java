@@ -20,6 +20,8 @@ import com.google.mediterraneancoin.core.Base58;
 import com.google.mediterraneancoin.core.ECKey;
 import com.google.mediterraneancoin.core.Utils;
 import com.google.common.base.Joiner;
+import com.google.common.base.Objects;
+import com.google.common.base.Objects.ToStringHelper;
 import com.google.common.collect.ImmutableList;
 import org.spongycastle.crypto.params.KeyParameter;
 import org.spongycastle.math.ec.ECPoint;
@@ -29,8 +31,10 @@ import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-import static com.google.bitcoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.core.Utils.HEX;
 import static com.google.common.base.Preconditions.*;
+import com.google.mediterraneancoin.core.AddressFormatException;
+import com.google.mediterraneancoin.core.Sha256Hash;
 
 /**
  * A deterministic key is a node in a {@link DeterministicHierarchy}. As per

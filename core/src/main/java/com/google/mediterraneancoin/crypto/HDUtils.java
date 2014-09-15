@@ -17,6 +17,7 @@
 
 package com.google.mediterraneancoin.crypto;
 
+import com.google.common.base.Joiner;
 import com.google.mediterraneancoin.core.ECKey;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.spongycastle.math.ec.ECPoint;
 
 /**
  * Static utilities used in BIP 32 Hierarchical Deterministic Wallets (HDW).

@@ -19,6 +19,7 @@ package com.google.mediterraneancoin.crypto;
 
 import com.google.mediterraneancoin.core.Sha256Hash;
 import com.google.common.base.Joiner;
+import com.google.mediterraneancoin.core.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.google.bitcoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.core.Utils.HEX;
 
 /**
  * A MnemonicCode object may be used to convert between binary seed values and

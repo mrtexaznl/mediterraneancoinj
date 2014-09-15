@@ -22,25 +22,20 @@ import com.google.mediterraneancoin.core.Utils;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
+ 
+import javax.annotation.Nullable;
 
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/script/ScriptChunk.java
+import static com.google.mediterraneancoin.script.ScriptOpCodes.OP_0;
+import static com.google.mediterraneancoin.script.ScriptOpCodes.OP_1;
+import static com.google.mediterraneancoin.script.ScriptOpCodes.OP_16;
+import static com.google.mediterraneancoin.script.ScriptOpCodes.OP_1NEGATE;
 import static com.google.mediterraneancoin.script.ScriptOpCodes.OP_PUSHDATA1;
 import static com.google.mediterraneancoin.script.ScriptOpCodes.OP_PUSHDATA2;
 import static com.google.mediterraneancoin.script.ScriptOpCodes.OP_PUSHDATA4;
-=======
-import javax.annotation.Nullable;
-
-import static com.google.bitcoin.script.ScriptOpCodes.OP_0;
-import static com.google.bitcoin.script.ScriptOpCodes.OP_1;
-import static com.google.bitcoin.script.ScriptOpCodes.OP_16;
-import static com.google.bitcoin.script.ScriptOpCodes.OP_1NEGATE;
-import static com.google.bitcoin.script.ScriptOpCodes.OP_PUSHDATA1;
-import static com.google.bitcoin.script.ScriptOpCodes.OP_PUSHDATA2;
-import static com.google.bitcoin.script.ScriptOpCodes.OP_PUSHDATA4;
-import static com.google.bitcoin.script.ScriptOpCodes.getOpCodeName;
-import static com.google.bitcoin.script.ScriptOpCodes.getPushDataName;
+import static com.google.mediterraneancoin.script.ScriptOpCodes.getOpCodeName;
+import static com.google.mediterraneancoin.script.ScriptOpCodes.getPushDataName;
 import static com.google.common.base.Preconditions.checkNotNull;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/script/ScriptChunk.java
+ 
 import static com.google.common.base.Preconditions.checkState;
 
 /**

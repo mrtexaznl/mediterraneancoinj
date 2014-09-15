@@ -13,28 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/protocols/channels/PaymentChannelClientConnection.java
+ 
 package com.google.mediterraneancoin.protocols.channels;
 
+import com.google.mediterraneancoin.core.Coin;
 import com.google.mediterraneancoin.core.ECKey;
 import com.google.mediterraneancoin.core.InsufficientMoneyException;
 import com.google.mediterraneancoin.core.Sha256Hash;
+import com.google.mediterraneancoin.core.Utils;
 import com.google.mediterraneancoin.core.Wallet;
 import com.google.mediterraneancoin.net.NioClient;
 import com.google.mediterraneancoin.net.ProtobufParser;
-=======
-package com.google.bitcoin.protocols.channels;
 
-import com.google.bitcoin.core.Coin;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.InsufficientMoneyException;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.Utils;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.net.NioClient;
-import com.google.bitcoin.net.ProtobufParser;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/protocols/channels/PaymentChannelClientConnection.java
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 

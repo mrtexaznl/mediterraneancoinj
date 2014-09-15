@@ -15,17 +15,11 @@
  */
 
 package com.google.mediterraneancoin.script;
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/script/ScriptBuilder.java
+ 
 import com.google.mediterraneancoin.core.Address;
 import com.google.mediterraneancoin.core.ECKey;
 import com.google.mediterraneancoin.crypto.TransactionSignature;
-=======
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Utils;
-import com.google.bitcoin.crypto.TransactionSignature;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/script/ScriptBuilder.java
+ 
 import com.google.common.collect.Lists;
 
 import javax.annotation.Nullable;
@@ -34,6 +28,7 @@ import java.util.*;
 import static com.google.mediterraneancoin.script.ScriptOpCodes.*;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
+import com.google.mediterraneancoin.core.Utils;
 
 /**
  * <p>Tools for the construction of commonly used script types. You don't normally need this as it's hidden behind

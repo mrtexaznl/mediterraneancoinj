@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.utils;
+package com.google.mediterraneancoin.utils;
 
-import static com.google.bitcoin.core.Coin.SMALLEST_UNIT_EXPONENT;
+import static com.google.mediterraneancoin.core.Coin.SMALLEST_UNIT_EXPONENT;
 import static com.google.common.base.Preconditions.checkArgument;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
