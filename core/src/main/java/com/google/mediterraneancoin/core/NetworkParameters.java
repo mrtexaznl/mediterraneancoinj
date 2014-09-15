@@ -33,11 +33,10 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/NetworkParameters.java
-import static com.google.mediterraneancoin.core.Utils.COIN;
-=======
-import static com.google.bitcoin.core.Coin.*;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/NetworkParameters.java
+ 
+import static com.google.mediterraneancoin.core.Coin.*;
+import org.spongycastle.util.encoders.Hex;
+
 
 /**
  * <p>NetworkParameters contains the data needed for working with an instantiation of a Bitcoin chain.</p>
@@ -56,12 +55,9 @@ public abstract class NetworkParameters implements Serializable {
     /**
      * The alert signing key originally owned by Satoshi, and now passed on to Gavin along with a few others.
      */
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/NetworkParameters.java
+
     public static final byte[] SATOSHI_KEY = null;
             //Hex.decode("04fc9702847840aaf195de8442ebecedf5b095cdbb9bc716bda9110971b28a49e0ead8564ff0db22209e0374782c093bb899692d524e9d6a6956e7c5ecbcd68284");
-=======
-    public static final byte[] SATOSHI_KEY = Utils.HEX.decode("04fc9702847840aaf195de8442ebecedf5b095cdbb9bc716bda9110971b28a49e0ead8564ff0db22209e0374782c093bb899692d524e9d6a6956e7c5ecbcd68284");
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/NetworkParameters.java
 
     /** The string returned by getId() for the main, production network where people trade things. */
     public static final String ID_MAINNET = "org.bitcoin.production";
@@ -116,35 +112,29 @@ public abstract class NetworkParameters implements Serializable {
         Transaction t = new Transaction(n);
         try {
             // A script containing the difficulty bits and the following message:
-            //
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/NetworkParameters.java
+            // 
             //   "12/14/2013 10:03 AM Members of the governing African National Congress pay final tributes to Nelson Mandela"
             byte[] bytes = Hex.decode
                     ("04ffff001d01044c6b31322f31342f323031332031303a303320414d204d656d62657273206f662074686520676f7665726e696e67204166726963616e204e6174696f6e616c20436f6e6772657373207061792066696e616c20747269627574657320746f204e656c736f6e204d616e64656c61"); // 
                   //("04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73");
-                      
-=======
-            //   "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks"
-            byte[] bytes = Utils.HEX.decode
-                    ("04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73");
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/NetworkParameters.java
+ 
             t.addInput(new TransactionInput(n, t, bytes));
             
             ByteArrayOutputStream scriptPubKeyBytes = new ByteArrayOutputStream();
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/NetworkParameters.java
+ 
             
             scriptPubKeyBytes.write( new byte[] { 02,00,00  } );
             
             //Script.writeBytes(scriptPubKeyBytes, Hex.decode
                     //("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f"));
             scriptPubKeyBytes.write(ScriptOpCodes.OP_CHECKSIG);
-            t.addOutput(new TransactionOutput(n, t, Utils.toNanoCoins(7, 0), scriptPubKeyBytes.toByteArray()));
-=======
-            Script.writeBytes(scriptPubKeyBytes, Utils.HEX.decode
-                    ("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f"));
-            scriptPubKeyBytes.write(ScriptOpCodes.OP_CHECKSIG);
-            t.addOutput(new TransactionOutput(n, t, FIFTY_COINS, scriptPubKeyBytes.toByteArray()));
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/NetworkParameters.java
+            t.addOutput(new TransactionOutput(n, t, COIN.multiply(7) , scriptPubKeyBytes.toByteArray()));
+
+            //Script.writeBytes(scriptPubKeyBytes, Utils.HEX.decode
+            //        ("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f"));
+            //scriptPubKeyBytes.write(ScriptOpCodes.OP_CHECKSIG);
+            //t.addOutput(new TransactionOutput(n, t, FIFTY_COINS, scriptPubKeyBytes.toByteArray()));
+
         } catch (Exception e) {
             // Cannot happen.
             throw new RuntimeException(e);
@@ -167,16 +157,14 @@ public abstract class NetworkParameters implements Serializable {
     /**
      * The maximum number of coins to be generated
      */
-    public static final long MAX_COINS = 21000000;
-
+    public static final long MAX_COINS = 200000000;
+                                         
     /**
      * The maximum money to be generated
      */
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/NetworkParameters.java
-    public static final BigInteger MAX_MONEY = new BigInteger("200000000", 10).multiply(COIN);
-=======
+    //public static final BigInteger MAX_MONEY = new BigInteger("200000000", 10).multiply(COIN);
+ 
     public static final Coin MAX_MONEY = COIN.multiply(MAX_COINS);
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/NetworkParameters.java
 
     /** Alias for TestNet3Params.get(), use that instead. */
     @Deprecated

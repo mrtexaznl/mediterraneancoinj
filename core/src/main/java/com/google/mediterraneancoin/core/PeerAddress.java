@@ -16,12 +16,10 @@
 
 package com.google.mediterraneancoin.core;
 
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/PeerAddress.java
 import com.google.mediterraneancoin.params.MainNetParams;
-=======
-import com.google.bitcoin.params.MainNetParams;
+
 import com.google.common.net.InetAddresses;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/PeerAddress.java
+
 
 import java.io.IOException;
 import java.io.OutputStream;

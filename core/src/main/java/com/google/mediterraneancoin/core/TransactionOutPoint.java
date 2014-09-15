@@ -15,14 +15,9 @@
  */
 
 package com.google.mediterraneancoin.core;
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/TransactionOutPoint.java
+ 
 import com.google.mediterraneancoin.script.Script;
-=======
-import com.google.bitcoin.script.Script;
-import com.google.mediterraneancoin.wallet.KeyBag;
-import com.google.bitcoin.wallet.RedeemData;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/TransactionOutPoint.java
+ 
 
 import javax.annotation.Nullable;
 import java.io.IOException;
@@ -32,6 +27,8 @@ import java.io.Serializable;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
+import com.google.mediterraneancoin.wallet.KeyBag;
+import com.google.mediterraneancoin.wallet.RedeemData;
 
 /**
  * This message is a reference or pointer to an output of a different transaction.

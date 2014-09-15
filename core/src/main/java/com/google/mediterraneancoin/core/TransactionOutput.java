@@ -16,15 +16,10 @@
  */
 
 package com.google.mediterraneancoin.core;
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/TransactionOutput.java
+ 
 import com.google.mediterraneancoin.script.Script;
 import com.google.mediterraneancoin.script.ScriptBuilder;
-=======
-import com.google.bitcoin.script.Script;
-import com.google.bitcoin.script.ScriptBuilder;
-
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/TransactionOutput.java
+ 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

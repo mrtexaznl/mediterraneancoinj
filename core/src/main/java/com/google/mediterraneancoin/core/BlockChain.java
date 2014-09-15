@@ -17,15 +17,9 @@
 
 package com.google.mediterraneancoin.core;
 
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/BlockChain.java
 import com.google.mediterraneancoin.store.BlockStore;
 import com.google.mediterraneancoin.store.BlockStoreException;
-=======
 import static com.google.common.base.Preconditions.checkArgument;
-
-import com.google.bitcoin.store.BlockStore;
-import com.google.bitcoin.store.BlockStoreException;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/BlockChain.java
 
 import java.util.ArrayList;
 import java.util.List;

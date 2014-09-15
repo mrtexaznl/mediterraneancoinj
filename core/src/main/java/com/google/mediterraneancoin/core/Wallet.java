@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Wallet.java
+ 
 package com.google.mediterraneancoin.core;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.mediterraneancoin.wallet.KeyChain;
 import com.google.mediterraneancoin.wallet.DeterministicUpgradeRequiresPassword;
 import com.google.mediterraneancoin.wallet.KeyBag;
@@ -43,30 +43,7 @@ import com.google.mediterraneancoin.store.WalletProtobufSerializer;
 import com.google.mediterraneancoin.utils.ListenerRegistration;
 import com.google.mediterraneancoin.utils.Threading;
 import com.google.mediterraneancoin.wallet.WalletTransaction.Pool;
-=======
-package com.google.bitcoin.core;
-
-import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.crypto.*;
-import com.google.bitcoin.params.UnitTestParams;
-import com.google.bitcoin.script.Script;
-import com.google.bitcoin.script.ScriptBuilder;
-import com.google.bitcoin.script.ScriptChunk;
-import com.google.bitcoin.signers.MissingSigResolutionSigner;
-import com.google.bitcoin.signers.LocalTransactionSigner;
-import com.google.bitcoin.signers.TransactionSigner;
-import com.google.bitcoin.store.UnreadableWalletException;
-import com.google.bitcoin.store.WalletProtobufSerializer;
-import com.google.bitcoin.utils.BaseTaggableObject;
-import com.google.bitcoin.utils.ExchangeRate;
-import com.google.bitcoin.utils.ListenerRegistration;
-import com.google.bitcoin.utils.Threading;
-import com.google.bitcoin.wallet.*;
-import com.google.bitcoin.wallet.WalletTransaction.Pool;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Objects;
-import com.google.common.base.Objects.ToStringHelper;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Wallet.java
+ 
 import com.google.common.collect.*;
 import com.google.common.primitives.Ints;
 import com.google.common.util.concurrent.FutureCallback;
@@ -90,13 +67,19 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Wallet.java
-import static com.google.mediterraneancoin.core.Utils.bitcoinValueToFriendlyString;
-import static com.google.mediterraneancoin.core.Utils.bitcoinValueToPlainString;
-=======
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Wallet.java
+  
 import static com.google.common.base.Preconditions.*;
+import com.google.mediterraneancoin.crypto.ChildNumber;
+import com.google.mediterraneancoin.crypto.DeterministicKey;
+import com.google.mediterraneancoin.signers.LocalTransactionSigner;
+import com.google.mediterraneancoin.signers.MissingSigResolutionSigner;
+import com.google.mediterraneancoin.signers.TransactionSigner;
+import com.google.mediterraneancoin.utils.BaseTaggableObject;
+import com.google.mediterraneancoin.utils.ExchangeRate;
+import com.google.mediterraneancoin.wallet.DecryptingKeyBag;
+import com.google.mediterraneancoin.wallet.FilteringCoinSelector;
+import com.google.mediterraneancoin.wallet.KeyChainGroup;
+import com.google.mediterraneancoin.wallet.RedeemData;
 
 // To do list:
 //
@@ -625,42 +608,13 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
     public int importKeys(final List<ECKey> keys) {
         lock.lock();
         try {
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Wallet.java
-            tx.verify();
-            // Ignore it if we already know about this transaction. Receiving a pending transaction never moves it
-            // between pools.
-            EnumSet<Pool> containingPools = getContainingPools(tx);
-            if (!containingPools.equals(EnumSet.noneOf(Pool.class))) {
-                log.debug("Received tx we already saw in a block or created ourselves: " + tx.getHashAsString());
-                return;
-            }
-            // Repeat the check of relevancy here, even though the caller may have already done so - this is to avoid
-            // race conditions where receivePending may be being called in parallel.
-            if (!overrideIsRelevant && !isPendingTransactionRelevant(tx))
-                return;
-            if (isTransactionRisky(tx, dependencies) && !acceptRiskyTransactions)
-                return;
-            BigInteger valueSentToMe = tx.getValueSentToMe(this);
-            BigInteger valueSentFromMe = tx.getValueSentFromMe(this);
-            if (log.isInfoEnabled()) {
-                log.info(String.format("Received a pending transaction %s that spends %s MED from our own wallet," +
-                        " and sends us %s MED", tx.getHashAsString(), Utils.bitcoinValueToFriendlyString(valueSentFromMe),
-                        Utils.bitcoinValueToFriendlyString(valueSentToMe)));
-            }
-            if (tx.getConfidence().getSource().equals(TransactionConfidence.Source.UNKNOWN)) {
-                log.warn("Wallet received transaction with an unknown source. Consider tagging it!");
-            }
-            // If this tx spends any of our unspent outputs, mark them as spent now, then add to the pending pool. This
-            // ensures that if some other client that has our keys broadcasts a spend we stay in sync. Also updates the
-            // timestamp on the transaction and registers/runs event listeners.
-            commitTx(tx);
-=======
+ 
             // API usage check.
             checkNoDeterministicKeys(keys);
             int result = keychain.importKeys(keys);
             saveNow();
             return result;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Wallet.java
+ 
         } finally {
             lock.unlock();
         }
@@ -798,12 +752,7 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
         long now = Utils.currentTimeMillis() / 1000;
         return addWatchedAddresses(Lists.newArrayList(address), now) == 1;
     }
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Wallet.java
-        log.info("Received tx{} for {} MED: {} [{}] in block {}", sideChain ? " on a side chain" : "",
-                bitcoinValueToFriendlyString(valueDifference), tx.getHashAsString(), relativityOffset,
-                block != null ? block.getHeader().getHash() : "(unit test)");
-=======
+ 
     /**
      * Adds the given address to the wallet to be watched. Outputs can be retrieved by {@link #getWatchedOutputs(boolean)}.
      *
@@ -813,8 +762,7 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
     public boolean addWatchedAddress(final Address address, long creationTime) {
         return addWatchedAddresses(Lists.newArrayList(address), creationTime) == 1;
     }
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Wallet.java
-
+ 
     /**
      * Adds the given address to the wallet to be watched. Outputs can be retrieved
      * by {@link #getWatchedOutputs(boolean)}.
@@ -1358,31 +1306,7 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
      * Uses protobuf serialization to save the wallet to the given file stream. To learn more about this file format, see
      * {@link WalletProtobufSerializer}.
      */
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Wallet.java
-    public static class SendRequest {
-        /**
-         * <p>A transaction, probably incomplete, that describes the outline of what you want to do. This typically will
-         * mean it has some outputs to the intended destinations, but no inputs or change address (and therefore no
-         * fees) - the wallet will calculate all that for you and update tx later.</p>
-         *
-         * <p>Be careful when adding outputs that you check the min output value
-         * ({@link TransactionOutput#getMinNonDustValue(BigInteger)}) to avoid the whole transaction being rejected
-         * because one output is dust.</p>
-         *
-         * <p>If there are already inputs to the transaction, make sure their out point has a connected output,
-         * otherwise their value will be added to fee.  Also ensure they are either signed or are spendable by a wallet
-         * key, otherwise the behavior of {@link Wallet#completeTx(Wallet.SendRequest)} is undefined (likely
-         * RuntimeException).</p>
-         */
-        public Transaction tx;
-
-        /**
-         * When emptyWallet is set, all coins selected by the coin selector are sent to the first output in tx
-         * (its value is ignored and set to {@link com.google.mediterraneancoin.core.Wallet#getBalance()} - the fees required
-         * for the transaction). Any additional outputs are removed.
-         */
-        public boolean emptyWallet = false;
-=======
+ 
     public void saveToFileStream(OutputStream f) throws IOException {
         lock.lock();
         try {
@@ -1391,55 +1315,13 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
             lock.unlock();
         }
     }
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Wallet.java
+ 
 
     /** Returns the parameters this wallet was created with. */
     public NetworkParameters getParams() {
         return params;
     }
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Wallet.java
-        /**
-         * <p>A transaction can have a fee attached, which is defined as the difference between the input values
-         * and output values. Any value taken in that is not provided to an output can be claimed by a miner. This
-         * is how mining is incentivized in later years of the Bitcoin system when inflation drops. It also provides
-         * a way for people to prioritize their transactions over others and is used as a way to make denial of service
-         * attacks expensive.</p>
-         *
-         * <p>This is a constant fee (in satoshis) which will be added to the transaction. It is recommended that it be
-         * at least {@link Transaction#REFERENCE_DEFAULT_MIN_TX_FEE} if it is set, as default reference clients will
-         * otherwise simply treat the transaction as if there were no fee at all.</p>
-         *
-         * <p>Once {@link Wallet#completeTx(com.google.mediterraneancoin.core.Wallet.SendRequest)} is called, this is set to the
-         * value of the fee that was added.</p>
-         *
-         * <p>You might also consider adding a {@link SendRequest#feePerKb} to set the fee per kb of transaction size
-         * (rounded down to the nearest kb) as that is how transactions are sorted when added to a block by miners.</p>
-         */
-        public BigInteger fee = null;
-
-        /**
-         * <p>A transaction can have a fee attached, which is defined as the difference between the input values
-         * and output values. Any value taken in that is not provided to an output can be claimed by a miner. This
-         * is how mining is incentivized in later years of the Bitcoin system when inflation drops. It also provides
-         * a way for people to prioritize their transactions over others and is used as a way to make denial of service
-         * attacks expensive.</p>
-         *
-         * <p>This is a dynamic fee (in satoshis) which will be added to the transaction for each kilobyte in size
-         * including the first. This is useful as as miners usually sort pending transactions by their fee per unit size
-         * when choosing which transactions to add to a block. Note that, to keep this equivalent to the reference
-         * client definition, a kilobyte is defined as 1000 bytes, not 1024.</p>
-         *
-         * <p>You might also consider using a {@link SendRequest#fee} to set the fee added for the first kb of size.</p>
-         */
-        public BigInteger feePerKb = DEFAULT_FEE_PER_KB;
-
-        /**
-         * If you want to modify the default fee for your entire app without having to change each SendRequest you make,
-         * you can do it here. This is primarily useful for unit tests.
-         */
-        public static BigInteger DEFAULT_FEE_PER_KB = Transaction.REFERENCE_DEFAULT_MIN_TX_FEE;
-=======
+ 
     /**
      * Returns a wallet deserialized from the given file.
      */
@@ -1462,7 +1344,7 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
         try {
             boolean success = true;
             Set<Transaction> transactions = getTransactions(true);
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Wallet.java
+ 
 
             Set<Sha256Hash> hashes = new HashSet<Sha256Hash>();
             for (Transaction tx : transactions) {
@@ -1471,19 +1353,12 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
 
             int size1 = transactions.size();
 
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Wallet.java
-        /**
-         * If not null, the {@link com.google.mediterraneancoin.wallet.CoinSelector} to use instead of the wallets default. Coin selectors are
-         * responsible for choosing which transaction outputs (coins) in a wallet to use given the desired send value
-         * amount.
-         */
-        public CoinSelector coinSelector = null;
-=======
+ 
             if (size1 != hashes.size()) {
                 log.error("Two transactions with same hash");
                 success = false;
             }
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Wallet.java
+ 
 
             int size2 = unspent.size() + spent.size() + pending.size() + dead.size();
             if (size1 != size2) {
@@ -1760,23 +1635,7 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
     }
 
     /**
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Wallet.java
-     * Adds the given ECKey to the wallet. There is currently no way to delete keys (that would result in coin loss).
-     * If {@link Wallet#autosaveToFile(java.io.File, long, java.util.concurrent.TimeUnit, com.google.mediterraneancoin.wallet.WalletFiles.Listener)}
-     * has been called, triggers an auto save bypassing the normal coalescing delay and event handlers.
-     * If the key already exists in the wallet, does nothing and returns false.
-     */
-    public boolean addKey(final ECKey key) {
-        return addKeys(Lists.newArrayList(key)) == 1;
-    }
-
-    /**
-     * Adds the given keys to the wallet. There is currently no way to delete keys (that would result in coin loss).
-     * If {@link Wallet#autosaveToFile(java.io.File, long, java.util.concurrent.TimeUnit, com.google.mediterraneancoin.wallet.WalletFiles.Listener)}
-     * has been called, triggers an auto save bypassing the normal coalescing delay and event handlers.
-     * Returns the number of keys added, after duplicates are ignored. The onKeyAdded event will be called for each key
-     * in the list that was not already present.
-=======
+ 
      * Called by the {@link BlockChain} when we receive a new block that sends coins to one of our addresses or
      * spends coins from one of our addresses (note that a single transaction can do both).<p>
      *
@@ -1793,7 +1652,7 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
      * parameter describes whether the containing block is on the main/best chain or whether it's on a presently
      * inactive side chain. We must still record these transactions and the blocks they appear in because a future
      * block might change which chain is best causing a reorganize. A re-org can totally change our balance!
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Wallet.java
+
      */
     @Override
     public void receiveFromBlock(Transaction tx, StoredBlock block,
@@ -2279,48 +2138,14 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
     public void addEventListener(WalletEventListener listener, Executor executor) {
         lock.lock();
         try {
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Wallet.java
-            StringBuilder builder = new StringBuilder();
-            BigInteger balance = getBalance(BalanceType.ESTIMATED);
-            builder.append(String.format("Wallet containing %s MED (%d satoshis) in:%n",
-                    bitcoinValueToPlainString(balance), balance.longValue()));
-            builder.append(String.format("  %d pending transactions%n", pending.size()));
-            builder.append(String.format("  %d unspent transactions%n", unspent.size()));
-            builder.append(String.format("  %d spent transactions%n", spent.size()));
-            builder.append(String.format("  %d dead transactions%n", dead.size()));
-            final Date lastBlockSeenTime = getLastBlockSeenTime();
-            final String lastBlockSeenTimeStr = lastBlockSeenTime == null ? "time unknown" : lastBlockSeenTime.toString();
-            builder.append(String.format("Last seen best block: %d (%s): %s%n",
-                    getLastBlockSeenHeight(), lastBlockSeenTimeStr, getLastBlockSeenHash()));
-            if (this.keyCrypter != null) {
-                builder.append(String.format("Encryption: %s%n", keyCrypter.toString()));
-            }
-            // Do the keys.
-            builder.append("\nKeys:\n");
-            for (ECKey key : keychain) {
-                builder.append("  addr:");
-                builder.append(key.toAddress(params));
-                builder.append(" ");
-                builder.append(includePrivateKeys ? key.toStringWithPrivate() : key.toString());
-                builder.append("\n");
-            }
-
-            if (!watchedScripts.isEmpty()) {
-                builder.append("\nWatched scripts:\n");
-                for (Script script : watchedScripts) {
-                    builder.append("  ");
-                    builder.append(script.toString());
-                    builder.append("\n");
-                }
-            }
-=======
+ 
             eventListeners.add(new ListenerRegistration<WalletEventListener>(listener, executor));
             keychain.addEventListener(listener, executor);
         } finally {
             lock.unlock();
         }
     }
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Wallet.java
+
 
     /**
      * Removes the given event listener object. Returns true if the listener was removed, false if that listener
@@ -3260,44 +3085,13 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
          * so it can be disabled here.
          */
         public boolean shuffleOutputs = true;
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Wallet.java
-    /**
-     * Returns the earliest creation time of keys or watched scripts in this wallet, in seconds since the epoch, ie the min
-     * of {@link com.google.mediterraneancoin.core.ECKey#getCreationTimeSeconds()}. This can return zero if at least one key does
-     * not have that data (was created before key timestamping was implemented). <p>
-     *     
-     * This method is most often used in conjunction with {@link PeerGroup#setFastCatchupTimeSecs(long)} in order to
-     * optimize chain download for new users of wallet apps. Backwards compatibility notice: if you get zero from this
-     * method, you can instead use the time of the first release of your software, as it's guaranteed no users will
-     * have wallets pre-dating this time. <p>
-     * 
-     * If there are no keys in the wallet, the current time is returned.
-     */
-    @Override
-    public long getEarliestKeyCreationTime() {
-        lock.lock();
-        try {
-            long earliestTime = Long.MAX_VALUE;
-            for (ECKey key : keychain)
-                earliestTime = Math.min(key.getCreationTimeSeconds(), earliestTime);
-            for (Script script : watchedScripts)
-                earliestTime = Math.min(script.getCreationTimeSeconds(), earliestTime);
-            if (earliestTime == Long.MAX_VALUE)
-                return Utils.currentTimeMillis() / 1000;
-            return earliestTime;
-        } finally {
-            lock.unlock();
-        }
-    }
-=======
+ 
         /**
          * Specifies what to do with missing signatures left after completing this request. Default strategy is to
          * throw an exception on missing signature ({@link MissingSigsMode#THROW}).
          * @see MissingSigsMode
          */
         public MissingSigsMode missingSigsMode = MissingSigsMode.THROW;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Wallet.java
 
         /**
          * If not null, this exchange rate is recorded with the transaction during completion.
@@ -3530,14 +3324,8 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
     }
 
     /**
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Wallet.java
-     * <p>Convenience wrapper around {@link Wallet#addNewEncryptedKey(com.google.mediterraneancoin.crypto.KeyCrypter,
-     * org.spongycastle.crypto.params.KeyParameter)} which just derives the key afresh and uses the pre-set
-     * keycrypter. The wallet must have been encrypted using one of the encrypt methods previously.</p>
-=======
      * Satisfies the given {@link SendRequest} using the default transaction broadcaster configured either via
      * {@link PeerGroup#addWallet(Wallet)} or directly with {@link #setTransactionBroadcaster(TransactionBroadcaster)}.
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Wallet.java
      *
      * @param request the SendRequest that describes what to do, get one using static methods on SendRequest itself.
      * @return An object containing the transaction that was created, and a future for the broadcast of it.
@@ -3860,15 +3648,6 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
     /**
      * <p>Don't call this directly. It's not intended for API users.</p>
      *
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Wallet.java
-     * <p>Also note that by the time the future completes, the wallet may have changed yet again if something else
-     * is going on in parallel, so you should treat the returned balance as advisory and be prepared for sending
-     * money to fail! Finally please be aware that any listeners on the future will run either on the calling thread
-     * if it completes immediately, or eventually on a background thread if the balance is not yet at the right
-     * level. If you do something that means you know the balance should be sufficient to trigger the future,
-     * you can use {@link com.google.mediterraneancoin.utils.Threading#waitForUserCode()} to block until the future had a
-     * chance to be updated.</p>
-=======
      * <p>Called by the {@link BlockChain} when the best chain (representing total work done) has changed. This can
      * cause the number of confirmations of a transaction to go higher, lower, drop to zero and can even result in
      * a transaction going dead (will never confirm) due to a double spend.</p>
@@ -4103,7 +3882,6 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
      * 
      * <p>See the docs for {@link BloomFilter(int, double)} for a brief explanation of anonymity when using bloom
      * filters.</p>
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Wallet.java
      */
     @Override
     public BloomFilter getBloomFilter(int size, double falsePositiveRate, long nTweak) {

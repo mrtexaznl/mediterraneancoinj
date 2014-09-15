@@ -15,22 +15,17 @@
  */
 
 package com.google.mediterraneancoin.core;
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/CheckpointManager.java
+ 
 import com.google.mediterraneancoin.store.BlockStore;
 import com.google.mediterraneancoin.store.BlockStoreException;
 import com.google.mediterraneancoin.store.FullPrunedBlockStore;
-=======
-import com.google.bitcoin.store.BlockStore;
-import com.google.bitcoin.store.BlockStoreException;
-import com.google.bitcoin.store.FullPrunedBlockStore;
+ 
 import com.google.common.base.Charsets;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
 import com.google.common.io.BaseEncoding;
-
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/CheckpointManager.java
+ 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

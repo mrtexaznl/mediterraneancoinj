@@ -16,15 +16,11 @@
  */
 
 package com.google.mediterraneancoin.core;
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/TransactionConfidence.java
+ 
 import com.google.mediterraneancoin.utils.ListenerRegistration;
 import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.base.Preconditions;
-=======
-import com.google.bitcoin.utils.ListenerRegistration;
-import com.google.bitcoin.utils.Threading;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/TransactionConfidence.java
+ 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 

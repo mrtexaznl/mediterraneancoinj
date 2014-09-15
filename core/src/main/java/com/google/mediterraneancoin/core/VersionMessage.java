@@ -77,11 +77,9 @@ public class VersionMessage extends Message {
     /** The version of this library release, as a string. */
     public static final String BITCOINJ_VERSION = "0.12-SNAPSHOT";
     /** The value that is prepended to the subVer field of this application. */
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/VersionMessage.java
+
     public static final String LIBRARY_SUBVER = "/MediterraneanCoinJ:" + BITCOINJ_VERSION + "/";
-=======
-    public static final String LIBRARY_SUBVER = "/bitcoinj:" + BITCOINJ_VERSION + "/";
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/VersionMessage.java
+
 
     public VersionMessage(NetworkParameters params, byte[] payload) throws ProtocolException {
         super(params, payload, 0);

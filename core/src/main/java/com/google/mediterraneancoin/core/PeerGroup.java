@@ -14,9 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/PeerGroup.java
-
+ 
 package com.google.mediterraneancoin.core;
 
 import com.google.mediterraneancoin.net.ClientConnectionManager;
@@ -27,22 +25,7 @@ import com.google.mediterraneancoin.script.Script;
 import com.google.mediterraneancoin.utils.ExponentialBackoff;
 import com.google.mediterraneancoin.utils.ListenerRegistration;
 import com.google.mediterraneancoin.utils.Threading;
-=======
-package com.google.bitcoin.core;
-
-import com.google.bitcoin.crypto.DRMWorkaround;
-import com.google.bitcoin.net.BlockingClientManager;
-import com.google.bitcoin.net.ClientConnectionManager;
-import com.google.bitcoin.net.FilterMerger;
-import com.google.bitcoin.net.NioClientManager;
-import com.google.bitcoin.net.discovery.PeerDiscovery;
-import com.google.bitcoin.net.discovery.PeerDiscoveryException;
-import com.google.bitcoin.net.discovery.TorDiscovery;
-import com.google.bitcoin.script.Script;
-import com.google.bitcoin.utils.ExponentialBackoff;
-import com.google.bitcoin.utils.ListenerRegistration;
-import com.google.bitcoin.utils.Threading;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/PeerGroup.java
+ 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
@@ -67,6 +50,10 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
+import com.google.mediterraneancoin.crypto.DRMWorkaround;
+import com.google.mediterraneancoin.net.BlockingClientManager;
+import com.google.mediterraneancoin.net.FilterMerger;
+import com.google.mediterraneancoin.net.discovery.TorDiscovery;
 
 /**
  * <p>Runs a set of connections to the P2P network, brings up connections to replace disconnected nodes and manages

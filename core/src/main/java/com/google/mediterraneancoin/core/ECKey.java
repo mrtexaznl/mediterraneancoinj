@@ -17,14 +17,12 @@
 
 package com.google.mediterraneancoin.core;
 
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/ECKey.java
+ 
 import com.google.mediterraneancoin.crypto.EncryptedPrivateKey;
 import com.google.mediterraneancoin.crypto.KeyCrypter;
 import com.google.mediterraneancoin.crypto.KeyCrypterException;
 import com.google.mediterraneancoin.crypto.TransactionSignature;
-=======
-import com.google.bitcoin.crypto.*;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/ECKey.java
+ 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Objects;
 import com.google.common.base.Objects.ToStringHelper;
@@ -62,6 +60,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 import static com.google.common.base.Preconditions.*;
+import com.google.mediterraneancoin.crypto.EncryptableItem;
+import com.google.mediterraneancoin.crypto.EncryptedData;
 
 // TODO: Move this class to tracking compression state itself.
 // The Bouncy Castle guys are deprecating their own tracking of the compression state.

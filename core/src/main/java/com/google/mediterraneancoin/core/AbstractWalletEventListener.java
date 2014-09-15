@@ -15,13 +15,10 @@
  */
 
 package com.google.mediterraneancoin.core;
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/AbstractWalletEventListener.java
+ 
 import com.google.mediterraneancoin.script.Script;
-=======
-import com.google.bitcoin.script.Script;
+ 
 import com.google.mediterraneancoin.wallet.AbstractKeyChainEventListener;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/AbstractWalletEventListener.java
 
 import java.util.List;
 

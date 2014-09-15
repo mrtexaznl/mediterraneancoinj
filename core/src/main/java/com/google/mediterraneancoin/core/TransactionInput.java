@@ -16,14 +16,9 @@
  */
 
 package com.google.mediterraneancoin.core;
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/TransactionInput.java
+ 
 import com.google.mediterraneancoin.script.Script;
-=======
-import com.google.bitcoin.script.Script;
-import com.google.mediterraneancoin.wallet.KeyBag;
-import com.google.bitcoin.wallet.RedeemData;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/TransactionInput.java
+ 
 
 import javax.annotation.Nullable;
 import java.io.IOException;
@@ -36,6 +31,8 @@ import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkElementIndex;
 import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.mediterraneancoin.wallet.KeyBag;
+import com.google.mediterraneancoin.wallet.RedeemData;
 
 /**
  * A transfer of coins from one address to another creates a transaction in which the outputs

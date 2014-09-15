@@ -16,21 +16,13 @@
  */
 
 package com.google.mediterraneancoin.core;
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Transaction.java
+ 
 import com.google.mediterraneancoin.core.TransactionConfidence.ConfidenceType;
 import com.google.mediterraneancoin.crypto.TransactionSignature;
 import com.google.mediterraneancoin.script.Script;
 import com.google.mediterraneancoin.script.ScriptBuilder;
 import com.google.mediterraneancoin.script.ScriptOpCodes;
-=======
-import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.crypto.TransactionSignature;
-import com.google.bitcoin.script.Script;
-import com.google.bitcoin.script.ScriptBuilder;
-import com.google.bitcoin.script.ScriptOpCodes;
-import com.google.bitcoin.utils.ExchangeRate;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Transaction.java
+ 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.primitives.Ints;
 import com.google.common.primitives.Longs;
@@ -42,14 +34,11 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Transaction.java
+ 
 import static com.google.mediterraneancoin.core.Utils.*;
 import static com.google.common.base.Preconditions.*;
-=======
-import static com.google.bitcoin.core.Utils.*;
-import static com.google.common.base.Preconditions.checkState;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Transaction.java
+import com.google.mediterraneancoin.utils.ExchangeRate;
+ 
 
 /**
  * <p>A transaction represents the movement of coins from some addresses to some other addresses. It can also represent
@@ -703,12 +692,12 @@ public class Transaction extends ChildMessage implements Serializable {
                 Script scriptPubKey = out.getScriptPubKey();
                 s.append(scriptPubKey);
                 s.append(" ");
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Transaction.java
-                s.append(bitcoinValueToFriendlyString(out.getValue()));
-                s.append(" MED");
-=======
+
+                //s.append(bitcoinValueToFriendlyString(out.getValue()));
+                //s.append(" MED");
+ 
                 s.append(out.getValue().toFriendlyString());
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Transaction.java
+ 
                 if (!out.isAvailableForSpending()) {
                     s.append(" Spent");
                 }

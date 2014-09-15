@@ -1,5 +1,6 @@
 package com.google.mediterraneancoin.wallet;
 
+import com.google.mediterraneancoin.core.Coin;
 import com.google.mediterraneancoin.core.TransactionOutput;
 
 import java.util.List;

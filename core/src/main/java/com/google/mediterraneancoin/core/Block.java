@@ -34,18 +34,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Block.java
+ 
 import static com.google.mediterraneancoin.core.Utils.doubleDigest;
 import static com.google.mediterraneancoin.core.Utils.doubleDigestTwoBuffers;
 import java.security.GeneralSecurityException;
 import java.util.logging.Level;
 import org.mediterraneancoin.miner.SuperHasher;
-=======
-import static com.google.bitcoin.core.Coin.FIFTY_COINS;
-import static com.google.bitcoin.core.Utils.doubleDigest;
-import static com.google.bitcoin.core.Utils.doubleDigestTwoBuffers;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Block.java
+ 
+import static com.google.mediterraneancoin.core.Coin.FIFTY_COINS;
+import static com.google.mediterraneancoin.core.Utils.doubleDigest;
+import static com.google.mediterraneancoin.core.Utils.doubleDigestTwoBuffers;
+
 
 /**
  * <p>A block is a group of transactions, and is one of the fundamental data structures of the Bitcoin system.
@@ -681,13 +680,10 @@ public class Block extends Message {
     public BigInteger getDifficultyTargetAsInteger() throws VerificationException {
         maybeParseHeader();
         BigInteger target = Utils.decodeCompactBits(difficultyTarget);
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Block.java
-        if (target.compareTo(BigInteger.ZERO) <= 0 || target.compareTo(params.proofOfWorkLimit) > 0)
-            throw new VerificationException("Difficulty target is bad: " + target.toString() + " or " + difficultyTarget);
-=======
+//        if (target.compareTo(BigInteger.ZERO) <= 0 || target.compareTo(params.proofOfWorkLimit) > 0)
+//            throw new VerificationException("Difficulty target is bad: " + target.toString() + " or " + difficultyTarget);
         if (target.signum() <= 0 || target.compareTo(params.maxTarget) > 0)
             throw new VerificationException("Difficulty target is bad: " + target.toString());
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Block.java
         return target;
     }
 

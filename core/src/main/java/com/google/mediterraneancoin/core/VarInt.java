@@ -15,15 +15,12 @@
  */
 
 package com.google.mediterraneancoin.core;
-
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/VarInt.java
+ 
 import com.google.common.primitives.UnsignedInteger;
 
 import static com.google.mediterraneancoin.core.Utils.isLessThanUnsigned;
-=======
-import static com.google.bitcoin.core.Utils.isLessThanUnsigned;
-import static com.google.bitcoin.core.Utils.isLessThanOrEqualToUnsigned;
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/VarInt.java
+import static com.google.mediterraneancoin.core.Utils.isLessThanOrEqualToUnsigned;
+ 
 
 /**
  * A variable-length encoded integer using Satoshis encoding.
