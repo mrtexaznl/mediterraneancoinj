@@ -1,7 +1,7 @@
 package com.google.bitcoin.jni;
 
-import com.google.bitcoin.protocols.channels.PaymentChannelServerListener;
-import com.google.bitcoin.protocols.channels.ServerConnectionEventHandler;
+import com.google.mediterraneancoin.protocols.channels.PaymentChannelServerListener;
+import com.google.mediterraneancoin.protocols.channels.ServerConnectionEventHandler;
 
 import javax.annotation.Nullable;
 import java.net.SocketAddress;

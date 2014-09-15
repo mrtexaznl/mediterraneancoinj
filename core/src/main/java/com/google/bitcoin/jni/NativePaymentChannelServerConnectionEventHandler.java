@@ -1,8 +1,8 @@
 package com.google.bitcoin.jni;
 
 import com.google.bitcoin.core.*;
-import com.google.bitcoin.protocols.channels.PaymentChannelCloseException;
-import com.google.bitcoin.protocols.channels.ServerConnectionEventHandler;
+import com.google.mediterraneancoin.protocols.channels.PaymentChannelCloseException;
+import com.google.mediterraneancoin.protocols.channels.ServerConnectionEventHandler;
 
 import java.math.BigInteger;
 

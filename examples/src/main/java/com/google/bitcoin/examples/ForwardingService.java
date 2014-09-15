@@ -17,11 +17,11 @@
 package com.google.bitcoin.examples;
 
 import com.google.bitcoin.core.*;
-import com.google.bitcoin.crypto.KeyCrypterException;
-import com.google.bitcoin.kits.WalletAppKit;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.params.RegTestParams;
-import com.google.bitcoin.params.TestNet3Params;
+import com.google.mediterraneancoin.crypto.KeyCrypterException;
+import com.google.mediterraneancoin.kits.WalletAppKit;
+import com.google.mediterraneancoin.params.MainNetParams;
+import com.google.mediterraneancoin.params.RegTestParams;
+import com.google.mediterraneancoin.params.TestNet3Params;
 import com.google.bitcoin.utils.BriefLogFormatter;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;

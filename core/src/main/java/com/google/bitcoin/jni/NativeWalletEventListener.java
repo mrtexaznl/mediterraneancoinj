@@ -20,7 +20,7 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
-import com.google.bitcoin.script.Script;
+import com.google.mediterraneancoin.script.Script;
 
 import java.math.BigInteger;
 import java.util.List;

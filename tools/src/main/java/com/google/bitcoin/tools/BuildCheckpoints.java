@@ -1,9 +1,9 @@
 package com.google.bitcoin.tools;
 
 import com.google.bitcoin.core.*;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.store.BlockStore;
-import com.google.bitcoin.store.MemoryBlockStore;
+import com.google.mediterraneancoin.params.MainNetParams;
+import com.google.mediterraneancoin.store.BlockStore;
+import com.google.mediterraneancoin.store.MemoryBlockStore;
 import com.google.bitcoin.utils.BriefLogFormatter;
 import com.google.bitcoin.utils.Threading;
 

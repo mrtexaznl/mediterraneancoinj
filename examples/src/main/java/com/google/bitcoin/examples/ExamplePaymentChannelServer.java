@@ -16,10 +16,14 @@
 
 package com.google.bitcoin.examples;
 
+import com.google.mediterraneancoin.protocols.channels.PaymentChannelServerListener;
+import com.google.mediterraneancoin.protocols.channels.StoredPaymentChannelServerStates;
+import com.google.mediterraneancoin.protocols.channels.ServerConnectionEventHandler;
+import com.google.mediterraneancoin.protocols.channels.PaymentChannelCloseException;
+import com.google.mediterraneancoin.protocols.channels.PaymentChannelServerState;
 import com.google.bitcoin.core.*;
-import com.google.bitcoin.kits.WalletAppKit;
-import com.google.bitcoin.params.TestNet3Params;
-import com.google.bitcoin.protocols.channels.*;
+import com.google.mediterraneancoin.kits.WalletAppKit;
+import com.google.mediterraneancoin.params.TestNet3Params;
 import com.google.bitcoin.utils.BriefLogFormatter;
 import org.slf4j.LoggerFactory;
 

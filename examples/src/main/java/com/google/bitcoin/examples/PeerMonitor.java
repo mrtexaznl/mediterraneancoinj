@@ -21,8 +21,8 @@ import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.PeerAddress;
 import com.google.bitcoin.core.PeerGroup;
-import com.google.bitcoin.net.discovery.DnsDiscovery;
-import com.google.bitcoin.params.MainNetParams;
+import com.google.mediterraneancoin.net.discovery.DnsDiscovery;
+import com.google.mediterraneancoin.params.MainNetParams;
 import com.google.bitcoin.utils.BriefLogFormatter;
 import com.google.common.collect.Lists;
 

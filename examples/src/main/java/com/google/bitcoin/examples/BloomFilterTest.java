@@ -1,10 +1,10 @@
 package com.google.bitcoin.examples;
 
 import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.kits.WalletAppKit;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.params.RegTestParams;
-import com.google.bitcoin.params.TestNet3Params;
+import com.google.mediterraneancoin.kits.WalletAppKit;
+import com.google.mediterraneancoin.params.MainNetParams;
+import com.google.mediterraneancoin.params.RegTestParams;
+import com.google.mediterraneancoin.params.TestNet3Params;
 import com.google.bitcoin.utils.BriefLogFormatter;
 import java.io.File;
 

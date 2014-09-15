@@ -20,15 +20,15 @@
   </parent>
 
   <scm>
-    <connection>scm:git:https://code.google.com/p/bitcoinj/</connection>
-    <developerConnection>scm:git:https://code.google.com/p/bitcoinj/</developerConnection>
-    <url>http://code.google.com/p/bitcoinj/source/browse</url>
+    <connection>scm:git:https://github.com/mrtexaznl/mediterraneancoinj</connection>
+    <developerConnection>scm:git:https://github.com/mrtexaznl/mediterraneancoinj</developerConnection>
+    <url>https://github.com/mrtexaznl/mediterraneancoinj</url>
   </scm>
 
   <name>mediterraneancoinj Parent</name>
  
   <description>Provides the common configuration for the BitCoinJ modules</description>
-  <url>http://code.google.com/p/bitcoinj</url>
+  <url>https://github.com/mrtexaznl/mediterraneancoinj</url>
 
   <licenses>
     <license>
@@ -54,7 +54,7 @@
   <repositories>
     <repository>
         <id>bitcoinj-distribution</id>
-        <url>https://distribution.bitcoinj.googlecode.com/git/releases</url>
+        <url>https://github.com/mrtexaznl/mediterraneancoinj/git/releases</url>
     </repository>
   </repositories>
 

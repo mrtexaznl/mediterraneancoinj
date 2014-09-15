@@ -16,18 +16,23 @@
 
 package com.google.bitcoin.tools;
 
+import com.google.mediterraneancoin.store.BlockStore;
+import com.google.mediterraneancoin.store.WalletProtobufSerializer;
+import com.google.mediterraneancoin.store.BlockStoreException;
+import com.google.mediterraneancoin.store.H2FullPrunedBlockStore;
+import com.google.mediterraneancoin.store.FullPrunedBlockStore;
+import com.google.mediterraneancoin.store.SPVBlockStore;
 import com.google.bitcoin.core.*;
-import com.google.bitcoin.crypto.KeyCrypterException;
-import com.google.bitcoin.net.discovery.DnsDiscovery;
-import com.google.bitcoin.net.discovery.PeerDiscovery;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.params.RegTestParams;
-import com.google.bitcoin.params.TestNet3Params;
-import com.google.bitcoin.protocols.payments.PaymentRequestException;
-import com.google.bitcoin.protocols.payments.PaymentSession;
-import com.google.bitcoin.store.*;
-import com.google.bitcoin.uri.BitcoinURI;
-import com.google.bitcoin.uri.BitcoinURIParseException;
+import com.google.mediterraneancoin.crypto.KeyCrypterException;
+import com.google.mediterraneancoin.net.discovery.DnsDiscovery;
+import com.google.mediterraneancoin.net.discovery.PeerDiscovery;
+import com.google.mediterraneancoin.params.MainNetParams;
+import com.google.mediterraneancoin.params.RegTestParams;
+import com.google.mediterraneancoin.params.TestNet3Params;
+import com.google.mediterraneancoin.protocols.payments.PaymentRequestException;
+import com.google.mediterraneancoin.protocols.payments.PaymentSession;
+import com.google.mediterraneancoin.uri.BitcoinURI;
+import com.google.mediterraneancoin.uri.BitcoinURIParseException;
 import com.google.bitcoin.utils.BriefLogFormatter;
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;

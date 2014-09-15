@@ -17,8 +17,8 @@
 package com.google.bitcoin.examples;
 
 import com.google.bitcoin.core.*;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.store.MemoryBlockStore;
+import com.google.mediterraneancoin.params.MainNetParams;
+import com.google.mediterraneancoin.store.MemoryBlockStore;
 
 import java.math.BigInteger;
 import java.net.InetAddress;

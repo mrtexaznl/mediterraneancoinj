@@ -1,9 +1,15 @@
 package com.google.bitcoin.tools;
 
+import com.google.mediterraneancoin.store.MemoryBlockStore;
+import com.google.mediterraneancoin.store.BlockStoreException;
+import com.google.mediterraneancoin.store.BlockStore;
+import com.google.mediterraneancoin.store.H2FullPrunedBlockStore;
+import com.google.mediterraneancoin.store.MemoryFullPrunedBlockStore;
+import com.google.mediterraneancoin.store.FullPrunedBlockStore;
+import com.google.mediterraneancoin.store.SPVBlockStore;
 import com.google.bitcoin.core.*;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.params.TestNet3Params;
-import com.google.bitcoin.store.*;
+import com.google.mediterraneancoin.params.MainNetParams;
+import com.google.mediterraneancoin.params.TestNet3Params;
 import com.google.bitcoin.utils.BlockFileLoader;
 import com.google.common.base.Preconditions;
 
