@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.wallet;
+package com.google.mediterraneancoin.wallet;
 
-import com.google.bitcoin.crypto.*;
-import com.google.bitcoin.store.UnreadableWalletException;
+import com.google.mediterraneancoin.crypto.*;
+import com.google.mediterraneancoin.store.UnreadableWalletException;
 import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
-import org.bitcoinj.wallet.Protos;
+import org.mediterraneancoinj.wallet.Protos;
 import org.spongycastle.crypto.params.KeyParameter;
 
 import javax.annotation.Nullable;
@@ -31,13 +31,13 @@ import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
 import java.util.List;
 
-import static com.google.bitcoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.core.Utils.HEX;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
 /**
  * Holds the seed bytes for the BIP32 deterministic wallet algorithm, inside a
- * {@link com.google.bitcoin.wallet.DeterministicKeyChain}. The purpose of this wrapper is to simplify the encryption
+ * {@link com.google.mediterraneancoin.wallet.DeterministicKeyChain}. The purpose of this wrapper is to simplify the encryption
  * code.
  */
 public class DeterministicSeed implements EncryptableItem {
@@ -69,7 +69,7 @@ public class DeterministicSeed implements EncryptableItem {
     }
 
     /**
-     * Constructs a seed from a BIP 39 mnemonic code. See {@link com.google.bitcoin.crypto.MnemonicCode} for more
+     * Constructs a seed from a BIP 39 mnemonic code. See {@link com.google.mediterraneancoin.crypto.MnemonicCode} for more
      * details on this scheme.
      * @param mnemonicCode A list of words.
      * @param passphrase A user supplied passphrase, or an empty string if there is no passphrase
@@ -80,7 +80,7 @@ public class DeterministicSeed implements EncryptableItem {
     }
 
     /**
-     * Constructs a seed from a BIP 39 mnemonic code. See {@link com.google.bitcoin.crypto.MnemonicCode} for more
+     * Constructs a seed from a BIP 39 mnemonic code. See {@link com.google.mediterraneancoin.crypto.MnemonicCode} for more
      * details on this scheme.
      * @param random Entropy source
      * @param bits number of bits, must be divisible by 32
@@ -92,7 +92,7 @@ public class DeterministicSeed implements EncryptableItem {
     }
 
     /**
-     * Constructs a seed from a BIP 39 mnemonic code. See {@link com.google.bitcoin.crypto.MnemonicCode} for more
+     * Constructs a seed from a BIP 39 mnemonic code. See {@link com.google.mediterraneancoin.crypto.MnemonicCode} for more
      * details on this scheme.
      * @param entropy entropy bits, length must be divisible by 32
      * @param passphrase A user supplied passphrase, or an empty string if there is no passphrase
@@ -225,7 +225,7 @@ public class DeterministicSeed implements EncryptableItem {
      * Check if our mnemonic is a valid mnemonic phrase for our word list.
      * Does nothing if we are encrypted.
      *
-     * @throws com.google.bitcoin.crypto.MnemonicException if check fails
+     * @throws com.google.mediterraneancoin.crypto.MnemonicException if check fails
      */
     public void check() throws MnemonicException {
         if (mnemonicCode != null)

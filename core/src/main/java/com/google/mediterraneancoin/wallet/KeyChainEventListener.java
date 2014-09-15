@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.bitcoin.wallet;
+package com.google.mediterraneancoin.wallet;
 
-import com.google.bitcoin.core.ECKey;
+import com.google.mediterraneancoin.core.ECKey;
 
 import java.util.List;
 

@@ -31,7 +31,7 @@ import com.google.bitcoin.protocols.channels.StoredPaymentChannelServerStates;
 import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.SPVBlockStore;
 import com.google.bitcoin.store.WalletProtobufSerializer;
-import com.google.bitcoin.wallet.DeterministicSeed;
+import com.google.mediterraneancoin.wallet.DeterministicSeed;
 import com.google.bitcoin.wallet.KeyChainGroup;
 import com.google.common.collect.ImmutableList;
 >>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/kits/WalletAppKit.java

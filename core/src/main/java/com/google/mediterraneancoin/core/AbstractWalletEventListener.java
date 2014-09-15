@@ -20,7 +20,7 @@ package com.google.mediterraneancoin.core;
 import com.google.mediterraneancoin.script.Script;
 =======
 import com.google.bitcoin.script.Script;
-import com.google.bitcoin.wallet.AbstractKeyChainEventListener;
+import com.google.mediterraneancoin.wallet.AbstractKeyChainEventListener;
 >>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/AbstractWalletEventListener.java
 
 import java.util.List;

@@ -16,6 +16,9 @@
 
 package com.google.bitcoin.wallet;
 
+import com.google.mediterraneancoin.wallet.KeyChain;
+import com.google.mediterraneancoin.wallet.AbstractKeyChainEventListener;
+import com.google.mediterraneancoin.wallet.BasicKeyChain;
 import com.google.bitcoin.core.BloomFilter;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Utils;

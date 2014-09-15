@@ -15,9 +15,9 @@
  */
 
 
-package com.google.bitcoin.wallet;
+package com.google.mediterraneancoin.wallet;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 
 import java.util.HashSet;
 import java.util.Iterator;

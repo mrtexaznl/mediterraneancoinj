@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.wallet;
+package com.google.mediterraneancoin.wallet;
 
-import com.google.bitcoin.crypto.KeyCrypter;
-import com.google.bitcoin.crypto.KeyCrypterException;
+import com.google.mediterraneancoin.crypto.KeyCrypter;
+import com.google.mediterraneancoin.crypto.KeyCrypterException;
 import org.spongycastle.crypto.params.KeyParameter;
 
 import javax.annotation.Nullable;

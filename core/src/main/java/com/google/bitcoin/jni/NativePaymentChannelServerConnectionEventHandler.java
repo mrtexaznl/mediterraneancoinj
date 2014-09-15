@@ -3,6 +3,7 @@ package com.google.bitcoin.jni;
 import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.protocols.channels.PaymentChannelCloseException;
 import com.google.mediterraneancoin.protocols.channels.ServerConnectionEventHandler;
+import com.google.protobuf.ByteString;
 
 import java.math.BigInteger;
 

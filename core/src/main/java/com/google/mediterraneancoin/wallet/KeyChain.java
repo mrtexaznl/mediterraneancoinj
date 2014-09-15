@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.wallet;
+package com.google.mediterraneancoin.wallet;
 
-import com.google.bitcoin.core.BloomFilter;
-import com.google.bitcoin.core.ECKey;
+import com.google.mediterraneancoin.core.BloomFilter;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.bitcoin.wallet.KeyChainEventListener;
 import org.bitcoinj.wallet.Protos;
 
 import java.util.List;

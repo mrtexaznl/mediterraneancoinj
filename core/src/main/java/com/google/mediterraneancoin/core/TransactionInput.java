@@ -21,7 +21,7 @@ package com.google.mediterraneancoin.core;
 import com.google.mediterraneancoin.script.Script;
 =======
 import com.google.bitcoin.script.Script;
-import com.google.bitcoin.wallet.KeyBag;
+import com.google.mediterraneancoin.wallet.KeyBag;
 import com.google.bitcoin.wallet.RedeemData;
 >>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/TransactionInput.java
 

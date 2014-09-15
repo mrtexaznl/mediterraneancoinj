@@ -56,8 +56,8 @@ import com.google.bitcoin.script.ScriptBuilder;
 import com.google.bitcoin.testing.FakeTxBuilder;
 import com.google.bitcoin.utils.BriefLogFormatter;
 import com.google.bitcoin.utils.Threading;
-import com.google.bitcoin.wallet.DeterministicKeyChain;
-import com.google.bitcoin.wallet.KeyChain;
+import com.google.mediterraneancoin.wallet.DeterministicKeyChain;
+import com.google.mediterraneancoin.wallet.KeyChain;
 import com.google.common.collect.ImmutableList;
 >>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/store/WalletProtobufSerializerTest.java
 import com.google.protobuf.ByteString;

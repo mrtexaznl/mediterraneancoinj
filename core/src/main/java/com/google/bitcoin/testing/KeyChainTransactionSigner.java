@@ -19,7 +19,7 @@ import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.crypto.ChildNumber;
 import com.google.bitcoin.crypto.DeterministicKey;
 import com.google.bitcoin.signers.CustomTransactionSigner;
-import com.google.bitcoin.wallet.DeterministicKeyChain;
+import com.google.mediterraneancoin.wallet.DeterministicKeyChain;
 import com.google.common.collect.ImmutableList;
 
 import java.util.List;

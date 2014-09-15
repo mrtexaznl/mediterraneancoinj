@@ -16,6 +16,9 @@
 
 package com.google.bitcoin.wallet;
 
+import com.google.mediterraneancoin.wallet.KeyChain;
+import com.google.mediterraneancoin.wallet.AbstractKeyChainEventListener;
+import com.google.mediterraneancoin.wallet.DeterministicKeyChain;
 import com.google.bitcoin.core.*;
 import com.google.bitcoin.crypto.DeterministicHierarchy;
 import com.google.bitcoin.crypto.DeterministicKey;

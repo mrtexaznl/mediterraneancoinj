@@ -19,6 +19,10 @@
 package com.google.mediterraneancoin.core;
 
 
+import com.google.mediterraneancoin.wallet.KeyChain;
+import com.google.mediterraneancoin.wallet.DeterministicUpgradeRequiresPassword;
+import com.google.mediterraneancoin.wallet.KeyBag;
+import com.google.mediterraneancoin.wallet.DeterministicKeyChain;
 import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.core.Transaction.SigHash;
 import com.google.mediterraneancoin.core.Wallet.SendRequest;

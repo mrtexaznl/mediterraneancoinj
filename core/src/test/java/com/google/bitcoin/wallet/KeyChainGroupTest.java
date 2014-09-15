@@ -16,6 +16,10 @@
 
 package com.google.bitcoin.wallet;
 
+import com.google.mediterraneancoin.wallet.DeterministicSeed;
+import com.google.mediterraneancoin.wallet.DeterministicUpgradeRequiredException;
+import com.google.mediterraneancoin.wallet.KeyChain;
+import com.google.mediterraneancoin.wallet.DeterministicUpgradeRequiresPassword;
 import com.google.bitcoin.core.*;
 import com.google.bitcoin.crypto.*;
 import com.google.bitcoin.params.MainNetParams;

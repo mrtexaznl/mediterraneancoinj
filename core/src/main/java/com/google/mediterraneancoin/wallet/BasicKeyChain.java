@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.wallet;
+package com.google.mediterraneancoin.wallet;
 
-import com.google.bitcoin.core.BloomFilter;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.crypto.*;
-import com.google.bitcoin.store.UnreadableWalletException;
-import com.google.bitcoin.utils.ListenerRegistration;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.core.BloomFilter;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.crypto.*;
+import com.google.mediterraneancoin.store.UnreadableWalletException;
+import com.google.mediterraneancoin.utils.ListenerRegistration;
+import com.google.mediterraneancoin.utils.Threading;
+import com.google.mediterraneancoin.wallet.KeyChainEventListener;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.protobuf.ByteString;

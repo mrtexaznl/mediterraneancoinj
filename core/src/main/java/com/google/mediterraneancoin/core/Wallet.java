@@ -18,6 +18,10 @@
 <<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Wallet.java
 package com.google.mediterraneancoin.core;
 
+import com.google.mediterraneancoin.wallet.KeyChain;
+import com.google.mediterraneancoin.wallet.DeterministicUpgradeRequiresPassword;
+import com.google.mediterraneancoin.wallet.KeyBag;
+import com.google.mediterraneancoin.wallet.DeterministicSeed;
 import com.google.mediterraneancoin.wallet.RiskAnalysis;
 import com.google.mediterraneancoin.wallet.DefaultRiskAnalysis;
 import com.google.mediterraneancoin.wallet.WalletTransaction;

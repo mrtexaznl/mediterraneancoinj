@@ -16,7 +16,7 @@
 package com.google.bitcoin.testing;
 
 import com.google.bitcoin.signers.TransactionSigner;
-import com.google.bitcoin.wallet.KeyBag;
+import com.google.mediterraneancoin.wallet.KeyBag;
 
 public class NopTransactionSigner implements TransactionSigner {
     private boolean isReady;

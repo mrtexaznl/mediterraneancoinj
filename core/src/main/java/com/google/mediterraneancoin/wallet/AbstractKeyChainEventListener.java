@@ -1,6 +1,7 @@
-package com.google.bitcoin.wallet;
+package com.google.mediterraneancoin.wallet;
 
-import com.google.bitcoin.core.ECKey;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.wallet.KeyChainEventListener;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.google.bitcoin.wallet;
+package com.google.mediterraneancoin.wallet;
 
 /**
  * Indicates that an attempt was made to use HD wallet features on a wallet that was deserialized from an old,
