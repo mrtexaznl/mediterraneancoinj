@@ -57,7 +57,7 @@ public class NioClientManager extends AbstractExecutionThreadService implements 
             try {
                 if (sc.finishConnect()) {
                     log.info("Successfully connected to {}", sc.socket().getRemoteSocketAddress());
-                    key.interestOps(SelectionKey.OP_READ).attach(handler);
+                    key.interestOps((key.interestOps() | SelectionKey.OP_READ) & ~SelectionKey.OP_CONNECT).attach(handler);
                     handler.parser.connectionOpened();
                 } else {
                     log.error("Failed to connect to {}", sc.socket().getRemoteSocketAddress());
@@ -146,6 +146,9 @@ public class NioClientManager extends AbstractExecutionThreadService implements 
         } catch (IOException e) {
             log.error("Could not connect to " + serverAddress);
             throw new RuntimeException(e); // This should only happen if we are, eg, out of system resources
+        } catch (AssertionError e) {
+            log.error("Could not connect to " + serverAddress);
+            throw new RuntimeException(e); // Happens on Android when libcore.io.Posix.getsockname() throws libcore.io.ErrnoException.
         }
     }
 

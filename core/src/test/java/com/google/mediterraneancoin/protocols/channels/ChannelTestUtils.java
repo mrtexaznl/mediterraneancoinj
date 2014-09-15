@@ -1,3 +1,4 @@
+<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/protocols/channels/ChannelTestUtils.java
 package com.google.mediterraneancoin.protocols.channels;
 
 import com.google.mediterraneancoin.protocols.channels.PaymentChannelServer;
@@ -7,9 +8,19 @@ import com.google.mediterraneancoin.core.Sha256Hash;
 import com.google.mediterraneancoin.core.TransactionBroadcaster;
 import com.google.mediterraneancoin.core.Utils;
 import com.google.mediterraneancoin.core.Wallet;
+=======
+package com.google.bitcoin.protocols.channels;
+
+import com.google.bitcoin.core.Coin;
+import com.google.bitcoin.core.Sha256Hash;
+import com.google.bitcoin.core.TransactionBroadcaster;
+import com.google.bitcoin.core.Wallet;
+
+import com.google.protobuf.ByteString;
+>>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/protocols/channels/ChannelTestUtils.java
 import org.bitcoin.paymentchannel.Protos;
 
-import java.math.BigInteger;
+import javax.annotation.Nullable;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -38,8 +49,9 @@ public class ChannelTestUtils {
         }
 
         @Override
-        public void paymentIncrease(BigInteger by, BigInteger to) {
-            q.add(to);
+        public ByteString paymentIncrease(Coin by, Coin to, @Nullable ByteString info) {
+            q.add(new UpdatePair(to, info));
+            return ByteString.copyFromUtf8(by.toPlainString());
         }
 
         public Protos.TwoWayChannelMessage getNextMsg() throws InterruptedException {
@@ -52,18 +64,24 @@ public class ChannelTestUtils {
             return msg;
         }
 
-        public void checkTotalPayment(BigInteger valueSoFar) throws InterruptedException {
-            BigInteger lastSeen = (BigInteger) q.take();
+        public void checkTotalPayment(Coin valueSoFar) throws InterruptedException {
+            Coin lastSeen = ((UpdatePair) q.take()).amount;
             assertEquals(lastSeen, valueSoFar);
         }
     }
 
     public static class RecordingClientConnection implements PaymentChannelClient.ClientConnection {
         public BlockingQueue<Object> q = new LinkedBlockingQueue<Object>();
+        final static int IGNORE_EXPIRE = -1;
+        private final int maxExpireTime;
 
         // An arbitrary sentinel object for equality testing.
         public static final Object CHANNEL_INITIATED = new Object();
         public static final Object CHANNEL_OPEN = new Object();
+
+        public RecordingClientConnection(int maxExpireTime) {
+            this.maxExpireTime = maxExpireTime;
+        }
 
         @Override
         public void sendToServer(Protos.TwoWayChannelMessage msg) {
@@ -73,6 +91,11 @@ public class ChannelTestUtils {
         @Override
         public void destroyConnection(PaymentChannelCloseException.CloseReason reason) {
             q.add(reason);
+        }
+
+        @Override
+        public boolean acceptExpireTime(long expireTime) {
+            return this.maxExpireTime == IGNORE_EXPIRE || expireTime <= maxExpireTime;
         }
 
         @Override
@@ -109,10 +132,49 @@ public class ChannelTestUtils {
     }
 
     public static RecordingPair makeRecorders(final Wallet serverWallet, final TransactionBroadcaster mockBroadcaster) {
+        return makeRecorders(serverWallet, mockBroadcaster, RecordingClientConnection.IGNORE_EXPIRE);
+    }
+    public static RecordingPair makeRecorders(final Wallet serverWallet, final TransactionBroadcaster mockBroadcaster, int maxExpireTime) {
         RecordingPair pair = new RecordingPair();
         pair.serverRecorder = new RecordingServerConnection();
-        pair.server = new PaymentChannelServer(mockBroadcaster, serverWallet, Utils.COIN, pair.serverRecorder);
-        pair.clientRecorder = new RecordingClientConnection();
+        pair.server = new PaymentChannelServer(mockBroadcaster, serverWallet, Coin.COIN, pair.serverRecorder);
+        pair.clientRecorder = new RecordingClientConnection(maxExpireTime);
         return pair;
     }
+
+    public static class UpdatePair {
+        public Coin amount;
+        public ByteString info;
+
+        public UpdatePair(Coin amount, ByteString info) {
+            this.amount = amount;
+            this.info = info;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            UpdatePair that = (UpdatePair) o;
+
+            if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
+            if (info != null ? !info.equals(that.info) : that.info != null) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = amount != null ? amount.hashCode() : 0;
+            result = 31 * result + (info != null ? info.hashCode() : 0);
+            return result;
+        }
+
+        public void assertPair(Coin amount, ByteString info) {
+            assertEquals(amount, this.amount);
+            assertEquals(info, this.info);
+        }
+    }
+
 }

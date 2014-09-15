@@ -33,14 +33,16 @@
   <description>A collection of useful tools that use the mediterraneancoinj library to perform wallet operations</description>
 
   <build>
+
       <plugins>
+
+          <!-- Create wallet-tool.jar -->
           <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-shade-plugin</artifactId>
-              <version>1.6</version>
               <configuration>
                   <!-- Remove dead classes -->
-                  <minimizeJar>false</minimizeJar>
+                  <minimizeJar>true</minimizeJar>
                   <filters>
                       <filter>
                           <!-- exclude signatures, the bundling process breaks them for some reason -->
@@ -57,6 +59,7 @@
                           <mainClass>com.google.bitcoin.tools.WalletTool</mainClass>
                       </transformer>
                   </transformers>
+                  <outputFile>target/wallet-tool.jar</outputFile>
               </configuration>
               <executions>
                   <execution>
@@ -67,6 +70,7 @@
                   </execution>
               </executions>
           </plugin>
+
       </plugins>
   </build>
 
@@ -84,7 +88,7 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-jdk14</artifactId>
-      <version>1.6.4</version>
+      <version>1.7.6</version>
     </dependency>
     <dependency>
       <groupId>com.h2database</groupId>

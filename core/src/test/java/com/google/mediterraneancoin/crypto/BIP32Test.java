@@ -1,5 +1,6 @@
 /**
  * Copyright 2013 Matija Mazi.
+ * Copyright 2014 Andreas Schildbach
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,26 +17,32 @@
 
 package com.google.mediterraneancoin.crypto;
 
+<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/crypto/BIP32Test.java
 import com.google.mediterraneancoin.core.AddressFormatException;
 import com.google.mediterraneancoin.core.Base58;
 import com.google.mediterraneancoin.crypto.ChildNumber;
 import com.google.mediterraneancoin.crypto.DeterministicHierarchy;
 import com.google.mediterraneancoin.crypto.DeterministicKey;
 import com.google.mediterraneancoin.crypto.HDKeyDerivation;
+=======
+import com.google.bitcoin.core.AddressFormatException;
+import com.google.bitcoin.core.Base58;
+>>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/crypto/BIP32Test.java
 import com.google.common.base.Functions;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
-import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spongycastle.util.encoders.Hex;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static com.google.bitcoin.core.Utils.HEX;
+import static org.junit.Assert.assertEquals;
+
 /**
- * A test with test vectors as per BIP 32 spec: https://en.bitcoin.it/wiki/BIP_0032#Test_Vectors
+ * A test with test vectors as per BIP 32 spec: https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#Test_Vectors
  */
 public class BIP32Test {
     private static final Logger log = LoggerFactory.getLogger(BIP32Test.class);
@@ -130,23 +137,23 @@ public class BIP32Test {
     private void testVector(int testCase) throws AddressFormatException {
         log.info("=======  Test vector {}", testCase);
         HDWTestVector tv = tvs[testCase];
-        DeterministicKey masterPrivateKey = HDKeyDerivation.createMasterPrivateKey(Hex.decode(tv.seed));
-        Assert.assertEquals(testEncode(tv.priv), testEncode(masterPrivateKey.serializePrivB58()));
-        Assert.assertEquals(testEncode(tv.pub), testEncode(masterPrivateKey.serializePubB58()));
+        DeterministicKey masterPrivateKey = HDKeyDerivation.createMasterPrivateKey(HEX.decode(tv.seed));
+        assertEquals(testEncode(tv.priv), testEncode(masterPrivateKey.serializePrivB58()));
+        assertEquals(testEncode(tv.pub), testEncode(masterPrivateKey.serializePubB58()));
         DeterministicHierarchy dh = new DeterministicHierarchy(masterPrivateKey);
         for (int i = 0; i < tv.derived.size(); i++) {
             HDWTestVector.DerivedTestCase tc = tv.derived.get(i);
             log.info("{}", tc.name);
-            Assert.assertEquals(tc.name, String.format("Test%d %s", testCase + 1, tc.getPathDescription()));
+            assertEquals(tc.name, String.format("Test%d %s", testCase + 1, tc.getPathDescription()));
             int depth = tc.path.length - 1;
             DeterministicKey ehkey = dh.deriveChild(Arrays.asList(tc.path).subList(0, depth), false, true, tc.path[depth]);
-            Assert.assertEquals(testEncode(tc.priv), testEncode(ehkey.serializePrivB58()));
-            Assert.assertEquals(testEncode(tc.pub), testEncode(ehkey.serializePubB58()));
+            assertEquals(testEncode(tc.priv), testEncode(ehkey.serializePrivB58()));
+            assertEquals(testEncode(tc.pub), testEncode(ehkey.serializePubB58()));
         }
     }
 
     private String testEncode(String what) throws AddressFormatException {
-        return new String(Hex.encode(Base58.decodeChecked(what)));
+        return HEX.encode(Base58.decodeChecked(what));
     }
 
     static class HDWTestVector {

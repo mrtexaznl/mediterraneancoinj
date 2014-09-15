@@ -2,7 +2,6 @@ package com.google.mediterraneancoin.wallet;
 
 import com.google.mediterraneancoin.core.TransactionOutput;
 
-import java.math.BigInteger;
 import java.util.Collection;
 
 /**
@@ -13,10 +12,10 @@ import java.util.Collection;
  * to their varying policies.
  */
 public class CoinSelection {
-    public BigInteger valueGathered;
+    public Coin valueGathered;
     public Collection<TransactionOutput> gathered;
 
-    public CoinSelection(BigInteger valueGathered, Collection<TransactionOutput> gathered) {
+    public CoinSelection(Coin valueGathered, Collection<TransactionOutput> gathered) {
         this.valueGathered = valueGathered;
         this.gathered = gathered;
     }

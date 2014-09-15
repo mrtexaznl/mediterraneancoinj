@@ -16,6 +16,7 @@
 
 package com.google.mediterraneancoin.core;
 
+<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/MemoryPoolTest.java
 import com.google.mediterraneancoin.core.ECKey;
 import com.google.mediterraneancoin.core.MemoryPool;
 import com.google.mediterraneancoin.core.NetworkParameters;
@@ -25,11 +26,17 @@ import com.google.mediterraneancoin.core.Utils;
 import com.google.mediterraneancoin.params.UnitTestParams;
 import com.google.mediterraneancoin.utils.BriefLogFormatter;
 import com.google.mediterraneancoin.utils.TestUtils;
+=======
+import com.google.bitcoin.params.UnitTestParams;
+import com.google.bitcoin.testing.FakeTxBuilder;
+import com.google.bitcoin.utils.BriefLogFormatter;
+>>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/MemoryPoolTest.java
 import org.junit.Before;
 import org.junit.Test;
 
 import java.net.InetAddress;
 
+import static com.google.bitcoin.core.Coin.COIN;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -41,7 +48,7 @@ public class MemoryPoolTest {
     @Before
     public void setup() throws Exception {
         BriefLogFormatter.init();
-        tx1 = TestUtils.createFakeTx(params, Utils.toNanoCoins(1, 0), new ECKey().toAddress(params));
+        tx1 = FakeTxBuilder.createFakeTx(params, COIN, new ECKey().toAddress(params));
         tx2 = new Transaction(params, tx1.bitcoinSerialize());
 
         address1 = new PeerAddress(InetAddress.getByAddress(new byte[] { 127, 0, 0, 1 }));

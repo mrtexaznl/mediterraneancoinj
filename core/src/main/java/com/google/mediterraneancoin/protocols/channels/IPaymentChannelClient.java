@@ -16,11 +16,18 @@
 
 package com.google.mediterraneancoin.protocols.channels;
 
+<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/protocols/channels/IPaymentChannelClient.java
 import com.google.mediterraneancoin.core.InsufficientMoneyException;
+=======
+import com.google.bitcoin.core.Coin;
+import com.google.bitcoin.core.InsufficientMoneyException;
+>>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/protocols/channels/IPaymentChannelClient.java
 import com.google.common.util.concurrent.ListenableFuture;
+
+import com.google.protobuf.ByteString;
 import org.bitcoin.paymentchannel.Protos;
 
-import java.math.BigInteger;
+import javax.annotation.Nullable;
 
 /**
  * A class implementing this interface supports the basic operations of a payment channel. An implementation is provided
@@ -74,13 +81,14 @@ public interface IPaymentChannelClient {
      * you wait for the previous increase payment future to complete before incrementing the payment again.
      *
      * @param size How many satoshis to increment the payment by (note: not the new total).
+     * @param info Information about this update, used to extend this protocol.
      * @throws ValueOutOfRangeException If the size is negative or would pay more than this channel's total value
      *                                  ({@link PaymentChannelClientConnection#state()}.getTotalValue())
      * @throws IllegalStateException If the channel has been closed or is not yet open
      *                               (see {@link PaymentChannelClientConnection#getChannelOpenFuture()} for the second)
      * @return a future that completes when the server acknowledges receipt and acceptance of the payment.
      */
-    ListenableFuture<BigInteger> incrementPayment(BigInteger size) throws ValueOutOfRangeException, IllegalStateException;
+    ListenableFuture<PaymentIncrementAck> incrementPayment(Coin size, @Nullable ByteString info) throws ValueOutOfRangeException, IllegalStateException;
 
     /**
      * Implements the connection between this client and the server, providing an interface which allows messages to be
@@ -116,9 +124,22 @@ public interface IPaymentChannelClient {
          */
         void destroyConnection(PaymentChannelCloseException.CloseReason reason);
 
+
+        /**
+         * <p>Queries if the expire time proposed by server is acceptable. If <code>false</code> is return the channel
+         * will be closed with a  {@link com.google.bitcoin.protocols.channels.PaymentChannelCloseException.CloseReason#TIME_WINDOW_UNACCEPTABLE}.</p>
+         * @param expireTime The time, in seconds,  when this channel will be closed by the server. Note this is in absolute time, i.e. seconds since 1970-01-01T00:00:00.
+         * @return <code>true</code> if the proposed time is acceptable <code>false</code> otherwise.
+         */
+        public boolean acceptExpireTime(long expireTime);
+
         /**
          * <p>Indicates the channel has been successfully opened and
+<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/protocols/channels/IPaymentChannelClient.java
          * {@link com.google.mediterraneancoin.protocols.channels.PaymentChannelClient#incrementPayment(java.math.BigInteger)}
+=======
+         * {@link com.google.bitcoin.protocols.channels.PaymentChannelClient#incrementPayment(Coin)}
+>>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/protocols/channels/IPaymentChannelClient.java
          * may be called at will.</p>
          *
          * <p>Called while holding a lock on the {@link com.google.mediterraneancoin.protocols.channels.PaymentChannelClient}

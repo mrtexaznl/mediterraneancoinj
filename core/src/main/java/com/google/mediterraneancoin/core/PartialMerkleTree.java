@@ -20,9 +20,7 @@ package com.google.mediterraneancoin.core;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * <p>A data structure that contains proofs of block inclusion for one or more transactions, in an efficient manner.</p>
@@ -52,18 +50,19 @@ import java.util.Set;
  */
 public class PartialMerkleTree extends Message {
     // the total number of transactions in the block
-    int transactionCount;
+    private int transactionCount;
 
     // node-is-parent-of-matched-txid bits
-    byte[] matchedChildBits;
+    private byte[] matchedChildBits;
 
     // txids and internal hashes
-    List<Sha256Hash> hashes;
+    private List<Sha256Hash> hashes;
     
     public PartialMerkleTree(NetworkParameters params, byte[] payloadBytes, int offset) throws ProtocolException {
         super(params, payloadBytes, offset);
     }
     
+    @Override
     public void bitcoinSerializeToStream(OutputStream stream) throws IOException {
         Utils.uint32ToByteStreamLE(transactionCount, stream);
 
@@ -176,5 +175,9 @@ public class PartialMerkleTree extends Message {
             throw new VerificationException("Got a CPartialMerkleTree that didn't need all the data it provided");
         
         return merkleRoot;
+    }
+
+    public int getTransactionCount() {
+        return transactionCount;
     }
 }

@@ -1,5 +1,6 @@
 /*
  * Copyright 2013 Google Inc.
+ * Copyright 2014 Andreas Schildbach
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +17,14 @@
 
 package com.google.mediterraneancoin.params;
 
+<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/params/TestNet3Params.java
 import com.google.mediterraneancoin.core.NetworkParameters;
 import com.google.mediterraneancoin.core.Utils;
 import org.spongycastle.util.encoders.Hex;
+=======
+import com.google.bitcoin.core.NetworkParameters;
+import com.google.bitcoin.core.Utils;
+>>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/params/TestNet3Params.java
 
 import static com.google.common.base.Preconditions.checkState;
 
@@ -35,8 +41,13 @@ public class TestNet3Params extends NetworkParameters {
         packetMagic = 0xfcc1b7dc;
         interval = INTERVAL;
         targetTimespan = TARGET_TIMESPAN;
+<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/params/TestNet3Params.java
         proofOfWorkLimit = Utils.decodeCompactBits(0x1d00ffffL);
         port = 19373;
+=======
+        maxTarget = Utils.decodeCompactBits(0x1d00ffffL);
+        port = 18333;
+>>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/params/TestNet3Params.java
         addressHeader = 111;
         p2shHeader = 196;
         acceptableAddressCodes = new int[] { addressHeader, p2shHeader };
@@ -47,11 +58,21 @@ public class TestNet3Params extends NetworkParameters {
         spendableCoinbaseDepth = 120;
         subsidyDecreaseBlockCount = 210000;
         String genesisHash = genesisBlock.getHashAsString();
+<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/params/TestNet3Params.java
         checkState(genesisHash.equals("d773931e52ee66afbd00c0a78297049f5ccfec68c272085fab1bc6d59881be46"));
         alertSigningKey = null; //Hex.decode("04302390343f91cc401d56d68b123028bf52e5fca1939df127f63c6467cdf9c8e2c14b61104cf817d0b780da337893ecc4aaff1309e536162dabbdb45200ca2b0a");
 
         dnsSeeds = new String[] {
                 "testnet-seed.mediterraneancoin.org"
+=======
+        checkState(genesisHash.equals("000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"));
+        alertSigningKey = Utils.HEX.decode("04302390343f91cc401d56d68b123028bf52e5fca1939df127f63c6467cdf9c8e2c14b61104cf817d0b780da337893ecc4aaff1309e536162dabbdb45200ca2b0a");
+
+        dnsSeeds = new String[] {
+                "testnet-seed.alexykot.me",           // Alex Kotenko
+                "testnet-seed.bitcoin.schildbach.de", // Andreas Schildbach
+                "testnet-seed.bitcoin.petertodd.org"  // Peter Todd
+>>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/params/TestNet3Params.java
         };
     }
 
@@ -63,6 +84,7 @@ public class TestNet3Params extends NetworkParameters {
         return instance;
     }
 
+    @Override
     public String getPaymentProtocolId() {
         return PAYMENT_PROTOCOL_ID_TESTNET;
     }

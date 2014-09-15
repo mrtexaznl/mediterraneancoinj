@@ -1,5 +1,6 @@
 /*
  * Copyright 2013 Google Inc.
+ * Copyright 2014 Andreas Schildbach
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,49 +17,69 @@
 
 package com.google.mediterraneancoin.kits;
 
+<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/kits/WalletAppKit.java
 import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.net.discovery.DnsDiscovery;
 import com.google.mediterraneancoin.store.BlockStoreException;
 import com.google.mediterraneancoin.store.SPVBlockStore;
 import com.google.mediterraneancoin.store.WalletProtobufSerializer;
+=======
+import com.google.bitcoin.core.*;
+import com.google.bitcoin.net.discovery.DnsDiscovery;
+import com.google.bitcoin.protocols.channels.StoredPaymentChannelClientStates;
+import com.google.bitcoin.protocols.channels.StoredPaymentChannelServerStates;
+import com.google.bitcoin.store.BlockStoreException;
+import com.google.bitcoin.store.SPVBlockStore;
+import com.google.bitcoin.store.WalletProtobufSerializer;
+import com.google.bitcoin.wallet.DeterministicSeed;
+import com.google.bitcoin.wallet.KeyChainGroup;
+import com.google.common.collect.ImmutableList;
+>>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/kits/WalletAppKit.java
 import com.google.common.util.concurrent.AbstractIdleService;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.MoreExecutors;
+import com.google.common.util.concurrent.Service;
+import com.subgraph.orchid.TorClient;
+import org.bitcoinj.wallet.Protos;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.annotation.Nullable;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.channels.FileLock;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
 /**
  * <p>Utility class that wraps the boilerplate needed to set up a new SPV bitcoinj app. Instantiate it with a directory
- * and file prefix, optionally configure a few things, then use start or startAndWait. The object will construct and
- * configure a {@link BlockChain}, {@link SPVBlockStore}, {@link Wallet} and {@link PeerGroup}. Depending on the value
- * of the blockingStartup property, startup will be considered complete once the block chain has fully synchronized,
- * so it can take a while.</p>
+ * and file prefix, optionally configure a few things, then use startAsync and optionally awaitRunning. The object will
+ * construct and configure a {@link BlockChain}, {@link SPVBlockStore}, {@link Wallet} and {@link PeerGroup}. Depending
+ * on the value of the blockingStartup property, startup will be considered complete once the block chain has fully
+ * synchronized, so it can take a while.</p>
  *
  * <p>To add listeners and modify the objects that are constructed, you can either do that by overriding the
  * {@link #onSetupCompleted()} method (which will run on a background thread) and make your changes there,
  * or by waiting for the service to start and then accessing the objects from wherever you want. However, you cannot
  * access the objects this class creates until startup is complete.</p>
  *
- * <p>The asynchronous design of this class may seem puzzling (just use {@link #startAndWait()} if you don't want that).
+ * <p>The asynchronous design of this class may seem puzzling (just use {@link #awaitRunning()} if you don't want that).
  * It is to make it easier to fit bitcoinj into GUI apps, which require a high degree of responsiveness on their main
  * thread which handles all the animation and user interaction. Even when blockingStart is false, initializing bitcoinj
  * means doing potentially blocking file IO, generating keys and other potentially intensive operations. By running it
  * on a background thread, there's no risk of accidentally causing UI lag.</p>
  *
- * <p>Note that {@link #startAndWait()} can throw an unchecked {@link com.google.common.util.concurrent.UncheckedExecutionException}
+ * <p>Note that {@link #awaitRunning()} can throw an unchecked {@link java.lang.IllegalStateException}
  * if anything goes wrong during startup - you should probably handle it and use {@link Exception#getCause()} to figure
- * out what went wrong more precisely. Same thing if you use the async start() method.</p>
+ * out what went wrong more precisely. Same thing if you just use the {@link #startAsync()} method.</p>
  */
 public class WalletAppKit extends AbstractIdleService {
+    protected static final Logger log = LoggerFactory.getLogger(WalletAppKit.class);
+
     protected final String filePrefix;
     protected final NetworkParameters params;
     protected volatile BlockChain vChain;
@@ -75,7 +96,10 @@ public class WalletAppKit extends AbstractIdleService {
     protected boolean autoStop = true;
     protected InputStream checkpoints;
     protected boolean blockingStartup = true;
+    protected boolean useTor = false;   // Perhaps in future we can change this to true.
     protected String userAgent, version;
+    protected WalletProtobufSerializer.WalletFactory walletFactory;
+    @Nullable protected DeterministicSeed restoreFromSeed;
 
     public WalletAppKit(NetworkParameters params, File directory, String filePrefix) {
         this.params = checkNotNull(params);
@@ -155,12 +179,36 @@ public class WalletAppKit extends AbstractIdleService {
     }
 
     /**
-     * <p>Override this to load all wallet extensions if any are necessary.</p>
+     * If called, then an embedded Tor client library will be used to connect to the P2P network. The user does not need
+     * any additional software for this: it's all pure Java. As of April 2014 <b>this mode is experimental</b>.
+     */
+    public WalletAppKit useTor() {
+        this.useTor = true;
+        return this;
+    }
+
+    /**
+     * If a seed is set here then any existing wallet that matches the file name will be renamed to a backup name,
+     * the chain file will be deleted, and the wallet object will be instantiated with the given seed instead of
+     * a fresh one being created. This is intended for restoring a wallet from the original seed. To implement restore
+     * you would shut down the existing appkit, if any, then recreate it with the seed given by the user, then start
+     * up the new kit. The next time your app starts it should work as normal (that is, don't keep calling this each
+     * time).
+     */
+    public WalletAppKit restoreWalletFromSeed(DeterministicSeed seed) {
+        this.restoreFromSeed = seed;
+        return this;
+    }
+
+    /**
+     * <p>Override this to return wallet extensions if any are necessary.</p>
      *
      * <p>When this is called, chain(), store(), and peerGroup() will return the created objects, however they are not
-     * initialized/started</p>
+     * initialized/started.</p>
      */
-    protected void addWalletExtensions() throws Exception { }
+    protected List<WalletExtension> provideWalletExtensions() throws Exception {
+        return ImmutableList.of();
+    }
 
     /**
      * This method is invoked on a background thread after all objects are initialised, but before the peer group
@@ -168,33 +216,61 @@ public class WalletAppKit extends AbstractIdleService {
      */
     protected void onSetupCompleted() { }
 
+    /**
+     * Tests to see if the spvchain file has an operating system file lock on it. Useful for checking if your app
+     * is already running. If another copy of your app is running and you start the appkit anyway, an exception will
+     * be thrown during the startup process. Returns false if the chain file does not exist.
+     */
+    public boolean isChainFileLocked() throws IOException {
+        RandomAccessFile file2 = null;
+        try {
+            File file = new File(directory, filePrefix + ".spvchain");
+            if (!file.exists())
+                return false;
+            file2 = new RandomAccessFile(file, "rw");
+            FileLock lock = file2.getChannel().tryLock();
+            if (lock == null)
+                return true;
+            lock.release();
+            return false;
+        } finally {
+            if (file2 != null)
+                file2.close();
+        }
+    }
+
     @Override
     protected void startUp() throws Exception {
         // Runs in a separate thread.
         if (!directory.exists()) {
-            if (!directory.mkdir()) {
-                throw new IOException("Could not create named directory.");
+            if (!directory.mkdirs()) {
+                throw new IOException("Could not create directory " + directory.getAbsolutePath());
             }
         }
-        FileInputStream walletStream = null;
+        log.info("Starting up with directory = {}", directory);
         try {
             File chainFile = new File(directory, filePrefix + ".spvchain");
             boolean chainFileExists = chainFile.exists();
             vWalletFile = new File(directory, filePrefix + ".wallet");
-            boolean shouldReplayWallet = vWalletFile.exists() && !chainFileExists;
+            boolean shouldReplayWallet = (vWalletFile.exists() && !chainFileExists) || restoreFromSeed != null;
+            vWallet = createOrLoadWallet(shouldReplayWallet);
 
+            // Initiate Bitcoin network objects (block store, blockchain and peer group)
             vStore = new SPVBlockStore(params, chainFile);
-            if (!chainFileExists && checkpoints != null) {
-                // Ugly hack! We have to create the wallet once here to learn the earliest key time, and then throw it
-                // away. The reason is that wallet extensions might need access to peergroups/chains/etc so we have to
-                // create the wallet later, but we need to know the time early here before we create the BlockChain
-                // object.
-                long time = Long.MAX_VALUE;
-                if (vWalletFile.exists()) {
-                    Wallet wallet = new Wallet(params);
-                    FileInputStream stream = new FileInputStream(vWalletFile);
-                    new WalletProtobufSerializer().readWallet(WalletProtobufSerializer.parseToProto(stream), wallet);
-                    time = wallet.getEarliestKeyCreationTime();
+            if ((!chainFileExists || restoreFromSeed != null) && checkpoints != null) {
+                // Initialize the chain file with a checkpoint to speed up first-run sync.
+                long time;
+                if (restoreFromSeed != null) {
+                    time = restoreFromSeed.getCreationTimeSeconds();
+                    if (chainFileExists) {
+                        log.info("Deleting the chain file in preparation from restore.");
+                        vStore.close();
+                        if (!chainFile.delete())
+                            throw new Exception("Failed to delete chain file in preparation for restore.");
+                        vStore = new SPVBlockStore(params, chainFile);
+                    }
+                } else {
+                    time = vWallet.getEarliestKeyCreationTime();
                 }
                 CheckpointManager.checkpoint(params, checkpoints, vStore, time);
             }
@@ -202,23 +278,12 @@ public class WalletAppKit extends AbstractIdleService {
             vPeerGroup = createPeerGroup();
             if (this.userAgent != null)
                 vPeerGroup.setUserAgent(userAgent, version);
-            if (vWalletFile.exists()) {
-                walletStream = new FileInputStream(vWalletFile);
-                vWallet = new Wallet(params);
-                addWalletExtensions(); // All extensions must be present before we deserialize
-                new WalletProtobufSerializer().readWallet(WalletProtobufSerializer.parseToProto(walletStream), vWallet);
-                if (shouldReplayWallet)
-                    vWallet.clearTransactions(0);
-            } else {
-                vWallet = new Wallet(params);
-                vWallet.addKey(new ECKey());
-                addWalletExtensions();
-            }
-            if (useAutoSave) vWallet.autosaveToFile(vWalletFile, 1, TimeUnit.SECONDS, null);
+
             // Set up peer addresses or discovery first, so if wallet extensions try to broadcast a transaction
             // before we're actually connected the broadcast waits for an appropriate number of connections.
             if (peerAddresses != null) {
                 for (PeerAddress addr : peerAddresses) vPeerGroup.addAddress(addr);
+                vPeerGroup.setMaxConnections(peerAddresses.length);
                 peerAddresses = null;
             } else {
                 vPeerGroup.addPeerDiscovery(new DnsDiscovery(params));
@@ -228,43 +293,143 @@ public class WalletAppKit extends AbstractIdleService {
             onSetupCompleted();
 
             if (blockingStartup) {
-                vPeerGroup.startAndWait();
+                vPeerGroup.startAsync();
+                vPeerGroup.awaitRunning();
                 // Make sure we shut down cleanly.
                 installShutdownHook();
+                completeExtensionInitiations(vPeerGroup);
+
                 // TODO: Be able to use the provided download listener when doing a blocking startup.
                 final DownloadListener listener = new DownloadListener();
                 vPeerGroup.startBlockChainDownload(listener);
                 listener.await();
             } else {
-                Futures.addCallback(vPeerGroup.start(), new FutureCallback<State>() {
+                vPeerGroup.startAsync();
+                vPeerGroup.addListener(new Service.Listener() {
                     @Override
-                    public void onSuccess(State result) {
+                    public void running() {
+                        completeExtensionInitiations(vPeerGroup);
                         final PeerEventListener l = downloadListener == null ? new DownloadListener() : downloadListener;
                         vPeerGroup.startBlockChainDownload(l);
                     }
 
                     @Override
-                    public void onFailure(Throwable t) {
-                        throw new RuntimeException(t);
+                    public void failed(State from, Throwable failure) {
+                        throw new RuntimeException(failure);
                     }
-                });
+                }, MoreExecutors.sameThreadExecutor());
             }
         } catch (BlockStoreException e) {
             throw new IOException(e);
-        } finally {
-            if (walletStream != null) walletStream.close();
         }
     }
 
-    protected PeerGroup createPeerGroup() {
-        return new PeerGroup(params, vChain);
+    private Wallet createOrLoadWallet(boolean shouldReplayWallet) throws Exception {
+        Wallet wallet;
+
+        maybeMoveOldWalletOutOfTheWay();
+
+        if (vWalletFile.exists()) {
+            wallet = loadWallet(shouldReplayWallet);
+        } else {
+            wallet = createWallet();
+            wallet.freshReceiveKey();
+            for (WalletExtension e : provideWalletExtensions()) {
+                wallet.addExtension(e);
+            }
+            wallet.saveToFile(vWalletFile);
+        }
+
+        if (useAutoSave) wallet.autosaveToFile(vWalletFile, 200, TimeUnit.MILLISECONDS, null);
+
+        return wallet;
+    }
+
+    private Wallet loadWallet(boolean shouldReplayWallet) throws Exception {
+        Wallet wallet;
+        FileInputStream walletStream = new FileInputStream(vWalletFile);
+        try {
+            List<WalletExtension> extensions = provideWalletExtensions();
+            wallet = new Wallet(params);
+            WalletExtension[] extArray = extensions.toArray(new WalletExtension[extensions.size()]);
+            Protos.Wallet proto = WalletProtobufSerializer.parseToProto(walletStream);
+            final WalletProtobufSerializer serializer;
+            if (walletFactory != null)
+                serializer = new WalletProtobufSerializer(walletFactory);
+            else
+                serializer = new WalletProtobufSerializer();
+            wallet = serializer.readWallet(params, extArray, proto);
+            if (shouldReplayWallet)
+                wallet.clearTransactions(0);
+        } finally {
+            walletStream.close();
+        }
+        return wallet;
+    }
+
+    protected Wallet createWallet() {
+        KeyChainGroup kcg;
+        if (restoreFromSeed != null)
+            kcg = new KeyChainGroup(params, restoreFromSeed);
+        else
+            kcg = new KeyChainGroup(params);
+        if (walletFactory != null) {
+            return walletFactory.create(params, kcg);
+        } else {
+            return new Wallet(params, kcg);  // default
+        }
+    }
+
+    private void maybeMoveOldWalletOutOfTheWay() {
+        if (restoreFromSeed == null) return;
+        if (!vWalletFile.exists()) return;
+        int counter = 1;
+        File newName;
+        do {
+            newName = new File(vWalletFile.getParent(), "Backup " + counter + " for " + vWalletFile.getName());
+            counter++;
+        } while (newName.exists());
+        log.info("Renaming old wallet file {} to {}", vWalletFile, newName);
+        if (!vWalletFile.renameTo(newName)) {
+            // This should not happen unless something is really messed up.
+            throw new RuntimeException("Failed to rename wallet for restore");
+        }
+    }
+
+    /*
+     * As soon as the transaction broadcaster han been created we will pass it to the
+     * payment channel extensions
+     */
+    private void completeExtensionInitiations(TransactionBroadcaster transactionBroadcaster) {
+        StoredPaymentChannelClientStates clientStoredChannels = (StoredPaymentChannelClientStates)
+                vWallet.getExtensions().get(StoredPaymentChannelClientStates.class.getName());
+        if(clientStoredChannels != null) {
+            clientStoredChannels.setTransactionBroadcaster(transactionBroadcaster);
+        }
+        StoredPaymentChannelServerStates serverStoredChannels = (StoredPaymentChannelServerStates)
+                vWallet.getExtensions().get(StoredPaymentChannelServerStates.class.getName());
+        if(serverStoredChannels != null) {
+            serverStoredChannels.setTransactionBroadcaster(transactionBroadcaster);
+        }
+    }
+
+
+    protected PeerGroup createPeerGroup() throws TimeoutException {
+        if (useTor) {
+            TorClient torClient = new TorClient();
+            torClient.getConfig().setDataDirectory(directory);
+            return PeerGroup.newWithTor(params, vChain, torClient);
+        }
+        else
+            return new PeerGroup(params, vChain);
     }
 
     private void installShutdownHook() {
         if (autoStop) Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override public void run() {
                 try {
-                    WalletAppKit.this.stopAndWait();
+                    WalletAppKit.this.stopAsync();
+                    WalletAppKit.this.awaitTerminated();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -276,7 +441,8 @@ public class WalletAppKit extends AbstractIdleService {
     protected void shutDown() throws Exception {
         // Runs in a separate thread.
         try {
-            vPeerGroup.stopAndWait();
+            vPeerGroup.stopAsync();
+            vPeerGroup.awaitTerminated();
             vWallet.saveToFile(vWalletFile);
             vStore.close();
 

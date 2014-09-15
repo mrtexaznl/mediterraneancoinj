@@ -30,7 +30,11 @@ public class MainNetParams extends NetworkParameters {
         super();
         interval = INTERVAL;
         targetTimespan = TARGET_TIMESPAN;
+<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/params/MainNetParams.java
         proofOfWorkLimit = Utils.decodeCompactBits(0x1f00ffffL); // increase it?  ~uint256(0) >> 23
+=======
+        maxTarget = Utils.decodeCompactBits(0x1d00ffffL);
+>>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/params/MainNetParams.java
         dumpedPrivateKeyHeader = 128;
         addressHeader = 51;
         p2shHeader = 5;
@@ -66,8 +70,16 @@ public class MainNetParams extends NetworkParameters {
         */
 
         dnsSeeds = new String[] {
+<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/params/MainNetParams.java
                 "dnsseed.mediterraneancoin.org"        // 
    
+=======
+                "seed.bitcoin.sipa.be",        // Pieter Wuille
+                "dnsseed.bluematt.me",         // Matt Corallo
+                "dnsseed.bitcoin.dashjr.org",  // Luke Dashjr
+                "seed.bitcoinstats.com",       // Chris Decker
+                "seed.bitnodes.io",            // Addy Yeow
+>>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/params/MainNetParams.java
         };
     }
 
@@ -79,6 +91,7 @@ public class MainNetParams extends NetworkParameters {
         return instance;
     }
 
+    @Override
     public String getPaymentProtocolId() {
         return PAYMENT_PROTOCOL_ID_MAINNET;
     }

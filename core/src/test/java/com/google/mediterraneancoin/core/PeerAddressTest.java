@@ -1,5 +1,6 @@
 /*
  * Copyright 2011 Google Inc.
+ * Copyright 2014 Andreas Schildbach
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +21,10 @@ import com.google.mediterraneancoin.core.PeerAddress;
 import com.google.mediterraneancoin.core.Utils;
 import com.google.mediterraneancoin.params.MainNetParams;
 import org.junit.Test;
-import org.spongycastle.util.encoders.Hex;
 
 import java.net.InetAddress;
 
+import static com.google.bitcoin.core.Utils.HEX;
 import static org.junit.Assert.assertEquals;
 
 public class PeerAddressTest
@@ -33,8 +34,8 @@ public class PeerAddressTest
         // copied verbatim from https://en.bitcoin.it/wiki/Protocol_specification#Network_address
         String fromSpec = "010000000000000000000000000000000000ffff0a000001208d";
         PeerAddress pa = new PeerAddress(MainNetParams.get(),
-                Hex.decode(fromSpec), 0, 0);
-        String reserialized = Utils.bytesToHexString(pa.bitcoinSerialize());
+                HEX.decode(fromSpec), 0, 0);
+        String reserialized = Utils.HEX.encode(pa.bitcoinSerialize());
         assertEquals(reserialized,fromSpec );
     }
 
@@ -42,6 +43,6 @@ public class PeerAddressTest
     public void testBitcoinSerialize() throws Exception {
         PeerAddress pa = new PeerAddress(InetAddress.getByName(null), 8333, 0);
         assertEquals("000000000000000000000000000000000000ffff7f000001208d",
-                Utils.bytesToHexString(pa.bitcoinSerialize()));
+                Utils.HEX.encode(pa.bitcoinSerialize()));
     }
 }

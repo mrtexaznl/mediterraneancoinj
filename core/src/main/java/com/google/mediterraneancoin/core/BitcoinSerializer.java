@@ -1,5 +1,6 @@
 /**
  * Copyright 2011 Google Inc.
+ * Copyright 2014 Andreas Schildbach
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +16,6 @@
  */
 
 package com.google.mediterraneancoin.core;
-
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,6 +70,9 @@ public class BitcoinSerializer {
         names.put(FilteredBlock.class, "merkleblock");
         names.put(NotFoundMessage.class, "notfound");
         names.put(MemoryPoolMessage.class, "mempool");
+        names.put(RejectMessage.class, "reject");
+        names.put(GetUTXOsMessage.class, "getutxos");
+        names.put(UTXOsMessage.class, "utxos");
     }
 
     /**
@@ -115,7 +118,7 @@ public class BitcoinSerializer {
         out.write(message);
 
         if (log.isDebugEnabled())
-            log.debug("Sending {} message: {}", name, bytesToHexString(header) + bytesToHexString(message));
+            log.debug("Sending {} message: {}", name, HEX.encode(header) + HEX.encode(message));
     }
 
     /**
@@ -175,19 +178,19 @@ public class BitcoinSerializer {
         if (header.checksum[0] != hash[0] || header.checksum[1] != hash[1] ||
                 header.checksum[2] != hash[2] || header.checksum[3] != hash[3]) {
             throw new ProtocolException("Checksum failed to verify, actual " +
-                    bytesToHexString(hash) +
-                    " vs " + bytesToHexString(header.checksum));
+                    HEX.encode(hash) +
+                    " vs " + HEX.encode(header.checksum));
         }
 
         if (log.isDebugEnabled()) {
             log.debug("Received {} byte '{}' message: {}", header.size, header.command,
-                    Utils.bytesToHexString(payloadBytes));
+                    HEX.encode(payloadBytes));
         }
 
         try {
             return makeMessage(header.command, header.size, payloadBytes, hash, header.checksum);
         } catch (Exception e) {
-            throw new ProtocolException("Error deserializing message " + Utils.bytesToHexString(payloadBytes) + "\n", e);
+            throw new ProtocolException("Error deserializing message " + HEX.encode(payloadBytes) + "\n", e);
         }
     }
 
@@ -231,6 +234,12 @@ public class BitcoinSerializer {
             return new NotFoundMessage(params, payloadBytes);
         } else if (command.equals("mempool")) {
             return new MemoryPoolMessage();
+        } else if (command.equals("reject")) {
+            return new RejectMessage(params, payloadBytes);
+        } else if (command.equals("utxos")) {
+            return new UTXOsMessage(params, payloadBytes);
+        } else if (command.equals("getutxos")) {
+            return new GetUTXOsMessage(params, payloadBytes);
         } else {
             log.warn("No support for deserializing message with name {}", command);
             return new UnknownMessage(params, command, payloadBytes);
@@ -293,16 +302,15 @@ public class BitcoinSerializer {
 
             // The command is a NULL terminated string, unless the command fills all twelve bytes
             // in which case the termination is implicit.
-            int mark = cursor;
-            for (; header[cursor] != 0 && cursor - mark < COMMAND_LEN; cursor++) ;
-            byte[] commandBytes = new byte[cursor - mark];
-            System.arraycopy(header, mark, commandBytes, 0, cursor - mark);
+            for (; header[cursor] != 0 && cursor < COMMAND_LEN; cursor++) ;
+            byte[] commandBytes = new byte[cursor];
+            System.arraycopy(header, 0, commandBytes, 0, cursor);
             try {
                 command = new String(commandBytes, "US-ASCII");
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e);  // Cannot happen.
             }
-            cursor = mark + COMMAND_LEN;
+            cursor = COMMAND_LEN;
 
             size = (int) readUint32(header, cursor);
             cursor += 4;

@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.jni;
+package com.google.mediterraneancoin.jni;
 
+import com.google.mediterraneancoin.core.Coin;
 import com.google.mediterraneancoin.core.ECKey;
 import com.google.mediterraneancoin.core.Transaction;
 import com.google.mediterraneancoin.core.Wallet;
 import com.google.mediterraneancoin.core.WalletEventListener;
 import com.google.mediterraneancoin.script.Script;
 
-import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -34,10 +34,10 @@ public class NativeWalletEventListener implements WalletEventListener {
     public long ptr;
 
     @Override
-    public native void onCoinsReceived(Wallet wallet, Transaction tx, BigInteger prevBalance, BigInteger newBalance);
+    public native void onCoinsReceived(Wallet wallet, Transaction tx, Coin prevBalance, Coin newBalance);
 
     @Override
-    public native void onCoinsSent(Wallet wallet, Transaction tx, BigInteger prevBalance, BigInteger newBalance);
+    public native void onCoinsSent(Wallet wallet, Transaction tx, Coin prevBalance, Coin newBalance);
 
     @Override
     public native void onReorganize(Wallet wallet);
@@ -49,7 +49,7 @@ public class NativeWalletEventListener implements WalletEventListener {
     public native void onWalletChanged(Wallet wallet);
 
     @Override
-    public native void onKeysAdded(Wallet wallet, List<ECKey> keys);
+    public native void onKeysAdded(List<ECKey> keys);
 
     @Override
     public native void onScriptsAdded(Wallet wallet, List<Script> scripts);

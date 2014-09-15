@@ -1,5 +1,6 @@
 /*
  * Copyright 2012 Google Inc.
+ * Copyright 2014 Andreas Schildbach
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +40,8 @@ public class FetchTransactions {
         BlockStore blockStore = new MemoryBlockStore(params);
         BlockChain chain = new BlockChain(params, blockStore);
         PeerGroup peerGroup = new PeerGroup(params, chain);
-        peerGroup.startAndWait();
+        peerGroup.startAsync();
+        peerGroup.awaitRunning();
         peerGroup.addAddress(new PeerAddress(InetAddress.getLocalHost(), params.getPort()));
         
         peerGroup.addAddress( new PeerAddress( InetAddress.getByName("node4.mediterraneancoin.org") ));
@@ -60,6 +62,7 @@ public class FetchTransactions {
         }
 
         System.out.println("Done.");
-        peerGroup.stopAndWait();
+        peerGroup.stopAsync();
+        peerGroup.awaitTerminated();
     }
 }

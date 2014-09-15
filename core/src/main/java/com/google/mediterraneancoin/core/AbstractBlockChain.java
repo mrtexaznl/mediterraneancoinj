@@ -1,5 +1,6 @@
 /*
  * Copyright 2012 Google Inc.
+ * Copyright 2014 Andreas Schildbach
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -158,9 +159,23 @@ public abstract class AbstractBlockChain {
      */
     public void addWallet(Wallet wallet) {
         addListener(wallet, Threading.SAME_THREAD);
-        if (wallet.getLastBlockSeenHeight() != getBestChainHeight()) {
-            log.warn("Wallet/chain height mismatch: {} vs {}", wallet.getLastBlockSeenHeight(), getBestChainHeight());
+        int walletHeight = wallet.getLastBlockSeenHeight();
+        int chainHeight = getBestChainHeight();
+        if (walletHeight != chainHeight) {
+            log.warn("Wallet/chain height mismatch: {} vs {}", walletHeight, chainHeight);
             log.warn("Hashes: {} vs {}", wallet.getLastBlockSeenHash(), getChainHead().getHeader().getHash());
+
+            // This special case happens when the VM crashes because of a transaction received. It causes the updated
+            // block store to persist, but not the wallet. In order to fix the issue, we roll back the block store to
+            // the wallet height to make it look like as if the block has never been received.
+            if (walletHeight < chainHeight && walletHeight > 0) {
+                try {
+                    rollbackBlockStore(walletHeight);
+                    log.info("Rolled back block store to height {}.", walletHeight);
+                } catch (BlockStoreException x) {
+                    log.warn("Rollback of block store failed, continuing with mismatched heights. This can happen due to a replay.");
+                }
+            }
         }
     }
 
@@ -173,7 +188,7 @@ public abstract class AbstractBlockChain {
      * Adds a generic {@link BlockChainListener} listener to the chain.
      */
     public void addListener(BlockChainListener listener) {
-        addListener(listener, Threading.SAME_THREAD);
+        addListener(listener, Threading.USER_THREAD);
     }
 
     /**
@@ -219,7 +234,15 @@ public abstract class AbstractBlockChain {
     protected abstract StoredBlock addToBlockStore(StoredBlock storedPrev, Block header,
                                                    @Nullable TransactionOutputChanges txOutputChanges)
             throws BlockStoreException, VerificationException;
-    
+
+    /**
+     * Rollback the block store to a given height. This is currently only supported by {@link BlockChain} instances.
+     * 
+     * @throws BlockStoreException
+     *             if the operation fails or is unsupported.
+     */
+    protected abstract void rollbackBlockStore(int height) throws BlockStoreException;
+
     /**
      * Called before setting chain head in memory.
      * Should write the new head to block store and then commit any database transactions
@@ -498,8 +521,8 @@ public abstract class AbstractBlockChain {
         // (in the case of the listener being a wallet). Wallets need to know how deep each transaction is so
         // coinbases aren't used before maturity.
         boolean first = true;
-        Set<Transaction> falsePositives = Sets.newHashSet();
-        if (filteredTxn != null) falsePositives.addAll(filteredTxn.values());
+        Set<Sha256Hash> falsePositives = Sets.newHashSet();
+        if (filteredTxHashList != null) falsePositives.addAll(filteredTxHashList);
         for (final ListenerRegistration<BlockChainListener> registration : listeners) {
             if (registration.executor == Threading.SAME_THREAD) {
                 informListenerForNewTransactions(block, newBlockType, filteredTxHashList, filteredTxn,
@@ -514,7 +537,7 @@ public abstract class AbstractBlockChain {
                     public void run() {
                         try {
                             // We can't do false-positive handling when executing on another thread
-                            Set<Transaction> ignoredFalsePositives = Sets.newHashSet();
+                            Set<Sha256Hash> ignoredFalsePositives = Sets.newHashSet();
                             informListenerForNewTransactions(block, newBlockType, filteredTxHashList, filteredTxn,
                                     newStoredBlock, notFirst, registration.listener, ignoredFalsePositives);
                             if (newBlockType == NewBlockType.BEST_CHAIN)
@@ -539,7 +562,7 @@ public abstract class AbstractBlockChain {
                                                          @Nullable Map<Sha256Hash, Transaction> filteredTxn,
                                                          StoredBlock newStoredBlock, boolean first,
                                                          BlockChainListener listener,
-                                                         Set<Transaction> falsePositives) throws VerificationException {
+                                                         Set<Sha256Hash> falsePositives) throws VerificationException {
         if (block.transactions != null) {
             // If this is not the first wallet, ask for the transactions to be duplicated before being given
             // to the wallet when relevant. This ensures that if we have two connected wallets and a tx that
@@ -556,11 +579,14 @@ public abstract class AbstractBlockChain {
             int relativityOffset = 0;
             for (Sha256Hash hash : filteredTxHashList) {
                 Transaction tx = filteredTxn.get(hash);
-                if (tx != null)
+                if (tx != null) {
                     sendTransactionsToListener(newStoredBlock, newBlockType, listener, relativityOffset,
                             Arrays.asList(tx), !first, falsePositives);
-                else
-                    listener.notifyTransactionIsInBlock(hash, newStoredBlock, newBlockType, relativityOffset);
+                } else {
+                    if (listener.notifyTransactionIsInBlock(hash, newStoredBlock, newBlockType, relativityOffset)) {
+                        falsePositives.remove(hash);
+                    }
+                }
                 relativityOffset++;
             }
         }
@@ -726,11 +752,11 @@ public abstract class AbstractBlockChain {
                                                    int relativityOffset,
                                                    List<Transaction> transactions,
                                                    boolean clone,
-                                                   Set<Transaction> falsePositives) throws VerificationException {
+                                                   Set<Sha256Hash> falsePositives) throws VerificationException {
         for (Transaction tx : transactions) {
             try {
                 if (listener.isTransactionRelevant(tx)) {
-                    falsePositives.remove(tx);
+                    falsePositives.remove(tx.getHash());
                     if (clone)
                         tx = new Transaction(tx.params, tx.bitcoinSerialize());
                     listener.receiveFromBlock(tx, block, blockType, relativityOffset++);
@@ -857,25 +883,26 @@ public abstract class AbstractBlockChain {
         if (timespan > targetTimespan * 4)
             timespan = targetTimespan * 4;
 
-        BigInteger newDifficulty = Utils.decodeCompactBits(prev.getDifficultyTarget());
-        newDifficulty = newDifficulty.multiply(BigInteger.valueOf(timespan));
-        newDifficulty = newDifficulty.divide(BigInteger.valueOf(targetTimespan));
+        BigInteger newTarget = Utils.decodeCompactBits(prev.getDifficultyTarget());
+        newTarget = newTarget.multiply(BigInteger.valueOf(timespan));
+        newTarget = newTarget.divide(BigInteger.valueOf(targetTimespan));
 
-        if (newDifficulty.compareTo(params.getProofOfWorkLimit()) > 0) {
-            log.info("Difficulty hit proof of work limit: {}", newDifficulty.toString(16));
-            newDifficulty = params.getProofOfWorkLimit();
+        if (newTarget.compareTo(params.getMaxTarget()) > 0) {
+            log.info("Difficulty hit proof of work limit: {}", newTarget.toString(16));
+            newTarget = params.getMaxTarget();
         }
 
         int accuracyBytes = (int) (nextBlock.getDifficultyTarget() >>> 24) - 3;
-        BigInteger receivedDifficulty = nextBlock.getDifficultyTargetAsInteger();
+        long receivedTargetCompact = nextBlock.getDifficultyTarget();
 
         // The calculated difficulty is to a higher precision than received, so reduce here.
         BigInteger mask = BigInteger.valueOf(0xFFFFFFL).shiftLeft(accuracyBytes * 8);
-        newDifficulty = newDifficulty.and(mask);
+        newTarget = newTarget.and(mask);
+        long newTargetCompact = Utils.encodeCompactBits(newTarget);
 
-        if (newDifficulty.compareTo(receivedDifficulty) != 0)
+        if (newTargetCompact != receivedTargetCompact)
             throw new VerificationException("Network provided difficulty bits do not match what was calculated: " +
-                    receivedDifficulty.toString(16) + " vs " + newDifficulty.toString(16));
+                    newTargetCompact + " vs " + receivedTargetCompact);
     }
 
     private void checkTestnetDifficulty(StoredBlock storedPrev, Block prev, Block next) throws VerificationException, BlockStoreException {
@@ -892,11 +919,11 @@ public abstract class AbstractBlockChain {
             StoredBlock cursor = storedPrev;
             while (!cursor.getHeader().equals(params.getGenesisBlock()) &&
                    cursor.getHeight() % params.getInterval() != 0 &&
-                   cursor.getHeader().getDifficultyTargetAsInteger().equals(params.getProofOfWorkLimit()))
+                   cursor.getHeader().getDifficultyTargetAsInteger().equals(params.getMaxTarget()))
                 cursor = cursor.getPrev(blockStore);
-            BigInteger cursorDifficulty = cursor.getHeader().getDifficultyTargetAsInteger();
-            BigInteger newDifficulty = next.getDifficultyTargetAsInteger();
-            if (!cursorDifficulty.equals(newDifficulty))
+            BigInteger cursorTarget = cursor.getHeader().getDifficultyTargetAsInteger();
+            BigInteger newTarget = next.getDifficultyTargetAsInteger();
+            if (!cursorTarget.equals(newTarget))
                 throw new VerificationException("Testnet block transition that is not allowed: " +
                     Long.toHexString(cursor.getHeader().getDifficultyTarget()) + " vs " +
                     Long.toHexString(next.getDifficultyTarget()));

@@ -1,5 +1,6 @@
 /*
  * Copyright 2012 Matt Corallo.
+ * Copyright 2014 Andreas Schildbach
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,6 +49,7 @@ import java.io.File;
 import java.net.InetAddress;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
 
 /**
  * A tool for comparing the blocks which are accepted/rejected by bitcoind/bitcoinj
@@ -137,6 +139,8 @@ public class BitcoindComparisonTool {
             }
         }, Threading.SAME_THREAD);
         peers.addPeerFilterProvider(new PeerFilterProvider() {
+            private final Lock lock = Threading.lock("pfp");
+
             @Override public long getEarliestKeyCreationTime() {
                 return Long.MAX_VALUE;
             }
@@ -150,6 +154,11 @@ public class BitcoindComparisonTool {
                 return false;
             }
 
+            @Override
+            public Lock getLock() {
+                return lock;
+            }
+
             @Override public BloomFilter getBloomFilter(int size, double falsePositiveRate, long nTweak) {
                 BloomFilter filter = new BloomFilter(1, 0.99, 0);
                 filter.setMatchAll();
@@ -160,7 +169,7 @@ public class BitcoindComparisonTool {
         bitcoindChainHead = params.getGenesisBlock().getHash();
         
         // Connect to bitcoind and make sure it has no blocks
-        peers.start();
+        peers.startAsync();
         peers.setMaxConnections(1);
         peers.downloadBlockChain();
         
@@ -174,6 +183,7 @@ public class BitcoindComparisonTool {
         int differingBlocks = 0;
         int invalidBlocks = 0;
         int mempoolRulesFailed = 0;
+        int utxoRulesFailed = 0;
         for (Rule rule : blockList.list) {
             if (rule instanceof BlockAndValidity) {
                 BlockAndValidity block = (BlockAndValidity) rule;
@@ -254,8 +264,19 @@ public class BitcoindComparisonTool {
                     mempoolRulesFailed++;
                 }
                 mostRecentInv = null;
+            } else if (rule instanceof UTXORule) {
+                UTXORule r = (UTXORule) rule;
+                UTXOsMessage result = bitcoind.getUTXOs(r.query).get();
+                if (!result.equals(r.result)) {
+                    log.error("utxo result was not what we expected.");
+                    log.error("Wanted  {}", r.result);
+                    log.error("but got {}", result);
+                    utxoRulesFailed++;
+                } else {
+                    log.info("Successful utxo query {}: {}", r.ruleName, result);
+                }
             } else {
-                log.error("Unknown rule");
+                throw new RuntimeException("Unknown rule");
             }
         }
 
@@ -263,7 +284,8 @@ public class BitcoindComparisonTool {
                 "Blocks which were not handled the same between bitcoind/bitcoinj: " + differingBlocks + "\n" +
                 "Blocks which should/should not have been accepted but weren't/were: " + invalidBlocks + "\n" +
                 "Transactions which were/weren't in memory pool but shouldn't/should have been: " + mempoolRulesFailed + "\n" +
+                "UTXO query mismatches: " + utxoRulesFailed + "\n" +
                 "Unexpected inv messages: " + unexpectedInvs.get());
-        System.exit(differingBlocks > 0 || invalidBlocks > 0 || mempoolRulesFailed > 0 || unexpectedInvs.get() > 0 ? 1 : 0);
+        System.exit(differingBlocks > 0 || invalidBlocks > 0 || mempoolRulesFailed > 0 || utxoRulesFailed > 0 || unexpectedInvs.get() > 0 ? 1 : 0);
     }
 }

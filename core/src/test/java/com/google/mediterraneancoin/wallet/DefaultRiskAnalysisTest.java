@@ -1,5 +1,6 @@
 /*
  * Copyright 2013 Google Inc.
+ * Copyright 2014 Andreas Schildbach
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +17,16 @@
 
 package com.google.mediterraneancoin.wallet;
 
+<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/wallet/DefaultRiskAnalysisTest.java
 import com.google.mediterraneancoin.wallet.DefaultRiskAnalysis;
 import com.google.mediterraneancoin.wallet.RiskAnalysis;
 import com.google.mediterraneancoin.params.UnitTestParams;
+=======
+import com.google.bitcoin.core.*;
+import com.google.bitcoin.params.MainNetParams;
+import com.google.bitcoin.script.ScriptBuilder;
+import com.google.bitcoin.script.ScriptChunk;
+>>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/wallet/DefaultRiskAnalysisTest.java
 import com.google.common.collect.ImmutableList;
 import com.google.mediterraneancoin.core.ECKey;
 import com.google.mediterraneancoin.core.NetworkParameters;
@@ -31,12 +39,15 @@ import com.google.mediterraneancoin.core.Wallet;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.google.bitcoin.core.Coin.COIN;
+import static com.google.bitcoin.script.ScriptOpCodes.OP_PUSHDATA1;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 public class DefaultRiskAnalysisTest {
-    private static final NetworkParameters params = UnitTestParams.get();
+    // Uses mainnet because isStandard checks are disabled on testnet.
+    private static final NetworkParameters params = MainNetParams.get();
     private Wallet wallet;
     private final int TIMESTAMP = 1384190189;
     private ECKey key1;
@@ -63,7 +74,7 @@ public class DefaultRiskAnalysisTest {
         // Verify that just having a lock time in the future is not enough to be considered risky (it's still final).
         Transaction tx = new Transaction(params);
         TransactionInput input = tx.addInput(params.getGenesisBlock().getTransactions().get(0).getOutput(0));
-        tx.addOutput(Utils.COIN, key1);
+        tx.addOutput(COIN, key1);
         tx.setLockTime(TIMESTAMP + 86400);
 
         {
@@ -97,7 +108,7 @@ public class DefaultRiskAnalysisTest {
     public void selfCreatedAreNotRisky() {
         Transaction tx = new Transaction(params);
         tx.addInput(params.getGenesisBlock().getTransactions().get(0).getOutput(0)).setSequenceNumber(1);
-        tx.addOutput(Utils.COIN, key1);
+        tx.addOutput(COIN, key1);
         tx.setLockTime(TIMESTAMP + 86400);
 
         {
@@ -118,14 +129,48 @@ public class DefaultRiskAnalysisTest {
         // Final tx has a dependency that is non-final.
         Transaction tx1 = new Transaction(params);
         tx1.addInput(params.getGenesisBlock().getTransactions().get(0).getOutput(0)).setSequenceNumber(1);
-        TransactionOutput output = tx1.addOutput(Utils.COIN, key1);
+        TransactionOutput output = tx1.addOutput(COIN, key1);
         tx1.setLockTime(TIMESTAMP + 86400);
         Transaction tx2 = new Transaction(params);
         tx2.addInput(output);
-        tx2.addOutput(Utils.COIN, new ECKey());
+        tx2.addOutput(COIN, new ECKey());
 
         DefaultRiskAnalysis analysis = DefaultRiskAnalysis.FACTORY.create(wallet, tx2, ImmutableList.of(tx1));
         assertEquals(RiskAnalysis.Result.NON_FINAL, analysis.analyze());
         assertEquals(tx1, analysis.getNonFinal());
+    }
+
+    @Test
+    public void nonStandardDust() {
+        Transaction standardTx = new Transaction(params);
+        standardTx.addInput(params.getGenesisBlock().getTransactions().get(0).getOutput(0));
+        standardTx.addOutput(COIN, key1);
+        assertEquals(RiskAnalysis.Result.OK, DefaultRiskAnalysis.FACTORY.create(wallet, standardTx, NO_DEPS).analyze());
+
+        Transaction dustTx = new Transaction(params);
+        dustTx.addInput(params.getGenesisBlock().getTransactions().get(0).getOutput(0));
+        dustTx.addOutput(Coin.SATOSHI, key1); // 1 Satoshi
+        assertEquals(RiskAnalysis.Result.NON_STANDARD, DefaultRiskAnalysis.FACTORY.create(wallet, dustTx, NO_DEPS).analyze());
+
+        Transaction edgeCaseTx = new Transaction(params);
+        edgeCaseTx.addInput(params.getGenesisBlock().getTransactions().get(0).getOutput(0));
+        edgeCaseTx.addOutput(DefaultRiskAnalysis.MIN_ANALYSIS_NONDUST_OUTPUT, key1); // Dust threshold
+        assertEquals(RiskAnalysis.Result.OK, DefaultRiskAnalysis.FACTORY.create(wallet, edgeCaseTx, NO_DEPS).analyze());
+    }
+
+    @Test
+    public void nonShortestPossiblePushData() {
+        ScriptChunk nonStandardChunk = new ScriptChunk(OP_PUSHDATA1, new byte[75]);
+        byte[] nonStandardScript = new ScriptBuilder().addChunk(nonStandardChunk).build().getProgram();
+        // Test non-standard script as an input.
+        Transaction tx = new Transaction(params);
+        assertEquals(DefaultRiskAnalysis.RuleViolation.NONE, DefaultRiskAnalysis.isStandard(tx));
+        tx.addInput(new TransactionInput(params, null, nonStandardScript));
+        assertEquals(DefaultRiskAnalysis.RuleViolation.SHORTEST_POSSIBLE_PUSHDATA, DefaultRiskAnalysis.isStandard(tx));
+        // Test non-standard script as an output.
+        tx.clearInputs();
+        assertEquals(DefaultRiskAnalysis.RuleViolation.NONE, DefaultRiskAnalysis.isStandard(tx));
+        tx.addOutput(new TransactionOutput(params, null, COIN, nonStandardScript));
+        assertEquals(DefaultRiskAnalysis.RuleViolation.SHORTEST_POSSIBLE_PUSHDATA, DefaultRiskAnalysis.isStandard(tx));
     }
 }

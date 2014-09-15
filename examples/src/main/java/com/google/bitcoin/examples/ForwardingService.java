@@ -1,5 +1,6 @@
 /**
  * Copyright 2013 Google Inc.
+ * Copyright 2014 Andreas Schildbach
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +29,6 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.MoreExecutors;
 
 import java.io.File;
-import java.math.BigInteger;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.List;
@@ -44,7 +44,11 @@ public class ForwardingService {
     public static void main(String[] args) throws Exception {
         // This line makes the log output more compact and easily read, especially when using the JDK log adapter.
         BriefLogFormatter.init();
+<<<<<<< HEAD
         /*if (args.length < 2) {
+=======
+        if (args.length < 1) {
+>>>>>>> upstream/master
             System.err.println("Usage: address-to-send-back-to [regtest|testnet]");
             return;
         }*/
@@ -80,6 +84,7 @@ public class ForwardingService {
         kit.setBlockingStartup(false);
         
         // Download the block chain and wait until it's done.
+<<<<<<< HEAD
         kit.startAndWait();        
         
         kit.chain().addListener( 
@@ -121,16 +126,20 @@ public class ForwardingService {
         
 
 
+=======
+        kit.startAsync();
+        kit.awaitRunning();
+>>>>>>> upstream/master
 
         // We want to know when we receive money.
         kit.wallet().addEventListener(new AbstractWalletEventListener() {
             @Override
-            public void onCoinsReceived(Wallet w, Transaction tx, BigInteger prevBalance, BigInteger newBalance) {
+            public void onCoinsReceived(Wallet w, Transaction tx, Coin prevBalance, Coin newBalance) {
                 // Runs in the dedicated "user thread" (see bitcoinj docs for more info on this).
                 //
                 // The transaction "tx" can either be pending, or included into a block (we didn't see the broadcast).
-                BigInteger value = tx.getValueSentToMe(w);
-                System.out.println("Received tx for " + Utils.bitcoinValueToFriendlyString(value) + ": " + tx);
+                Coin value = tx.getValueSentToMe(w);
+                System.out.println("Received tx for " + value.toFriendlyString() + ": " + tx);
                 System.out.println("Transaction will be forwarded after it confirms.");
                 // Wait until it's made it into the block chain (may run immediately if it's already there).
                 //
@@ -154,7 +163,7 @@ public class ForwardingService {
             }
         });
 
-        Address sendToAddress = kit.wallet().getKeys().get(0).toAddress(params);
+        Address sendToAddress = kit.wallet().currentReceiveKey().toAddress(params);
         System.out.println("Send coins to: " + sendToAddress);
         System.out.println("Waiting for coins to arrive. Press Ctrl-C to quit.");
 
@@ -165,10 +174,10 @@ public class ForwardingService {
 
     private static void forwardCoins(Transaction tx) {
         try {
-            BigInteger value = tx.getValueSentToMe(kit.wallet());
-            System.out.println("Forwarding " + Utils.bitcoinValueToFriendlyString(value) + " BTC");
+            Coin value = tx.getValueSentToMe(kit.wallet());
+            System.out.println("Forwarding " + value.toFriendlyString());
             // Now send the coins back! Send with a small fee attached to ensure rapid confirmation.
-            final BigInteger amountToSend = value.subtract(Transaction.REFERENCE_DEFAULT_MIN_TX_FEE);
+            final Coin amountToSend = value.subtract(Transaction.REFERENCE_DEFAULT_MIN_TX_FEE);
             final Wallet.SendResult sendResult = kit.wallet().sendCoins(kit.peerGroup(), forwardingAddress, amountToSend);
             checkNotNull(sendResult);  // We should never try to send more coins than we have!
             System.out.println("Sending ...");

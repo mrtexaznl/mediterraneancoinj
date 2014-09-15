@@ -1,5 +1,6 @@
 /*
  * Copyright 2012 Google Inc.
+ * Copyright 2014 Andreas Schildbach
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +15,7 @@
  * limitations under the License.
  */
 
+<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/ChainSplitTest.java
 package com.google.mediterraneancoin.core;
 
 import com.google.mediterraneancoin.core.AbstractWalletEventListener;
@@ -35,6 +37,17 @@ import com.google.mediterraneancoin.store.MemoryBlockStore;
 import com.google.mediterraneancoin.utils.BriefLogFormatter;
 import com.google.mediterraneancoin.utils.TestUtils;
 import com.google.mediterraneancoin.utils.Threading;
+=======
+package com.google.bitcoin.core;
+
+import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
+import com.google.bitcoin.params.UnitTestParams;
+import com.google.bitcoin.store.MemoryBlockStore;
+import com.google.bitcoin.testing.FakeTxBuilder;
+import com.google.bitcoin.utils.BriefLogFormatter;
+import com.google.bitcoin.utils.Threading;
+
+>>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/ChainSplitTest.java
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -48,6 +61,7 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.google.bitcoin.core.Coin.*;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.junit.Assert.*;
 
@@ -65,15 +79,16 @@ public class ChainSplitTest {
     @Before
     public void setUp() throws Exception {
         BriefLogFormatter.init();
-        Wallet.SendRequest.DEFAULT_FEE_PER_KB = BigInteger.ZERO;
+        Utils.setMockClock(); // Use mock clock
+        Wallet.SendRequest.DEFAULT_FEE_PER_KB = Coin.ZERO;
         unitTestParams = UnitTestParams.get();
         wallet = new Wallet(unitTestParams);
-        wallet.addKey(new ECKey());
-        wallet.addKey(new ECKey());
+        ECKey key1 = wallet.freshReceiveKey();
+        ECKey key2 = wallet.freshReceiveKey();
         blockStore = new MemoryBlockStore(unitTestParams);
         chain = new BlockChain(unitTestParams, wallet, blockStore);
-        coinsTo = wallet.getKeys().get(0).toAddress(unitTestParams);
-        coinsTo2 = wallet.getKeys().get(1).toAddress(unitTestParams);
+        coinsTo = key1.toAddress(unitTestParams);
+        coinsTo2 = key2.toAddress(unitTestParams);
         someOtherGuy = new ECKey().toAddress(unitTestParams);
     }
 
@@ -104,7 +119,7 @@ public class ChainSplitTest {
         assertFalse(reorgHappened.get());
         assertEquals(2, walletChanged.get());
         // We got two blocks which sent 50 coins each to us.
-        assertEquals("100.00", Utils.bitcoinValueToFriendlyString(wallet.getBalance()));
+        assertEquals(Coin.valueOf(100, 0), wallet.getBalance());
         // We now have the following chain:
         //     genesis -> b1 -> b2
         //
@@ -119,7 +134,7 @@ public class ChainSplitTest {
         Threading.waitForUserCode();
         assertFalse(reorgHappened.get());  // No re-org took place.
         assertEquals(2, walletChanged.get());
-        assertEquals("100.00", Utils.bitcoinValueToFriendlyString(wallet.getBalance()));
+        assertEquals(Coin.valueOf(100, 0), wallet.getBalance());
         // Check we can handle multi-way splits: this is almost certainly going to be extremely rare, but we have to
         // handle it anyway. The same transaction appears in b7/b8 (side chain) but not b2 or b3.
         //     genesis -> b1--> b2
@@ -138,7 +153,7 @@ public class ChainSplitTest {
         assertEquals(2, wallet.getTransaction(tHash).getAppearsInHashes().size());
         assertFalse(reorgHappened.get());  // No re-org took place.
         assertEquals(5, walletChanged.get());
-        assertEquals("100.00", Utils.bitcoinValueToFriendlyString(wallet.getBalance()));
+        assertEquals(Coin.valueOf(100, 0), wallet.getBalance());
         // Now we add another block to make the alternative chain longer.
         assertTrue(chain.add(b3.createNextBlock(someOtherGuy)));
         Threading.waitForUserCode();
@@ -150,7 +165,7 @@ public class ChainSplitTest {
         //                  \-> b3 -> b4
         // We lost some coins! b2 is no longer a part of the best chain so our available balance should drop to 50.
         // It's now pending reconfirmation.
-        assertEquals("50.00", Utils.bitcoinValueToFriendlyString(wallet.getBalance()));
+        assertEquals(FIFTY_COINS, wallet.getBalance());
         // ... and back to the first chain.
         Block b5 = b2.createNextBlock(coinsTo);
         Block b6 = b5.createNextBlock(coinsTo);
@@ -163,7 +178,7 @@ public class ChainSplitTest {
         Threading.waitForUserCode();
         assertTrue(reorgHappened.get());
         assertEquals(9, walletChanged.get());
-        assertEquals("200.00", Utils.bitcoinValueToFriendlyString(wallet.getBalance()));
+        assertEquals(Coin.valueOf(200, 0), wallet.getBalance());
     }
 
     @Test
@@ -176,13 +191,13 @@ public class ChainSplitTest {
         assertTrue(chain.add(b2));
         //     genesis -> b1 -> b2
         //                  \-> b3 -> b4
-        assertEquals(BigInteger.ZERO, wallet.getBalance());
+        assertEquals(Coin.ZERO, wallet.getBalance());
         Block b3 = b1.createNextBlock(coinsTo);
         Block b4 = b3.createNextBlock(someOtherGuy);
         assertTrue(chain.add(b3));
-        assertEquals(BigInteger.ZERO, wallet.getBalance());
+        assertEquals(Coin.ZERO, wallet.getBalance());
         assertTrue(chain.add(b4));
-        assertEquals("50.00", Utils.bitcoinValueToFriendlyString(wallet.getBalance()));
+        assertEquals(FIFTY_COINS, wallet.getBalance());
     }
 
     @Test
@@ -190,16 +205,16 @@ public class ChainSplitTest {
         // Check that we can handle our own spends being rolled back by a fork.
         Block b1 = unitTestParams.getGenesisBlock().createNextBlock(coinsTo);
         chain.add(b1);
-        assertEquals("50.00", Utils.bitcoinValueToFriendlyString(wallet.getBalance()));
+        assertEquals(FIFTY_COINS, wallet.getBalance());
         Address dest = new ECKey().toAddress(unitTestParams);
-        Transaction spend = wallet.createSend(dest, Utils.toNanoCoins(10, 0));
+        Transaction spend = wallet.createSend(dest, valueOf(10, 0));
         wallet.commitTx(spend);
         // Waiting for confirmation ... make it eligible for selection.
-        assertEquals(BigInteger.ZERO, wallet.getBalance());
+        assertEquals(Coin.ZERO, wallet.getBalance());
         spend.getConfidence().markBroadcastBy(new PeerAddress(InetAddress.getByAddress(new byte[]{1, 2, 3, 4})));
         spend.getConfidence().markBroadcastBy(new PeerAddress(InetAddress.getByAddress(new byte[]{5,6,7,8})));
         assertEquals(ConfidenceType.PENDING, spend.getConfidence().getConfidenceType());
-        assertEquals(Utils.toNanoCoins(40, 0), wallet.getBalance());
+        assertEquals(valueOf(40, 0), wallet.getBalance());
         Block b2 = b1.createNextBlock(someOtherGuy);
         b2.addTransaction(spend);
         b2.solve();
@@ -213,7 +228,7 @@ public class ChainSplitTest {
         chain.add(b3);
         chain.add(b4);
         // b4 causes a re-org that should make our spend go pending again.
-        assertEquals(Utils.toNanoCoins(40, 0), wallet.getBalance());
+        assertEquals(valueOf(40, 0), wallet.getBalance());
         assertEquals(ConfidenceType.PENDING, spend.getConfidence().getConfidenceType());
     }
 
@@ -224,9 +239,9 @@ public class ChainSplitTest {
         // keys are being shared between wallets.
         Block b1 = unitTestParams.getGenesisBlock().createNextBlock(coinsTo);
         chain.add(b1);
-        assertEquals("50.00", Utils.bitcoinValueToFriendlyString(wallet.getBalance()));
+        assertEquals(FIFTY_COINS, wallet.getBalance());
         Address dest = new ECKey().toAddress(unitTestParams);
-        Transaction spend = wallet.createSend(dest, Utils.toNanoCoins(50, 0));
+        Transaction spend = wallet.createSend(dest, FIFTY_COINS);
         // We do NOT confirm the spend here. That means it's not considered to be pending because createSend is
         // stateless. For our purposes it is as if some other program with our keys created the tx.
         //
@@ -239,13 +254,13 @@ public class ChainSplitTest {
         b3.solve();
         chain.add(roundtrip(b3));
         // The external spend is now pending.
-        assertEquals(Utils.toNanoCoins(0, 0), wallet.getBalance());
+        assertEquals(ZERO, wallet.getBalance());
         Transaction tx = wallet.getTransaction(spend.getHash());
         assertEquals(ConfidenceType.PENDING, tx.getConfidence().getConfidenceType());
         Block b4 = b3.createNextBlock(someOtherGuy);
         chain.add(b4);
         // The external spend is now active.
-        assertEquals(Utils.toNanoCoins(0, 0), wallet.getBalance());
+        assertEquals(ZERO, wallet.getBalance());
         assertEquals(ConfidenceType.BUILDING, tx.getConfidence().getConfidenceType());
     }
 
@@ -255,7 +270,7 @@ public class ChainSplitTest {
         Block b1 = unitTestParams.getGenesisBlock().createNextBlock(coinsTo);
         chain.add(b1);
         final Transaction t = b1.transactions.get(1);
-        assertEquals("50.00", Utils.bitcoinValueToFriendlyString(wallet.getBalance()));
+        assertEquals(FIFTY_COINS, wallet.getBalance());
         // genesis -> b1
         //         -> b2
         Block b2 = unitTestParams.getGenesisBlock().createNextBlock(coinsTo);
@@ -265,13 +280,13 @@ public class ChainSplitTest {
         b2.addTransaction(t);
         b2.solve();
         chain.add(roundtrip(b2));
-        assertEquals("50.00", Utils.bitcoinValueToFriendlyString(wallet.getBalance()));
+        assertEquals(FIFTY_COINS, wallet.getBalance());
         assertTrue(wallet.isConsistent());
         assertEquals(2, wallet.getTransaction(t.getHash()).getAppearsInHashes().size());
         //          -> b2 -> b3
         Block b3 = b2.createNextBlock(someOtherGuy);
         chain.add(b3);
-        assertEquals("50.00", Utils.bitcoinValueToFriendlyString(wallet.getBalance()));
+        assertEquals(FIFTY_COINS, wallet.getBalance());
 
     }
 
@@ -288,14 +303,14 @@ public class ChainSplitTest {
         //         -> b2
         Block b2 = unitTestParams.getGenesisBlock().createNextBlock(coinsTo);
         chain.add(b2);
-        assertEquals(BigInteger.ZERO, wallet.getBalance());
+        assertEquals(Coin.ZERO, wallet.getBalance());
         // genesis -> b1 -> b3
         //         -> b2
         Block b3 = b1.createNextBlock(someOtherGuy);
         b3.addTransaction(b2.transactions.get(1));
         b3.solve();
         chain.add(roundtrip(b3));
-        assertEquals("50.00", Utils.bitcoinValueToFriendlyString(wallet.getBalance()));
+        assertEquals(FIFTY_COINS, wallet.getBalance());
     }
 
     @Test
@@ -316,9 +331,9 @@ public class ChainSplitTest {
         Block b1 = unitTestParams.getGenesisBlock().createNextBlock(coinsTo);
         chain.add(b1);
 
-        Transaction t1 = wallet.createSend(someOtherGuy, Utils.toNanoCoins(10, 0));
+        Transaction t1 = wallet.createSend(someOtherGuy, valueOf(10, 0));
         Address yetAnotherGuy = new ECKey().toAddress(unitTestParams);
-        Transaction t2 = wallet.createSend(yetAnotherGuy, Utils.toNanoCoins(20, 0));
+        Transaction t2 = wallet.createSend(yetAnotherGuy, valueOf(20, 0));
         wallet.commitTx(t1);
         // Receive t1 as confirmed by the network.
         Block b2 = b1.createNextBlock(new ECKey().toAddress(unitTestParams));
@@ -336,7 +351,7 @@ public class ChainSplitTest {
         Threading.waitForUserCode();
         // Should have seen a double spend.
         assertTrue(eventCalled[0]);
-        assertEquals(Utils.toNanoCoins(30, 0), wallet.getBalance());
+        assertEquals(valueOf(30, 0), wallet.getBalance());
     }
 
     @Test
@@ -361,15 +376,15 @@ public class ChainSplitTest {
         Block b1 = unitTestParams.getGenesisBlock().createNextBlock(coinsTo);
         chain.add(b1);
 
-        Transaction t1 = checkNotNull(wallet.createSend(someOtherGuy, Utils.toNanoCoins(10, 0)));
+        Transaction t1 = checkNotNull(wallet.createSend(someOtherGuy, valueOf(10, 0)));
         Address yetAnotherGuy = new ECKey().toAddress(unitTestParams);
-        Transaction t2 = checkNotNull(wallet.createSend(yetAnotherGuy, Utils.toNanoCoins(20, 0)));
+        Transaction t2 = checkNotNull(wallet.createSend(yetAnotherGuy, valueOf(20, 0)));
         wallet.commitTx(t1);
         // t1 is still pending ...
         Block b2 = b1.createNextBlock(new ECKey().toAddress(unitTestParams));
         chain.add(b2);
-        assertEquals(Utils.toNanoCoins(0, 0), wallet.getBalance());
-        assertEquals(Utils.toNanoCoins(40, 0), wallet.getBalance(Wallet.BalanceType.ESTIMATED));
+        assertEquals(ZERO, wallet.getBalance());
+        assertEquals(valueOf(40, 0), wallet.getBalance(Wallet.BalanceType.ESTIMATED));
 
         // Now we make a double spend become active after a re-org.
         // genesis -> b1 -> b2 [t1 pending]
@@ -386,7 +401,7 @@ public class ChainSplitTest {
         //              \-> b3 (t2) -> b4
         assertEquals(t1, eventDead[0]);
         assertEquals(t2, eventReplacement[0]);
-        assertEquals(Utils.toNanoCoins(30, 0), wallet.getBalance());
+        assertEquals(valueOf(30, 0), wallet.getBalance());
 
         // ... and back to our own parallel universe.
         Block b5 = b2.createNextBlock(new ECKey().toAddress(unitTestParams));
@@ -395,7 +410,7 @@ public class ChainSplitTest {
         chain.add(b6);
         // genesis -> b1 -> b2 -> b5 -> b6 [t1 still dead]
         //              \-> b3 [t2 resurrected and now pending] -> b4
-        assertEquals(Utils.toNanoCoins(0, 0), wallet.getBalance());
+        assertEquals(ZERO, wallet.getBalance());
         // t2 is pending - resurrected double spends take precedence over our dead transactions (which are in nobodies
         // mempool by this point).
         t1 = checkNotNull(wallet.getTransaction(t1.getHash()));
@@ -411,7 +426,7 @@ public class ChainSplitTest {
         final ArrayList<Transaction> txns = new ArrayList<Transaction>(3);
         wallet.addEventListener(new AbstractWalletEventListener() {
             @Override
-            public void onCoinsReceived(Wallet wallet, Transaction tx, BigInteger prevBalance, BigInteger newBalance) {
+            public void onCoinsReceived(Wallet wallet, Transaction tx, Coin prevBalance, Coin newBalance) {
                 txns.add(tx);
             }
         });
@@ -438,10 +453,6 @@ public class ChainSplitTest {
         assertEquals(3, txns.get(0).getConfidence().getDepthInBlocks());
         assertEquals(2, txns.get(1).getConfidence().getDepthInBlocks());
         assertEquals(1, txns.get(2).getConfidence().getDepthInBlocks());
-
-        assertEquals(work1.add(work2).add(work3), txns.get(0).getConfidence().getWorkDone());
-        assertEquals(work2.add(work3),  txns.get(1).getConfidence().getWorkDone());
-        assertEquals(work3,  txns.get(2).getConfidence().getWorkDone());
 
         // We now have the following chain:
         //     genesis -> b1 -> b2 -> b3
@@ -471,10 +482,6 @@ public class ChainSplitTest {
         assertEquals(2, txns.get(1).getConfidence().getDepthInBlocks());
         assertEquals(1, txns.get(2).getConfidence().getDepthInBlocks());
 
-        assertEquals(work1.add(work2).add(work3), txns.get(0).getConfidence().getWorkDone());
-        assertEquals(work2.add(work3),  txns.get(1).getConfidence().getWorkDone());
-        assertEquals(work3,  txns.get(2).getConfidence().getWorkDone());
-
         // Now we add another block to make the alternative chain longer.
         Block b6 = b5.createNextBlock(someOtherGuy);
         BigInteger work6 = b6.getWork();
@@ -487,7 +494,6 @@ public class ChainSplitTest {
         assertEquals(3, txns.size());
         assertEquals(1, txns.get(0).getConfidence().getAppearedAtChainHeight());
         assertEquals(4, txns.get(0).getConfidence().getDepthInBlocks());
-        assertEquals(work1.add(work4).add(work5).add(work6), txns.get(0).getConfidence().getWorkDone());
 
         // Transaction 1 (in block b2) is now on a side chain, so it goes pending (not see in chain).
         assertEquals(ConfidenceType.PENDING, txns.get(1).getConfidence().getConfidenceType());
@@ -496,7 +502,6 @@ public class ChainSplitTest {
             fail();
         } catch (IllegalStateException e) {}
         assertEquals(0, txns.get(1).getConfidence().getDepthInBlocks());
-        assertEquals(BigInteger.ZERO, txns.get(1).getConfidence().getWorkDone());
 
         // ... and back to the first chain.
         Block b7 = b3.createNextBlock(coinsTo);
@@ -523,14 +528,7 @@ public class ChainSplitTest {
         assertEquals(4, txns.get(1).getConfidence().getDepthInBlocks());
         assertEquals(3, txns.get(2).getConfidence().getDepthInBlocks());
 
-        BigInteger newWork1 = work1.add(work2).add(work3).add(work7).add(work8);
-        assertEquals(newWork1, txns.get(0).getConfidence().getWorkDone());
-        BigInteger newWork2 = work2.add(work3).add(work7).add(work8);
-        assertEquals(newWork2, txns.get(1).getConfidence().getWorkDone());
-        BigInteger newWork3 = work3.add(work7).add(work8);
-        assertEquals(newWork3, txns.get(2).getConfidence().getWorkDone());
-
-        assertEquals("250.00", Utils.bitcoinValueToFriendlyString(wallet.getBalance()));
+        assertEquals(Coin.valueOf(250, 0), wallet.getBalance());
 
         // Now add two more blocks that don't send coins to us. Despite being irrelevant the wallet should still update.
         Block b9 = b8.createNextBlock(someOtherGuy);
@@ -541,9 +539,6 @@ public class ChainSplitTest {
         assertEquals(7, txns.get(0).getConfidence().getDepthInBlocks());
         assertEquals(6, txns.get(1).getConfidence().getDepthInBlocks());
         assertEquals(5, txns.get(2).getConfidence().getDepthInBlocks());
-        assertEquals(newWork1.add(extraWork), txns.get(0).getConfidence().getWorkDone());
-        assertEquals(newWork2.add(extraWork), txns.get(1).getConfidence().getWorkDone());
-        assertEquals(newWork3.add(extraWork), txns.get(2).getConfidence().getWorkDone());
     }
 
     @Test
@@ -552,27 +547,27 @@ public class ChainSplitTest {
         // This covers issue 468.
 
         // Receive some money to the wallet.
-        Transaction t1 = TestUtils.createFakeTx(unitTestParams, Utils.COIN, coinsTo);
-        final Block b1 = TestUtils.makeSolvedTestBlock(unitTestParams.genesisBlock, t1);
+        Transaction t1 = FakeTxBuilder.createFakeTx(unitTestParams, COIN, coinsTo);
+        final Block b1 = FakeTxBuilder.makeSolvedTestBlock(unitTestParams.genesisBlock, t1);
         chain.add(b1);
 
         // Send a couple of payments one after the other (so the second depends on the change output of the first).
         wallet.allowSpendingUnconfirmedTransactions();
-        Transaction t2 = checkNotNull(wallet.createSend(new ECKey().toAddress(unitTestParams), Utils.CENT));
+        Transaction t2 = checkNotNull(wallet.createSend(new ECKey().toAddress(unitTestParams), CENT));
         wallet.commitTx(t2);
-        Transaction t3 = checkNotNull(wallet.createSend(new ECKey().toAddress(unitTestParams), Utils.CENT));
+        Transaction t3 = checkNotNull(wallet.createSend(new ECKey().toAddress(unitTestParams), CENT));
         wallet.commitTx(t3);
-        chain.add(TestUtils.makeSolvedTestBlock(b1, t2, t3));
+        chain.add(FakeTxBuilder.makeSolvedTestBlock(b1, t2, t3));
 
-        final BigInteger coins0point98 = Utils.COIN.subtract(Utils.CENT).subtract(Utils.CENT);
+        final Coin coins0point98 = COIN.subtract(CENT).subtract(CENT);
         assertEquals(coins0point98, wallet.getBalance());
 
         // Now round trip the wallet and force a re-org.
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         wallet.saveToFileStream(bos);
         wallet = Wallet.loadFromFileStream(new ByteArrayInputStream(bos.toByteArray()));
-        final Block b2 = TestUtils.makeSolvedTestBlock(b1, t2, t3);
-        final Block b3 = TestUtils.makeSolvedTestBlock(b2);
+        final Block b2 = FakeTxBuilder.makeSolvedTestBlock(b1, t2, t3);
+        final Block b3 = FakeTxBuilder.makeSolvedTestBlock(b2);
         chain.add(b2);
         chain.add(b3);
 
@@ -585,22 +580,19 @@ public class ChainSplitTest {
     public void coinbaseDeath() throws Exception {
         // Check that a coinbase tx is marked as dead after a reorg rather than pending as normal non-double-spent
         // transactions would be. Also check that a dead coinbase on a sidechain is resurrected if the sidechain
-        // becomes the best chain once more.
+        // becomes the best chain once more. Finally, check that dependent transactions are killed recursively.
         final ArrayList<Transaction> txns = new ArrayList<Transaction>(3);
         wallet.addEventListener(new AbstractWalletEventListener() {
             @Override
-            public void onCoinsReceived(Wallet wallet, Transaction tx, BigInteger prevBalance, BigInteger newBalance) {
+            public void onCoinsReceived(Wallet wallet, Transaction tx, Coin prevBalance, Coin newBalance) {
                 txns.add(tx);
             }
-        });
+        }, Threading.SAME_THREAD);
 
-        // Start by building three blocks on top of the genesis block.
-        // The first block contains a normal transaction that spends to coinTo.
-        // The second block contains a coinbase transaction that spends to coinTo2.
-        // The third block contains a normal transaction that spends to coinTo.
-        Block b1 = unitTestParams.getGenesisBlock().createNextBlock(coinsTo);
-        Block b2 = b1.createNextBlockWithCoinbase(wallet.getKeys().get(1).getPubKey());
-        Block b3 = b2.createNextBlock(coinsTo);
+        Block b1 = unitTestParams.getGenesisBlock().createNextBlock(someOtherGuy);
+        final ECKey coinsTo2 = wallet.freshReceiveKey();
+        Block b2 = b1.createNextBlockWithCoinbase(coinsTo2.getPubKey());
+        Block b3 = b2.createNextBlock(someOtherGuy);
 
         log.debug("Adding block b1");
         assertTrue(chain.add(b1));
@@ -613,21 +605,38 @@ public class ChainSplitTest {
         //     genesis -> b1 -> b2 -> b3
         //
 
-        // Check we have seen the three transactions.
-        Threading.waitForUserCode();
-        assertEquals(3, txns.size());
+        // Check we have seen the coinbase.
+        assertEquals(1, txns.size());
 
         // Check the coinbase transaction is building and in the unspent pool only.
-        assertEquals(ConfidenceType.BUILDING, txns.get(1).getConfidence().getConfidenceType());
-        assertTrue(!wallet.pending.containsKey(txns.get(1).getHash()));
-        assertTrue(wallet.unspent.containsKey(txns.get(1).getHash()));
-        assertTrue(!wallet.spent.containsKey(txns.get(1).getHash()));
-        assertTrue(!wallet.dead.containsKey(txns.get(1).getHash()));
+        final Transaction coinbase = txns.get(0);
+        assertEquals(ConfidenceType.BUILDING, coinbase.getConfidence().getConfidenceType());
+        assertTrue(!wallet.pending.containsKey(coinbase.getHash()));
+        assertTrue(wallet.unspent.containsKey(coinbase.getHash()));
+        assertTrue(!wallet.spent.containsKey(coinbase.getHash()));
+        assertTrue(!wallet.dead.containsKey(coinbase.getHash()));
+
+        // Add blocks to b3 until we can spend the coinbase.
+        Block firstTip = b3;
+        for (int i = 0; i < unitTestParams.getSpendableCoinbaseDepth() - 2; i++) {
+            firstTip = firstTip.createNextBlock(someOtherGuy);
+            chain.add(firstTip);
+        }
+        // ... and spend.
+        Transaction fodder = wallet.createSend(new ECKey().toAddress(unitTestParams), FIFTY_COINS);
+        wallet.commitTx(fodder);
+        final AtomicBoolean fodderIsDead = new AtomicBoolean(false);
+        fodder.getConfidence().addEventListener(new TransactionConfidence.Listener() {
+            @Override
+            public void onConfidenceChanged(Transaction tx, ChangeReason reason) {
+                fodderIsDead.set(tx.getConfidence().getConfidenceType() == ConfidenceType.DEAD);
+            }
+        }, Threading.SAME_THREAD);
 
         // Fork like this:
         //
-        //     genesis -> b1 -> b2 -> b3
-        //                  \-> b4 -> b5 -> b6
+        //     genesis -> b1 -> b2 -> b3 -> [...]
+        //                  \-> b4 -> b5 -> b6 -> [...]
         //
         // The b4/ b5/ b6 is now the best chain
         Block b4 = b1.createNextBlock(someOtherGuy);
@@ -640,57 +649,64 @@ public class ChainSplitTest {
         assertTrue(chain.add(b5));
         log.debug("Adding block b6");
         assertTrue(chain.add(b6));
-        Threading.waitForUserCode();
 
-        // Transaction 1 (in block b2) is now on a side chain and should have confidence type of dead and be in the dead pool only
-        assertEquals(TransactionConfidence.ConfidenceType.DEAD, txns.get(1).getConfidence().getConfidenceType());
-        assertTrue(!wallet.pending.containsKey(txns.get(1).getHash()));
-        assertTrue(!wallet.unspent.containsKey(txns.get(1).getHash()));
-        assertTrue(!wallet.spent.containsKey(txns.get(1).getHash()));
-        assertTrue(wallet.dead.containsKey(txns.get(1).getHash()));
+        Block secondTip = b6;
+        for (int i = 0; i < unitTestParams.getSpendableCoinbaseDepth() - 2; i++) {
+            secondTip = secondTip.createNextBlock(someOtherGuy);
+            chain.add(secondTip);
+        }
+
+        // Transaction 1 (in block b2) is now on a side chain and should have confidence type of dead and be in
+        // the dead pool only.
+        assertEquals(TransactionConfidence.ConfidenceType.DEAD, coinbase.getConfidence().getConfidenceType());
+        assertTrue(!wallet.pending.containsKey(coinbase.getHash()));
+        assertTrue(!wallet.unspent.containsKey(coinbase.getHash()));
+        assertTrue(!wallet.spent.containsKey(coinbase.getHash()));
+        assertTrue(wallet.dead.containsKey(coinbase.getHash()));
+        assertTrue(fodderIsDead.get());
 
         // ... and back to the first chain.
-        Block b7 = b3.createNextBlock(coinsTo);
-        Block b8 = b7.createNextBlock(coinsTo);
+        Block b7 = firstTip.createNextBlock(someOtherGuy);
+        Block b8 = b7.createNextBlock(someOtherGuy);
 
         log.debug("Adding block b7");
         assertTrue(chain.add(b7));
         log.debug("Adding block b8");
         assertTrue(chain.add(b8));
-        Threading.waitForUserCode();
 
         //
-        //     genesis -> b1 -> b2 -> b3 -> b7 -> b8
-        //                  \-> b4 -> b5 -> b6
+        //     genesis -> b1 -> b2 -> b3 -> [...] -> b7 -> b8
+        //                  \-> b4 -> b5 -> b6 -> [...]
         //
 
         // The coinbase transaction should now have confidence type of building once more and in the unspent pool only.
-        assertEquals(TransactionConfidence.ConfidenceType.BUILDING, txns.get(1).getConfidence().getConfidenceType());
-        assertTrue(!wallet.pending.containsKey(txns.get(1).getHash()));
-        assertTrue(wallet.unspent.containsKey(txns.get(1).getHash()));
-        assertTrue(!wallet.spent.containsKey(txns.get(1).getHash()));
-        assertTrue(!wallet.dead.containsKey(txns.get(1).getHash()));
+        assertEquals(TransactionConfidence.ConfidenceType.BUILDING, coinbase.getConfidence().getConfidenceType());
+        assertTrue(!wallet.pending.containsKey(coinbase.getHash()));
+        assertTrue(wallet.unspent.containsKey(coinbase.getHash()));
+        assertTrue(!wallet.spent.containsKey(coinbase.getHash()));
+        assertTrue(!wallet.dead.containsKey(coinbase.getHash()));
+        // However, fodder is still dead. Bitcoin Core doesn't keep killed transactions around in case they become
+        // valid again later. They are just deleted from the mempool for good.
 
         // ... make the side chain dominant again.
-        Block b9 = b6.createNextBlock(coinsTo);
-        Block b10 = b9.createNextBlock(coinsTo);
+        Block b9 = secondTip.createNextBlock(someOtherGuy);
+        Block b10 = b9.createNextBlock(someOtherGuy);
 
         log.debug("Adding block b9");
         assertTrue(chain.add(b9));
         log.debug("Adding block b10");
         assertTrue(chain.add(b10));
-        Threading.waitForUserCode();
 
         //
-        //     genesis -> b1 -> b2 -> b3 -> b7 -> b8
-        //                  \-> b4 -> b5 -> b6 -> b9 -> b10
+        //     genesis -> b1 -> b2 -> b3 -> [...] -> b7 -> b8
+        //                  \-> b4 -> b5 -> b6 -> [...] -> b9 -> b10
         //
 
         // The coinbase transaction should now have the confidence type of dead and be in the dead pool only.
-        assertEquals(TransactionConfidence.ConfidenceType.DEAD, txns.get(1).getConfidence().getConfidenceType());
-        assertTrue(!wallet.pending.containsKey(txns.get(1).getHash()));
-        assertTrue(!wallet.unspent.containsKey(txns.get(1).getHash()));
-        assertTrue(!wallet.spent.containsKey(txns.get(1).getHash()));
-        assertTrue(wallet.dead.containsKey(txns.get(1).getHash()));
+        assertEquals(TransactionConfidence.ConfidenceType.DEAD, coinbase.getConfidence().getConfidenceType());
+        assertTrue(!wallet.pending.containsKey(coinbase.getHash()));
+        assertTrue(!wallet.unspent.containsKey(coinbase.getHash()));
+        assertTrue(!wallet.spent.containsKey(coinbase.getHash()));
+        assertTrue(wallet.dead.containsKey(coinbase.getHash()));
     }
 }

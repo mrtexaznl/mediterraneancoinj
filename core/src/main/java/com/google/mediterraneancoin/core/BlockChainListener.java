@@ -25,11 +25,12 @@ import java.util.List;
  */
 public interface BlockChainListener {
     /**
-     * <p>Called by the {@link BlockChain} when a new block on the best chain is seen, AFTER relevant
-     * transactions are extracted and sent to us UNLESS the new block caused a re-org, in which case this will
-     * not be called (the {@link Wallet#reorganize(StoredBlock, java.util.List, java.util.List)} method will
-     * call this one in that case).</p>
-     * @param block
+     * Called when a new block on the best chain is seen, after relevant transactions are extracted and sent to
+     * us via either {@link #receiveFromBlock(Transaction, StoredBlock, com.google.bitcoin.core.BlockChain.NewBlockType, int)}
+     * or {@link #notifyTransactionIsInBlock(Sha256Hash, StoredBlock, com.google.bitcoin.core.BlockChain.NewBlockType, int)}.
+     * If this block is causing a re-organise to a new chain, this method is NOT called even though the block may be
+     * the new best block: your reorganize implementation is expected to do whatever would normally be done do for a new
+     * best block in this case.
      */
     void notifyNewBestBlock(StoredBlock block) throws VerificationException;
 
@@ -39,7 +40,7 @@ public interface BlockChainListener {
      * to go down in this case: money we thought we had can suddenly vanish if the rest of the network agrees it
      * should be so.<p>
      *
-     * The oldBlocks/newBlocks lists are ordered height-wise from top first to bottom last.
+     * The oldBlocks/newBlocks lists are ordered height-wise from top first to bottom last (i.e. newest blocks first).
      */
     void reorganize(StoredBlock splitPoint, List<StoredBlock> oldBlocks,
                     List<StoredBlock> newBlocks) throws VerificationException;
@@ -81,8 +82,14 @@ public interface BlockChainListener {
      * <p>The relativityOffset parameter in this case is an arbitrary (meaningless) number, that is useful only when
      * compared to the relativity count of another transaction received inside the same block. It is used to establish
      * an ordering of transactions relative to one another.</p>
+     *
+     * <p>This method should return false if the given tx hash isn't known about, e.g. because the the transaction was
+     * a Bloom false positive. If it was known about and stored, it should return true. The caller may need to know
+     * this to calculate the effective FP rate.</p>
+     *
+     * @return whether the transaction is known about i.e. was considered relevant previously.
      */
-    void notifyTransactionIsInBlock(Sha256Hash txHash, StoredBlock block,
-                                    BlockChain.NewBlockType blockType,
-                                    int relativityOffset) throws VerificationException;
+    boolean notifyTransactionIsInBlock(Sha256Hash txHash, StoredBlock block,
+                                       BlockChain.NewBlockType blockType,
+                                       int relativityOffset) throws VerificationException;
 }
