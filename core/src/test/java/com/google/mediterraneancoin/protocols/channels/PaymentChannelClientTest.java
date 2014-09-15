@@ -1,6 +1,10 @@
-package com.google.bitcoin.protocols.channels;
+package com.google.mediterraneancoin.protocols.channels;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.Coin;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.Sha256Hash;
+import com.google.mediterraneancoin.core.Wallet;
+import com.google.mediterraneancoin.core.WalletExtension;
 import org.bitcoin.paymentchannel.Protos;
 import org.easymock.Capture;
 import org.easymock.EasyMock;

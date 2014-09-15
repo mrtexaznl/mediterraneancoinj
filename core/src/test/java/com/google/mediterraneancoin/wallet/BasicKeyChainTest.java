@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.wallet;
+package com.google.mediterraneancoin.wallet;
 
 import com.google.mediterraneancoin.wallet.KeyChain;
 import com.google.mediterraneancoin.wallet.AbstractKeyChainEventListener;
 import com.google.mediterraneancoin.wallet.BasicKeyChain;
-import com.google.bitcoin.core.BloomFilter;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Utils;
-import com.google.bitcoin.crypto.KeyCrypter;
-import com.google.bitcoin.crypto.KeyCrypterException;
-import com.google.bitcoin.crypto.KeyCrypterScrypt;
-import com.google.bitcoin.store.UnreadableWalletException;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.core.BloomFilter;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.Utils;
+import com.google.mediterraneancoin.crypto.KeyCrypter;
+import com.google.mediterraneancoin.crypto.KeyCrypterException;
+import com.google.mediterraneancoin.crypto.KeyCrypterScrypt;
+import com.google.mediterraneancoin.store.UnreadableWalletException;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import org.bitcoinj.wallet.Protos;

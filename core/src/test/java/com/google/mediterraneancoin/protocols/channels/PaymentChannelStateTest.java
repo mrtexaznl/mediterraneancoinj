@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/protocols/channels/PaymentChannelStateTest.java
 package com.google.mediterraneancoin.protocols.channels;
 
 import com.google.mediterraneancoin.protocols.channels.PaymentChannelClientState;
@@ -23,15 +22,12 @@ import com.google.mediterraneancoin.protocols.channels.ValueOutOfRangeException;
 import com.google.mediterraneancoin.protocols.channels.StoredPaymentChannelClientStates;
 import com.google.mediterraneancoin.script.Script;
 import com.google.mediterraneancoin.script.ScriptBuilder;
-import com.google.mediterraneancoin.utils.TestWithWallet;
-=======
-package com.google.bitcoin.protocols.channels;
 
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.script.Script;
-import com.google.bitcoin.script.ScriptBuilder;
+import com.google.mediterraneancoin.core.*;
+import com.google.mediterraneancoin.script.Script;
+import com.google.mediterraneancoin.script.ScriptBuilder;
 import com.google.mediterraneancoin.testing.TestWithWallet;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/protocols/channels/PaymentChannelStateTest.java
+
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
@@ -59,15 +55,11 @@ import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/protocols/channels/PaymentChannelStateTest.java
-import static com.google.mediterraneancoin.utils.TestUtils.createFakeTx;
-import static com.google.mediterraneancoin.utils.TestUtils.makeSolvedTestBlock;
-=======
-import static com.google.bitcoin.core.Coin.*;
+ 
+import static com.google.mediterraneancoin.core.Coin.*;
 import static com.google.mediterraneancoin.testing.FakeTxBuilder.createFakeTx;
 import static com.google.mediterraneancoin.testing.FakeTxBuilder.makeSolvedTestBlock;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/protocols/channels/PaymentChannelStateTest.java
+
 import static org.junit.Assert.*;
 
 public class PaymentChannelStateTest extends TestWithWallet {

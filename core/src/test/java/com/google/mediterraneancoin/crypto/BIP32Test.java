@@ -16,18 +16,11 @@
  */
 
 package com.google.mediterraneancoin.crypto;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/crypto/BIP32Test.java
+ 
 import com.google.mediterraneancoin.core.AddressFormatException;
 import com.google.mediterraneancoin.core.Base58;
-import com.google.mediterraneancoin.crypto.ChildNumber;
-import com.google.mediterraneancoin.crypto.DeterministicHierarchy;
-import com.google.mediterraneancoin.crypto.DeterministicKey;
-import com.google.mediterraneancoin.crypto.HDKeyDerivation;
-=======
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.Base58;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/crypto/BIP32Test.java
+ 
+  
 import com.google.common.base.Functions;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.utils;
+package com.google.mediterraneancoin.utils;
 
-import com.google.bitcoin.core.Coin;
+import com.google.mediterraneancoin.core.Coin;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -29,12 +29,15 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import static com.google.bitcoin.core.Coin.*;
-import static com.google.bitcoin.core.NetworkParameters.MAX_MONEY;
-import static com.google.bitcoin.utils.BtcAutoFormat.Style.CODE;
-import static com.google.bitcoin.utils.BtcAutoFormat.Style.SYMBOL;
-import static com.google.bitcoin.utils.BtcFixedFormat.REPEATING_DOUBLETS;
-import static com.google.bitcoin.utils.BtcFixedFormat.REPEATING_TRIPLETS;
+import static com.google.mediterraneancoin.core.Coin.*;
+import static com.google.mediterraneancoin.core.NetworkParameters.MAX_MONEY;
+import com.google.mediterraneancoin.utils.BtcAutoFormat;
+import static com.google.mediterraneancoin.utils.BtcAutoFormat.Style.CODE;
+import static com.google.mediterraneancoin.utils.BtcAutoFormat.Style.SYMBOL;
+import com.google.mediterraneancoin.utils.BtcFixedFormat;
+import static com.google.mediterraneancoin.utils.BtcFixedFormat.REPEATING_DOUBLETS;
+import static com.google.mediterraneancoin.utils.BtcFixedFormat.REPEATING_TRIPLETS;
+import com.google.mediterraneancoin.utils.BtcFormat;
 import static java.text.NumberFormat.Field.DECIMAL_SEPARATOR;
 import static java.util.Locale.*;
 import static org.junit.Assert.*;

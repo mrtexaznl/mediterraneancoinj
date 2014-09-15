@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
+import com.google.mediterraneancoin.core.DumpedPrivateKey;
+import com.google.mediterraneancoin.core.ECKey;
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
@@ -25,7 +27,7 @@ import java.io.ObjectOutputStream;
 
 import org.junit.Test;
 
-import com.google.bitcoin.params.MainNetParams;
+import com.google.mediterraneancoin.params.MainNetParams;
 
 public class DumpedPrivateKeyTest {
     @Test

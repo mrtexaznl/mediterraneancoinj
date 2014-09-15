@@ -15,21 +15,14 @@
  */
 
 package com.google.mediterraneancoin.wallet;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/wallet/DefaultCoinSelectorTest.java
-import com.google.mediterraneancoin.wallet.DefaultCoinSelector;
-import com.google.mediterraneancoin.wallet.CoinSelection;
+ 
+ 
+import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.params.RegTestParams;
 import com.google.mediterraneancoin.params.UnitTestParams;
-import com.google.mediterraneancoin.utils.TestUtils;
-import com.google.mediterraneancoin.utils.TestWithWallet;
-=======
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.params.RegTestParams;
-import com.google.bitcoin.params.UnitTestParams;
 import com.google.mediterraneancoin.testing.FakeTxBuilder;
 import com.google.mediterraneancoin.testing.TestWithWallet;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/wallet/DefaultCoinSelectorTest.java
+ 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +30,7 @@ import org.junit.Test;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
-import static com.google.bitcoin.core.Coin.*;
+import static com.google.mediterraneancoin.core.Coin.*;
 import static com.google.common.base.Preconditions.checkNotNull;
 import com.google.mediterraneancoin.core.AbstractBlockChain;
 import com.google.mediterraneancoin.core.NetworkParameters;

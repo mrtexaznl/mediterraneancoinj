@@ -16,17 +16,12 @@
  */
 
 package com.google.mediterraneancoin.protocols.payments;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/protocols/payments/PaymentSessionTest.java
-import com.google.mediterraneancoin.protocols.payments.PaymentRequestException;
-import com.google.mediterraneancoin.protocols.payments.PaymentSession;
+ 
+import com.google.mediterraneancoin.core.*;
+import com.google.mediterraneancoin.crypto.TrustStoreLoader;
+import com.google.mediterraneancoin.params.MainNetParams;
 import com.google.mediterraneancoin.params.TestNet3Params;
-=======
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.crypto.TrustStoreLoader;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.params.TestNet3Params;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/protocols/payments/PaymentSessionTest.java
+
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.mediterraneancoin.core.Address;
 import com.google.mediterraneancoin.core.ECKey;
@@ -45,7 +40,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static com.google.bitcoin.core.Coin.COIN;
+import static com.google.mediterraneancoin.core.Coin.COIN;
 import static org.junit.Assert.*;
 
 public class PaymentSessionTest {

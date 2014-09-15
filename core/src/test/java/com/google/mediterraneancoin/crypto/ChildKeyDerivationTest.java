@@ -16,15 +16,10 @@
  */
 
 package com.google.mediterraneancoin.crypto;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/crypto/ChildKeyDerivationTest.java
-import com.google.mediterraneancoin.crypto.HDKeyDerivation;
-import com.google.mediterraneancoin.crypto.HDUtils;
-import com.google.mediterraneancoin.crypto.DeterministicKey;
-=======
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Sha256Hash;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/crypto/ChildKeyDerivationTest.java
+ 
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.Sha256Hash;
+ 
 import org.junit.Test;
 import org.spongycastle.crypto.params.KeyParameter;
 

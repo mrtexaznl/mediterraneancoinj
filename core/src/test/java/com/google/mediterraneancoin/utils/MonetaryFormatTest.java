@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.utils;
+package com.google.mediterraneancoin.utils;
 
-import static com.google.bitcoin.core.Coin.CENT;
-import static com.google.bitcoin.core.Coin.COIN;
-import static com.google.bitcoin.core.Coin.SATOSHI;
-import static com.google.bitcoin.core.Coin.ZERO;
+import static com.google.mediterraneancoin.core.Coin.CENT;
+import static com.google.mediterraneancoin.core.Coin.COIN;
+import static com.google.mediterraneancoin.core.Coin.SATOSHI;
+import static com.google.mediterraneancoin.core.Coin.ZERO;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Locale;
 
 import org.junit.Test;
 
-import com.google.bitcoin.core.Coin;
+import com.google.mediterraneancoin.core.Coin;
+import com.google.mediterraneancoin.utils.Fiat;
+import com.google.mediterraneancoin.utils.MonetaryFormat;
 
 public class MonetaryFormatTest {
 

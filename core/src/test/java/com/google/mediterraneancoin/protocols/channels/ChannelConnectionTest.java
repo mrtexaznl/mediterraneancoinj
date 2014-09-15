@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/protocols/channels/ChannelConnectionTest.java
+ 
 package com.google.mediterraneancoin.protocols.channels;
 
 import com.google.mediterraneancoin.protocols.channels.StoredPaymentChannelServerStates;
@@ -27,19 +26,16 @@ import com.google.mediterraneancoin.protocols.channels.PaymentChannelClient;
 import com.google.mediterraneancoin.protocols.channels.PaymentChannelServer;
 import com.google.mediterraneancoin.protocols.channels.StoredPaymentChannelClientStates;
 import com.google.mediterraneancoin.protocols.channels.StoredServerChannel;
+ 
+ 
+ 
+ 
+import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.store.WalletProtobufSerializer;
-import com.google.mediterraneancoin.utils.TestWithWallet;
+import com.google.mediterraneancoin.testing.TestWithWallet;
 import com.google.mediterraneancoin.utils.Threading;
 import com.google.mediterraneancoin.wallet.WalletFiles;
-=======
-package com.google.bitcoin.protocols.channels;
-
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.store.WalletProtobufSerializer;
-import com.google.mediterraneancoin.testing.TestWithWallet;
-import com.google.bitcoin.utils.Threading;
-import com.google.bitcoin.wallet.WalletFiles;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/protocols/channels/ChannelConnectionTest.java
+ 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import com.google.mediterraneancoin.core.AbstractBlockChain;
@@ -67,15 +63,11 @@ import java.net.SocketAddress;
 import java.util.Arrays;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/protocols/channels/ChannelConnectionTest.java
+ 
+import static com.google.mediterraneancoin.core.Coin.*;
 import static com.google.mediterraneancoin.protocols.channels.PaymentChannelCloseException.CloseReason;
-import static com.google.mediterraneancoin.utils.TestUtils.createFakeBlock;
-=======
-import static com.google.bitcoin.core.Coin.*;
-import static com.google.bitcoin.protocols.channels.PaymentChannelCloseException.CloseReason;
 import static com.google.mediterraneancoin.testing.FakeTxBuilder.createFakeBlock;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/protocols/channels/ChannelConnectionTest.java
+
 import static org.bitcoin.paymentchannel.Protos.TwoWayChannelMessage.MessageType;
 import static org.junit.Assert.*;
 

@@ -16,24 +16,17 @@
  */
 
 package com.google.mediterraneancoin.script;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/script/ScriptTest.java
-import com.google.mediterraneancoin.script.Script;
-import com.google.mediterraneancoin.script.ScriptBuilder;
-import com.google.mediterraneancoin.script.ScriptOpCodes;
-import com.google.mediterraneancoin.params.MainNetParams;
-import com.google.mediterraneancoin.params.TestNet3Params;
-=======
+ 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.core.Transaction.SigHash;
-import com.google.bitcoin.crypto.TransactionSignature;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.params.TestNet3Params;
+import com.google.mediterraneancoin.core.*;
+import com.google.mediterraneancoin.core.Transaction.SigHash;
+import com.google.mediterraneancoin.crypto.TransactionSignature;
+import com.google.mediterraneancoin.params.MainNetParams;
+import com.google.mediterraneancoin.params.TestNet3Params;
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/script/ScriptTest.java
+ 
 import com.google.common.collect.Lists;
 import com.google.mediterraneancoin.core.Address;
 import com.google.mediterraneancoin.core.ECKey;
@@ -56,15 +49,12 @@ import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.util.*;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/script/ScriptTest.java
-import static com.google.mediterraneancoin.script.ScriptOpCodes.OP_INVALIDOPCODE;
-=======
+ 
 import static com.google.mediterraneancoin.core.Utils.HEX;
-import static com.google.bitcoin.script.ScriptOpCodes.OP_0;
-import static com.google.bitcoin.script.ScriptOpCodes.OP_INVALIDOPCODE;
+import static com.google.mediterraneancoin.script.ScriptOpCodes.OP_0;
+import static com.google.mediterraneancoin.script.ScriptOpCodes.OP_INVALIDOPCODE;
 import static org.hamcrest.core.IsEqual.equalTo;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/script/ScriptTest.java
+ 
 import static org.junit.Assert.*;
 
 public class ScriptTest {

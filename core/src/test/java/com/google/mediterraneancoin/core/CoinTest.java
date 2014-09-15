@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
-import static com.google.bitcoin.core.Coin.*;
-import static com.google.bitcoin.core.NetworkParameters.MAX_MONEY;
+import com.google.mediterraneancoin.core.Coin;
+import static com.google.mediterraneancoin.core.Coin.*;
+import static com.google.mediterraneancoin.core.NetworkParameters.MAX_MONEY;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

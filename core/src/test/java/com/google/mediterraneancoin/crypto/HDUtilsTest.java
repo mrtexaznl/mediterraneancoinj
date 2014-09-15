@@ -1,9 +1,3 @@
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/crypto/HDUtilsTest.java
-package com.google.mediterraneancoin.crypto;
-
-import com.google.mediterraneancoin.crypto.HDUtils;
-import com.google.mediterraneancoin.core.ECKey;
-=======
 /*
  * Copyright 2013 Matija Mazi
  * Copyright 2014 Andreas Schildbach
@@ -21,10 +15,10 @@ import com.google.mediterraneancoin.core.ECKey;
  * limitations under the License.
  */
 
-package com.google.bitcoin.crypto;
+package com.google.mediterraneancoin.crypto;
 
 import com.google.common.collect.ImmutableList;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/crypto/HDUtilsTest.java
+ 
 import org.junit.Assert;
 import org.junit.Test;
 

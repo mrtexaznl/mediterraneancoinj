@@ -1,23 +1,14 @@
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/protocols/channels/ChannelTestUtils.java
 package com.google.mediterraneancoin.protocols.channels;
 
-import com.google.mediterraneancoin.protocols.channels.PaymentChannelServer;
-import com.google.mediterraneancoin.protocols.channels.PaymentChannelClient;
-import com.google.mediterraneancoin.protocols.channels.PaymentChannelCloseException;
+ 
+
+import com.google.mediterraneancoin.core.Coin;
 import com.google.mediterraneancoin.core.Sha256Hash;
 import com.google.mediterraneancoin.core.TransactionBroadcaster;
-import com.google.mediterraneancoin.core.Utils;
 import com.google.mediterraneancoin.core.Wallet;
-=======
-package com.google.bitcoin.protocols.channels;
-
-import com.google.bitcoin.core.Coin;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.TransactionBroadcaster;
-import com.google.bitcoin.core.Wallet;
 
 import com.google.protobuf.ByteString;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/protocols/channels/ChannelTestUtils.java
+ 
 import org.bitcoin.paymentchannel.Protos;
 
 import javax.annotation.Nullable;

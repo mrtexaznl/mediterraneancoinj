@@ -1,9 +1,9 @@
-package com.google.bitcoin.protocols.channels;
+package com.google.mediterraneancoin.protocols.channels;
 
-import com.google.bitcoin.core.Coin;
-import com.google.bitcoin.core.TransactionBroadcaster;
-import com.google.bitcoin.core.Utils;
-import com.google.bitcoin.core.Wallet;
+import com.google.mediterraneancoin.core.Coin;
+import com.google.mediterraneancoin.core.TransactionBroadcaster;
+import com.google.mediterraneancoin.core.Utils;
+import com.google.mediterraneancoin.core.Wallet;
 import org.bitcoin.paymentchannel.Protos;
 import org.easymock.Capture;
 import org.junit.Before;

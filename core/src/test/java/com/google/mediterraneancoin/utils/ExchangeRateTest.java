@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.utils;
+package com.google.mediterraneancoin.utils;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.google.bitcoin.core.Coin;
+import com.google.mediterraneancoin.core.Coin;
+import com.google.mediterraneancoin.utils.ExchangeRate;
+import com.google.mediterraneancoin.utils.Fiat;
 
 public class ExchangeRateTest {
 

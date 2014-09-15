@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.wallet;
+package com.google.mediterraneancoin.wallet;
 
 import com.google.mediterraneancoin.wallet.DeterministicSeed;
 import com.google.mediterraneancoin.wallet.DeterministicUpgradeRequiredException;
 import com.google.mediterraneancoin.wallet.KeyChain;
 import com.google.mediterraneancoin.wallet.DeterministicUpgradeRequiresPassword;
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.crypto.*;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.utils.BriefLogFormatter;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.params.MainNetParams;
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.collect.ImmutableList;
 import org.bitcoinj.wallet.Protos;
 import org.junit.Before;
@@ -36,6 +34,19 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.mediterraneancoin.core.Address;
+import com.google.mediterraneancoin.core.BloomFilter;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.Sha256Hash;
+import com.google.mediterraneancoin.core.Utils;
+import com.google.mediterraneancoin.crypto.DeterministicKey;
+import com.google.mediterraneancoin.crypto.KeyCrypterException;
+import com.google.mediterraneancoin.crypto.KeyCrypterScrypt;
+import com.google.mediterraneancoin.crypto.MnemonicCode;
+import com.google.mediterraneancoin.wallet.KeyChainEventListener;
+import com.google.mediterraneancoin.wallet.KeyChainGroup;
+import com.google.mediterraneancoin.wallet.RedeemData;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertArrayEquals;
 

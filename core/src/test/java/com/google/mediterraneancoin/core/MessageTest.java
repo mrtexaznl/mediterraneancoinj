@@ -14,9 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
-import com.google.bitcoin.params.UnitTestParams;
+import com.google.mediterraneancoin.core.Message;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.ProtocolException;
+import com.google.mediterraneancoin.core.VarInt;
+import com.google.mediterraneancoin.params.UnitTestParams;
 import org.junit.Test;
 
 public class MessageTest {

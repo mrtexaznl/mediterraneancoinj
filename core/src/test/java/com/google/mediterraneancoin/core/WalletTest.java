@@ -82,6 +82,7 @@ import static com.google.mediterraneancoin.core.Utils.HEX;
 import static com.google.mediterraneancoin.testing.FakeTxBuilder.*;
  
 import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.mediterraneancoin.testing.MockTransactionBroadcaster;
 import com.google.mediterraneancoin.testing.TestWithWallet;
 import static org.junit.Assert.*;
 

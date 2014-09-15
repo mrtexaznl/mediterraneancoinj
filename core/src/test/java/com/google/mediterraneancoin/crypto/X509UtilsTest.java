@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.crypto;
+package com.google.mediterraneancoin.crypto;
 
-import com.google.bitcoin.crypto.X509Utils;
+import com.google.mediterraneancoin.crypto.X509Utils;
 import org.junit.Test;
 
 import java.security.cert.CertificateFactory;

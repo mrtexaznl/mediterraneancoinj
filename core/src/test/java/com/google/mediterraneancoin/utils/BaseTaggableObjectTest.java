@@ -1,5 +1,6 @@
-package com.google.bitcoin.utils;
+package com.google.mediterraneancoin.utils;
 
+import com.google.mediterraneancoin.utils.BaseTaggableObject;
 import com.google.protobuf.ByteString;
 import org.junit.Before;
 import org.junit.Test;

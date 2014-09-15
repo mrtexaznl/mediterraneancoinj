@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.wallet;
+package com.google.mediterraneancoin.wallet;
 
 import com.google.mediterraneancoin.wallet.KeyChain;
 import com.google.mediterraneancoin.wallet.AbstractKeyChainEventListener;
 import com.google.mediterraneancoin.wallet.DeterministicKeyChain;
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.crypto.DeterministicHierarchy;
-import com.google.bitcoin.crypto.DeterministicKey;
-import com.google.bitcoin.params.UnitTestParams;
-import com.google.bitcoin.store.UnreadableWalletException;
-import com.google.bitcoin.utils.BriefLogFormatter;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.crypto.DeterministicHierarchy;
+import com.google.mediterraneancoin.crypto.DeterministicKey;
+import com.google.mediterraneancoin.params.UnitTestParams;
+import com.google.mediterraneancoin.store.UnreadableWalletException;
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.collect.Lists;
 import org.bitcoinj.wallet.Protos;
 import org.junit.Before;
@@ -37,6 +36,11 @@ import java.security.SecureRandom;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.mediterraneancoin.core.Address;
+import com.google.mediterraneancoin.core.BloomFilter;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.Sha256Hash;
+import com.google.mediterraneancoin.core.Utils;
 import static org.junit.Assert.*;
 
 public class DeterministicKeyChainTest {

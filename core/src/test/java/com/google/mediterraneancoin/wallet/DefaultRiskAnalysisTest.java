@@ -16,17 +16,12 @@
  */
 
 package com.google.mediterraneancoin.wallet;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/wallet/DefaultRiskAnalysisTest.java
-import com.google.mediterraneancoin.wallet.DefaultRiskAnalysis;
-import com.google.mediterraneancoin.wallet.RiskAnalysis;
-import com.google.mediterraneancoin.params.UnitTestParams;
-=======
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.script.ScriptBuilder;
-import com.google.bitcoin.script.ScriptChunk;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/wallet/DefaultRiskAnalysisTest.java
+  
+import com.google.mediterraneancoin.core.*;
+import com.google.mediterraneancoin.params.MainNetParams;
+import com.google.mediterraneancoin.script.ScriptBuilder;
+import com.google.mediterraneancoin.script.ScriptChunk;
+ 
 import com.google.common.collect.ImmutableList;
 import com.google.mediterraneancoin.core.ECKey;
 import com.google.mediterraneancoin.core.NetworkParameters;
@@ -39,8 +34,8 @@ import com.google.mediterraneancoin.core.Wallet;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.google.bitcoin.core.Coin.COIN;
-import static com.google.bitcoin.script.ScriptOpCodes.OP_PUSHDATA1;
+import static com.google.mediterraneancoin.core.Coin.COIN;
+import static com.google.mediterraneancoin.script.ScriptOpCodes.OP_PUSHDATA1;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;

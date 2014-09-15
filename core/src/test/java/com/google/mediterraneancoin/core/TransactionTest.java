@@ -1,7 +1,7 @@
-package com.google.bitcoin.core;
-
-import com.google.bitcoin.params.UnitTestParams;
-import com.google.bitcoin.script.ScriptBuilder;
+package com.google.mediterraneancoin.core;
+ 
+import com.google.mediterraneancoin.params.UnitTestParams;
+import com.google.mediterraneancoin.script.ScriptBuilder;
 import com.google.mediterraneancoin.testing.FakeTxBuilder;
 import org.junit.Before;
 import org.junit.Test;

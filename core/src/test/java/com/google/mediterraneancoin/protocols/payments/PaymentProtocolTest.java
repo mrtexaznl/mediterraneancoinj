@@ -14,16 +14,20 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.protocols.payments;
+package com.google.mediterraneancoin.protocols.payments;
 
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.crypto.X509Utils;
-import com.google.bitcoin.params.TestNet3Params;
-import com.google.bitcoin.params.UnitTestParams;
-import com.google.bitcoin.protocols.payments.PaymentProtocol.Output;
-import com.google.bitcoin.protocols.payments.PaymentProtocol.PkiVerificationData;
-import com.google.bitcoin.protocols.payments.PaymentProtocolException.PkiVerificationException;
-import com.google.bitcoin.script.ScriptBuilder;
+import com.google.mediterraneancoin.core.Address;
+import com.google.mediterraneancoin.core.Coin;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.Transaction;
+import com.google.mediterraneancoin.crypto.X509Utils;
+import com.google.mediterraneancoin.params.TestNet3Params;
+import com.google.mediterraneancoin.params.UnitTestParams;
+import com.google.mediterraneancoin.protocols.payments.PaymentProtocol.Output;
+import com.google.mediterraneancoin.protocols.payments.PaymentProtocol.PkiVerificationData;
+import com.google.mediterraneancoin.protocols.payments.PaymentProtocolException.PkiVerificationException;
+import com.google.mediterraneancoin.script.ScriptBuilder;
 import com.google.mediterraneancoin.testing.FakeTxBuilder;
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoin.protocols.payments.Protos.Payment;

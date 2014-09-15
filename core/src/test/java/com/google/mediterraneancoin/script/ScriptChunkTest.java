@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.script;
+package com.google.mediterraneancoin.script;
 
-import static com.google.bitcoin.script.ScriptOpCodes.OP_PUSHDATA1;
-import static com.google.bitcoin.script.ScriptOpCodes.OP_PUSHDATA2;
-import static com.google.bitcoin.script.ScriptOpCodes.OP_PUSHDATA4;
+import static com.google.mediterraneancoin.script.ScriptOpCodes.OP_PUSHDATA1;
+import static com.google.mediterraneancoin.script.ScriptOpCodes.OP_PUSHDATA2;
+import static com.google.mediterraneancoin.script.ScriptOpCodes.OP_PUSHDATA4;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 

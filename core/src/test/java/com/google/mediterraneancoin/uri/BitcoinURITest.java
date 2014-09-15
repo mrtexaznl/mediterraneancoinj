@@ -15,29 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/uri/BitcoinURITest.java
+ 
 package com.google.mediterraneancoin.uri;
 
-import com.google.mediterraneancoin.uri.BitcoinURI;
-import com.google.mediterraneancoin.uri.BitcoinURIParseException;
 import com.google.mediterraneancoin.core.Address;
-import com.google.mediterraneancoin.core.Utils;
 import com.google.mediterraneancoin.params.MainNetParams;
 import com.google.mediterraneancoin.params.TestNet3Params;
-=======
-package com.google.bitcoin.uri;
-
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.params.TestNet3Params;
 import com.google.common.collect.ImmutableList;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/uri/BitcoinURITest.java
+ 
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
 
-import static com.google.bitcoin.core.Coin.*;
+import static com.google.mediterraneancoin.core.Coin.*;
 import static org.junit.Assert.*;
 
 public class BitcoinURITest {

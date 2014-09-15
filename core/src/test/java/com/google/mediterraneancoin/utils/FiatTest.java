@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.utils;
+package com.google.mediterraneancoin.utils;
 
-import static com.google.bitcoin.utils.Fiat.parseFiat;
+import com.google.mediterraneancoin.utils.Fiat;
+import static com.google.mediterraneancoin.utils.Fiat.parseFiat;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;

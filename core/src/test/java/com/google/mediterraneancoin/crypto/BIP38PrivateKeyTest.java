@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.crypto;
+package com.google.mediterraneancoin.crypto;
 
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.crypto.BIP38PrivateKey.BadPassphraseException;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.params.TestNet3Params;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.crypto.BIP38PrivateKey.BadPassphraseException;
+import com.google.mediterraneancoin.params.MainNetParams;
+import com.google.mediterraneancoin.params.TestNet3Params;
 import org.junit.Ignore;
 import org.junit.Test;
 

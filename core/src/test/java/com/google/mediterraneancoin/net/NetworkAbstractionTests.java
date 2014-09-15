@@ -29,12 +29,10 @@ import com.google.mediterraneancoin.net.ProtobufParser;
 import com.google.mediterraneancoin.net.StreamParserFactory;
 import com.google.common.util.concurrent.SettableFuture;
 import com.google.protobuf.ByteString;
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/net/NetworkAbstractionTests.java
-//import org.mediterraneancoin.paymentchannel.Protos;
-=======
+ 
 import org.bitcoin.paymentchannel.Protos;
 import org.bitcoin.paymentchannel.Protos.TwoWayChannelMessage;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/net/NetworkAbstractionTests.java
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
