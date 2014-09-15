@@ -1,14 +1,14 @@
 package com.google.bitcoin.examples;
 
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.kits.WalletAppKit;
-import com.google.bitcoin.params.RegTestParams;
-import com.google.bitcoin.utils.BriefLogFormatter;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.core.*;
+import com.google.mediterraneancoin.kits.WalletAppKit;
+import com.google.mediterraneancoin.params.RegTestParams;
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
+import com.google.mediterraneancoin.utils.Threading;
 
 import java.io.File;
 
-import static com.google.bitcoin.core.Coin.*;
+import static com.google.mediterraneancoin.core.Coin.*;
 
 /**
  * This is a little test app that waits for a coin on a local regtest node, then  generates two transactions that double

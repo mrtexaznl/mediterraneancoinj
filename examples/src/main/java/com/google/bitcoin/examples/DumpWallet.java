@@ -16,7 +16,7 @@
 
 package com.google.bitcoin.examples;
 
-import com.google.bitcoin.core.Wallet;
+import com.google.mediterraneancoin.core.Wallet;
 
 import java.io.File;
 

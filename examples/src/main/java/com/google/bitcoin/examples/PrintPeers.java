@@ -16,16 +16,16 @@
 
 package com.google.bitcoin.examples;
 
-import com.google.bitcoin.core.AbstractPeerEventListener;
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.Peer;
-import com.google.bitcoin.core.PeerAddress;
-import com.google.bitcoin.core.VersionMessage;
+import com.google.mediterraneancoin.core.AbstractPeerEventListener;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.Peer;
+import com.google.mediterraneancoin.core.PeerAddress;
+import com.google.mediterraneancoin.core.VersionMessage;
 import com.google.mediterraneancoin.net.discovery.DnsDiscovery;
 import com.google.mediterraneancoin.net.discovery.PeerDiscoveryException;
-import com.google.bitcoin.net.NioClientManager;
+import com.google.mediterraneancoin.net.NioClientManager;
 import com.google.mediterraneancoin.params.MainNetParams;
-import com.google.bitcoin.utils.BriefLogFormatter;
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;

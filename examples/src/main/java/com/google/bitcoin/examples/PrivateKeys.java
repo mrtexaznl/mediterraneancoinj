@@ -17,7 +17,7 @@
 
 package com.google.bitcoin.examples;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.params.MainNetParams;
 import com.google.mediterraneancoin.store.MemoryBlockStore;
 

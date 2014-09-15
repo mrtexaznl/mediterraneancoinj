@@ -16,27 +16,17 @@
  */
 
 package com.google.bitcoin.examples;
-
-<<<<<<< HEAD
-import com.google.mediterraneancoin.protocols.channels.PaymentChannelServerListener;
-import com.google.mediterraneancoin.protocols.channels.StoredPaymentChannelServerStates;
-import com.google.mediterraneancoin.protocols.channels.ServerConnectionEventHandler;
-import com.google.mediterraneancoin.protocols.channels.PaymentChannelCloseException;
-import com.google.mediterraneancoin.protocols.channels.PaymentChannelServerState;
-import com.google.bitcoin.core.*;
+ 
+import com.google.mediterraneancoin.core.Coin;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.Sha256Hash;
+import com.google.mediterraneancoin.core.VerificationException;
+import com.google.mediterraneancoin.core.WalletExtension;
 import com.google.mediterraneancoin.kits.WalletAppKit;
-import com.google.mediterraneancoin.params.TestNet3Params;
-=======
-import com.google.bitcoin.core.Coin;
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.VerificationException;
-import com.google.bitcoin.core.WalletExtension;
-import com.google.bitcoin.kits.WalletAppKit;
-import com.google.bitcoin.params.RegTestParams;
-import com.google.bitcoin.protocols.channels.*;
->>>>>>> upstream/master
-import com.google.bitcoin.utils.BriefLogFormatter;
+import com.google.mediterraneancoin.params.RegTestParams;
+import com.google.mediterraneancoin.protocols.channels.*;
+
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
 import com.google.common.collect.ImmutableList;
 
 import com.google.protobuf.ByteString;

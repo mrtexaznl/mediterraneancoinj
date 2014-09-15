@@ -17,22 +17,16 @@
 
 package com.google.bitcoin.examples;
 
-import com.google.bitcoin.core.*;
-<<<<<<< HEAD
+import com.google.mediterraneancoin.core.*;
+ 
 import com.google.mediterraneancoin.kits.WalletAppKit;
-import com.google.mediterraneancoin.params.TestNet3Params;
+import com.google.mediterraneancoin.params.RegTestParams;
 import com.google.mediterraneancoin.protocols.channels.PaymentChannelClientConnection;
 import com.google.mediterraneancoin.protocols.channels.StoredPaymentChannelClientStates;
 import com.google.mediterraneancoin.protocols.channels.ValueOutOfRangeException;
-=======
-import com.google.bitcoin.kits.WalletAppKit;
-import com.google.bitcoin.params.RegTestParams;
-import com.google.bitcoin.protocols.channels.PaymentChannelClientConnection;
-import com.google.bitcoin.protocols.channels.StoredPaymentChannelClientStates;
-import com.google.bitcoin.protocols.channels.ValueOutOfRangeException;
->>>>>>> upstream/master
-import com.google.bitcoin.utils.BriefLogFormatter;
-import com.google.bitcoin.utils.Threading;
+ 
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.collect.ImmutableList;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -47,7 +41,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 
-import static com.google.bitcoin.core.Coin.CENT;
+import static com.google.mediterraneancoin.core.Coin.CENT;
 
 /**
  * Simple client that connects to the given host, opens a channel, and pays one cent.

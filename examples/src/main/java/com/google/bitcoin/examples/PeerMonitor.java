@@ -17,14 +17,14 @@
 
 package com.google.bitcoin.examples;
 
-import com.google.bitcoin.core.AbstractPeerEventListener;
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.Peer;
-import com.google.bitcoin.core.PeerAddress;
-import com.google.bitcoin.core.PeerGroup;
+import com.google.mediterraneancoin.core.AbstractPeerEventListener;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.Peer;
+import com.google.mediterraneancoin.core.PeerAddress;
+import com.google.mediterraneancoin.core.PeerGroup;
 import com.google.mediterraneancoin.net.discovery.DnsDiscovery;
 import com.google.mediterraneancoin.params.MainNetParams;
-import com.google.bitcoin.utils.BriefLogFormatter;
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
 import com.google.common.collect.Lists;
 
 import javax.swing.*;
@@ -37,7 +37,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.net.Inet4Address;
+ 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashMap;

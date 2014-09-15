@@ -17,13 +17,13 @@
 
 package com.google.bitcoin.examples;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.crypto.KeyCrypterException;
 import com.google.mediterraneancoin.kits.WalletAppKit;
 import com.google.mediterraneancoin.params.MainNetParams;
 import com.google.mediterraneancoin.params.RegTestParams;
 import com.google.mediterraneancoin.params.TestNet3Params;
-import com.google.bitcoin.utils.BriefLogFormatter;
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.MoreExecutors;
@@ -44,11 +44,9 @@ public class ForwardingService {
     public static void main(String[] args) throws Exception {
         // This line makes the log output more compact and easily read, especially when using the JDK log adapter.
         BriefLogFormatter.init();
-<<<<<<< HEAD
+ 
         /*if (args.length < 2) {
-=======
-        if (args.length < 1) {
->>>>>>> upstream/master
+ 
             System.err.println("Usage: address-to-send-back-to [regtest|testnet]");
             return;
         }*/
@@ -84,7 +82,7 @@ public class ForwardingService {
         kit.setBlockingStartup(false);
         
         // Download the block chain and wait until it's done.
-<<<<<<< HEAD
+ 
         kit.startAndWait();        
         
         kit.chain().addListener( 
@@ -118,18 +116,18 @@ public class ForwardingService {
                     }
 
                     @Override
-                    public void notifyTransactionIsInBlock(Sha256Hash txHash, StoredBlock block, AbstractBlockChain.NewBlockType blockType, int relativityOffset) throws VerificationException {
+                    public boolean notifyTransactionIsInBlock(Sha256Hash txHash, StoredBlock block, AbstractBlockChain.NewBlockType blockType, int relativityOffset) throws VerificationException {
                         System.out.println("");
+                        return true;
                     }
                 }
                 );
         
 
-
-=======
-        kit.startAsync();
-        kit.awaitRunning();
->>>>>>> upstream/master
+ 
+        //kit.startAsync();
+        //kit.awaitRunning();
+ 
 
         // We want to know when we receive money.
         kit.wallet().addEventListener(new AbstractWalletEventListener() {
