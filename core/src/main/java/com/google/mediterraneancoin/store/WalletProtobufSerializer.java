@@ -16,8 +16,8 @@
 
 package com.google.mediterraneancoin.store;
 
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
+import com.google.mediterraneancoin.core.*;
+import com.google.mediterraneancoin.core.TransactionConfidence.ConfidenceType;
 import com.google.mediterraneancoin.crypto.EncryptedPrivateKey;
 import com.google.mediterraneancoin.crypto.KeyCrypter;
 import com.google.mediterraneancoin.crypto.KeyCrypterScrypt;

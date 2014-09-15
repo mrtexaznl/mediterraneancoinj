@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.utils;
+package com.google.mediterraneancoin.utils;
 
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionBroadcaster;
-import com.google.bitcoin.core.VerificationException;
-import com.google.bitcoin.core.Wallet;
+import com.google.mediterraneancoin.core.Transaction;
+import com.google.mediterraneancoin.core.TransactionBroadcaster;
+import com.google.mediterraneancoin.core.VerificationException;
+import com.google.mediterraneancoin.core.Wallet;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.SettableFuture;

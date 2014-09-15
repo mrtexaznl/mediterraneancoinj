@@ -16,10 +16,10 @@
 
 package com.google.mediterraneancoin.store;
 
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.StoredBlock;
-import com.google.bitcoin.core.StoredTransactionOutput;
-import com.google.bitcoin.core.StoredUndoableBlock;
+import com.google.mediterraneancoin.core.Sha256Hash;
+import com.google.mediterraneancoin.core.StoredBlock;
+import com.google.mediterraneancoin.core.StoredTransactionOutput;
+import com.google.mediterraneancoin.core.StoredUndoableBlock;
 
 /**
  * <p>An implementor of FullPrunedBlockStore saves StoredBlock objects to some storage mechanism.</p>

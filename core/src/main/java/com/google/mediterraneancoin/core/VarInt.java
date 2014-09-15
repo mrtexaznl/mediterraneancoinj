@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
 import com.google.common.primitives.UnsignedInteger;
 
-import static com.google.bitcoin.core.Utils.isLessThanUnsigned;
+import static com.google.mediterraneancoin.core.Utils.isLessThanUnsigned;
 
 /**
  * A variable-length encoded integer using Satoshis encoding.

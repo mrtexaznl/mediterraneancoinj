@@ -16,7 +16,7 @@
 
 package com.google.mediterraneancoin.params;
 
-import com.google.bitcoin.core.Block;
+import com.google.mediterraneancoin.core.Block;
 
 import java.math.BigInteger;
 

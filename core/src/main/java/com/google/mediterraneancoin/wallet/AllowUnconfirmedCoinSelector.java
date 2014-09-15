@@ -1,6 +1,6 @@
 package com.google.mediterraneancoin.wallet;
 
-import com.google.bitcoin.core.Transaction;
+import com.google.mediterraneancoin.core.Transaction;
 
 /**
  * This coin selector will select any transaction at all, regardless of where it came from or whether it was

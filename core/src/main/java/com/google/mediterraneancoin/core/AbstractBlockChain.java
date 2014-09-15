@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
 import com.google.mediterraneancoin.store.BlockStore;
 import com.google.mediterraneancoin.store.BlockStoreException;
-import com.google.bitcoin.utils.ListenerRegistration;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.utils.ListenerRegistration;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.ListenableFuture;

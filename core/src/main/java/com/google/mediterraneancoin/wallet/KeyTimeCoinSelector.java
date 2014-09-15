@@ -16,7 +16,7 @@
 
 package com.google.mediterraneancoin.wallet;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.script.Script;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
@@ -34,7 +34,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class KeyTimeCoinSelector implements CoinSelector {
     private static final Logger log = LoggerFactory.getLogger(KeyTimeCoinSelector.class);
 
-    /** A number of inputs chosen to avoid hitting {@link com.google.bitcoin.core.Transaction.MAX_STANDARD_TX_SIZE} */
+    /** A number of inputs chosen to avoid hitting {@link com.google.mediterraneancoin.core.Transaction.MAX_STANDARD_TX_SIZE} */
     public static final int MAX_SIMULTANEOUS_INPUTS = 600;
 
     private final long unixTimeSeconds;

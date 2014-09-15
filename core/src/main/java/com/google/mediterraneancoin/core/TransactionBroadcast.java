@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import com.google.common.util.concurrent.ListenableFuture;

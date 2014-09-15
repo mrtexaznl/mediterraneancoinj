@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.utils;
+package com.google.mediterraneancoin.utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

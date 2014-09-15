@@ -17,10 +17,10 @@
 package com.google.mediterraneancoin.store;
 
 import com.google.mediterraneancoin.store.SPVBlockStore;
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.StoredBlock;
+import com.google.mediterraneancoin.core.Address;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.StoredBlock;
 import com.google.mediterraneancoin.params.UnitTestParams;
 import org.junit.Test;
 

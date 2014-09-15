@@ -16,8 +16,8 @@
 
 package com.google.mediterraneancoin.wallet;
 
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.Wallet;
+import com.google.mediterraneancoin.core.Transaction;
+import com.google.mediterraneancoin.core.Wallet;
 
 import java.util.List;
 

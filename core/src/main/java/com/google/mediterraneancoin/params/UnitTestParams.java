@@ -16,14 +16,14 @@
 
 package com.google.mediterraneancoin.params;
 
-import com.google.bitcoin.core.Block;
-import com.google.bitcoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.Block;
+import com.google.mediterraneancoin.core.NetworkParameters;
 
 import java.math.BigInteger;
 
 /**
  * Network parameters used by the bitcoinj unit tests (and potentially your own). This lets you solve a block using
- * {@link com.google.bitcoin.core.Block#solve()} by setting difficulty to the easiest possible.
+ * {@link com.google.mediterraneancoin.core.Block#solve()} by setting difficulty to the easiest possible.
  */
 public class UnitTestParams extends NetworkParameters {
     public UnitTestParams() {

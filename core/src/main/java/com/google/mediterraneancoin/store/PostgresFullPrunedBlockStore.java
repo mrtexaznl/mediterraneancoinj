@@ -16,7 +16,7 @@
 
 package com.google.mediterraneancoin.store;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.script.Script;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ import java.util.*;
 
 /**
  * <p>A full pruned block store using the Postgres database engine. As an added bonus an address index is calculated,
- * so you can use {@link #calculateBalanceForAddress(com.google.bitcoin.core.Address)} to quickly look up
+ * so you can use {@link #calculateBalanceForAddress(com.google.mediterraneancoin.core.Address)} to quickly look up
  * the quantity of bitcoins controlled by that address.</p>
  */
 public class PostgresFullPrunedBlockStore implements FullPrunedBlockStore {

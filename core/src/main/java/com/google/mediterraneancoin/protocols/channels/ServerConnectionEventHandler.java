@@ -18,8 +18,8 @@ package com.google.mediterraneancoin.protocols.channels;
 
 import java.math.BigInteger;
 
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.net.ProtobufParser;
+import com.google.mediterraneancoin.core.Sha256Hash;
+import com.google.mediterraneancoin.net.ProtobufParser;
 import org.bitcoin.paymentchannel.Protos;
 
 import javax.annotation.Nullable;
@@ -41,8 +41,8 @@ public abstract class ServerConnectionEventHandler {
      * <p>Note that this does <i>NOT</i> actually broadcast the most recent payment transaction, which will be triggered
      * automatically when the channel times out by the {@link StoredPaymentChannelServerStates}, or manually by calling
      * {@link StoredPaymentChannelServerStates#closeChannel(StoredServerChannel)} with the channel returned by
-     * {@link StoredPaymentChannelServerStates#getChannel(com.google.bitcoin.core.Sha256Hash)} with the id provided in
-     * {@link ServerConnectionEventHandler#channelOpen(com.google.bitcoin.core.Sha256Hash)}</p>
+     * {@link StoredPaymentChannelServerStates#getChannel(com.google.mediterraneancoin.core.Sha256Hash)} with the id provided in
+     * {@link ServerConnectionEventHandler#channelOpen(com.google.mediterraneancoin.core.Sha256Hash)}</p>
      */
     protected final synchronized void closeChannel() {
         if (connectionChannel == null)

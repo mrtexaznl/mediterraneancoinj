@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
 import com.google.common.base.Charsets;
 import com.google.common.primitives.UnsignedLongs;

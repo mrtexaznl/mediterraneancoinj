@@ -20,8 +20,8 @@ package com.google.mediterraneancoin.uri;
 
 import com.google.mediterraneancoin.uri.BitcoinURI;
 import com.google.mediterraneancoin.uri.BitcoinURIParseException;
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.Utils;
+import com.google.mediterraneancoin.core.Address;
+import com.google.mediterraneancoin.core.Utils;
 import com.google.mediterraneancoin.params.MainNetParams;
 import com.google.mediterraneancoin.params.TestNet3Params;
 import org.junit.Test;

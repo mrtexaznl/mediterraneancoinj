@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.utils;
+package com.google.mediterraneancoin.utils;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.params.UnitTestParams;
 import com.google.mediterraneancoin.store.BlockStore;
 import com.google.mediterraneancoin.store.MemoryBlockStore;
@@ -25,8 +25,8 @@ import javax.annotation.Nullable;
 import java.io.IOException;
 import java.math.BigInteger;
 
-import static com.google.bitcoin.utils.TestUtils.createFakeBlock;
-import static com.google.bitcoin.utils.TestUtils.createFakeTx;
+import static com.google.mediterraneancoin.utils.TestUtils.createFakeBlock;
+import static com.google.mediterraneancoin.utils.TestUtils.createFakeTx;
 
 // TODO: This needs to be somewhat rewritten - the "sendMoneyToWallet" methods aren't sending via the block chain object
 

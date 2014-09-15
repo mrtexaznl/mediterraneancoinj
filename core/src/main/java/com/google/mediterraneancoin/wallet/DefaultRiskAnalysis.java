@@ -16,9 +16,9 @@
 
 package com.google.mediterraneancoin.wallet;
 
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionConfidence;
-import com.google.bitcoin.core.Wallet;
+import com.google.mediterraneancoin.core.Transaction;
+import com.google.mediterraneancoin.core.TransactionConfidence;
+import com.google.mediterraneancoin.core.Wallet;
 
 import javax.annotation.Nullable;
 import java.util.List;

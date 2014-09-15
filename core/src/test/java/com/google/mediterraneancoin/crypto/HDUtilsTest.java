@@ -1,7 +1,7 @@
 package com.google.mediterraneancoin.crypto;
 
 import com.google.mediterraneancoin.crypto.HDUtils;
-import com.google.bitcoin.core.ECKey;
+import com.google.mediterraneancoin.core.ECKey;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;

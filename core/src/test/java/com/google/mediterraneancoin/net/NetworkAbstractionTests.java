@@ -16,19 +16,19 @@
 
 package com.google.mediterraneancoin.net;
 
-import com.google.bitcoin.core.Utils;
-import com.google.bitcoin.net.BlockingClient;
-import com.google.bitcoin.net.BlockingClientManager;
-import com.google.bitcoin.net.ClientConnectionManager;
-import com.google.bitcoin.net.MessageWriteTarget;
-import com.google.bitcoin.net.NioClient;
-import com.google.bitcoin.net.NioClientManager;
-import com.google.bitcoin.net.NioServer;
-import com.google.bitcoin.net.ProtobufParser;
-import com.google.bitcoin.net.StreamParserFactory;
+import com.google.mediterraneancoin.core.Utils;
+import com.google.mediterraneancoin.net.BlockingClient;
+import com.google.mediterraneancoin.net.BlockingClientManager;
+import com.google.mediterraneancoin.net.ClientConnectionManager;
+import com.google.mediterraneancoin.net.MessageWriteTarget;
+import com.google.mediterraneancoin.net.NioClient;
+import com.google.mediterraneancoin.net.NioClientManager;
+import com.google.mediterraneancoin.net.NioServer;
+import com.google.mediterraneancoin.net.ProtobufParser;
+import com.google.mediterraneancoin.net.StreamParserFactory;
 import com.google.common.util.concurrent.SettableFuture;
 import com.google.protobuf.ByteString;
-import org.bitcoin.paymentchannel.Protos;
+//import org.mediterraneancoin.paymentchannel.Protos;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,6 +44,7 @@ import java.util.Collection;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.google.common.base.Preconditions.checkState;
+import org.bitcoin.paymentchannel.Protos;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 

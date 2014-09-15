@@ -22,10 +22,24 @@ import com.google.mediterraneancoin.protocols.channels.ValueOutOfRangeException;
 import com.google.mediterraneancoin.protocols.channels.StoredPaymentChannelClientStates;
 import com.google.mediterraneancoin.script.Script;
 import com.google.mediterraneancoin.script.ScriptBuilder;
-import com.google.bitcoin.utils.TestWithWallet;
+import com.google.mediterraneancoin.utils.TestWithWallet;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
+import com.google.mediterraneancoin.core.AbstractBlockChain;
+import com.google.mediterraneancoin.core.BlockChain;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.InsufficientMoneyException;
+import com.google.mediterraneancoin.core.Sha256Hash;
+import com.google.mediterraneancoin.core.StoredBlock;
+import com.google.mediterraneancoin.core.Transaction;
+import com.google.mediterraneancoin.core.TransactionBroadcaster;
+import com.google.mediterraneancoin.core.TransactionInput;
+import com.google.mediterraneancoin.core.TransactionOutPoint;
+import com.google.mediterraneancoin.core.TransactionOutput;
+import com.google.mediterraneancoin.core.Utils;
+import com.google.mediterraneancoin.core.VerificationException;
+import com.google.mediterraneancoin.core.Wallet;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,8 +51,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import static com.google.bitcoin.utils.TestUtils.createFakeTx;
-import static com.google.bitcoin.utils.TestUtils.makeSolvedTestBlock;
+import static com.google.mediterraneancoin.utils.TestUtils.createFakeTx;
+import static com.google.mediterraneancoin.utils.TestUtils.makeSolvedTestBlock;
 import static org.junit.Assert.*;
 
 public class PaymentChannelStateTest extends TestWithWallet {

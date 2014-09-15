@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.utils;
+package com.google.mediterraneancoin.utils;
 
-import com.google.bitcoin.core.Utils;
+import com.google.mediterraneancoin.core.Utils;
 
 import static com.google.common.base.Preconditions.checkArgument;
 

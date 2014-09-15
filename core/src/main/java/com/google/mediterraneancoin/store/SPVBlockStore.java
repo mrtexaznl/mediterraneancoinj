@@ -16,8 +16,8 @@
 
 package com.google.mediterraneancoin.store;
 
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.core.*;
+import com.google.mediterraneancoin.utils.Threading;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

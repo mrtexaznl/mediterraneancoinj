@@ -16,8 +16,8 @@
 
 package com.google.bitcoin.jni;
 
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionConfidence;
+import com.google.mediterraneancoin.core.Transaction;
+import com.google.mediterraneancoin.core.TransactionConfidence;
 
 /**
  * An event listener that relays events to a native C++ object. A pointer to that object is stored in

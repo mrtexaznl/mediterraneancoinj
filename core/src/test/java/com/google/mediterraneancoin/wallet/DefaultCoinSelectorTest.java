@@ -20,8 +20,8 @@ import com.google.mediterraneancoin.wallet.DefaultCoinSelector;
 import com.google.mediterraneancoin.wallet.CoinSelection;
 import com.google.mediterraneancoin.params.RegTestParams;
 import com.google.mediterraneancoin.params.UnitTestParams;
-import com.google.bitcoin.utils.TestUtils;
-import com.google.bitcoin.utils.TestWithWallet;
+import com.google.mediterraneancoin.utils.TestUtils;
+import com.google.mediterraneancoin.utils.TestWithWallet;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +31,13 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.mediterraneancoin.core.AbstractBlockChain;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.PeerAddress;
+import com.google.mediterraneancoin.core.Transaction;
+import com.google.mediterraneancoin.core.TransactionConfidence;
+import com.google.mediterraneancoin.core.TransactionOutput;
+import com.google.mediterraneancoin.core.Utils;
 import static org.junit.Assert.*;
 
 public class DefaultCoinSelectorTest extends TestWithWallet {

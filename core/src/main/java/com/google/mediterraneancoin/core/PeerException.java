@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
 /**
  * Thrown when a problem occurs in communicating with a peer, and we should

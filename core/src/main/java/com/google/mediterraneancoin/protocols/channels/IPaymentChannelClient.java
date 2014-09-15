@@ -16,7 +16,7 @@
 
 package com.google.mediterraneancoin.protocols.channels;
 
-import com.google.bitcoin.core.InsufficientMoneyException;
+import com.google.mediterraneancoin.core.InsufficientMoneyException;
 import com.google.common.util.concurrent.ListenableFuture;
 import org.bitcoin.paymentchannel.Protos;
 
@@ -41,7 +41,7 @@ public interface IPaymentChannelClient {
      * intending to reopen the channel later. There is likely little reason to use this in a stateless protocol.</p>
      *
      * <p>Note that this <b>MUST</b> still be called even after either
-     * {@link PaymentChannelClient.ClientConnection#destroyConnection(com.google.bitcoin.protocols.channels.PaymentChannelCloseException.CloseReason)} or
+     * {@link PaymentChannelClient.ClientConnection#destroyConnection(com.google.mediterraneancoin.protocols.channels.PaymentChannelCloseException.CloseReason)} or
      * {@link IPaymentChannelClient#settle()} is called, to actually handle the connection close logic.</p>
      */
     void connectionClosed();
@@ -50,7 +50,7 @@ public interface IPaymentChannelClient {
      * <p>Settles the channel, notifying the server it can broadcast the most recent payment transaction.</p>
      *
      * <p>Note that this only generates a CLOSE message for the server and calls
-     * {@link PaymentChannelClient.ClientConnection#destroyConnection(com.google.bitcoin.protocols.channels.PaymentChannelCloseException.CloseReason)}
+     * {@link PaymentChannelClient.ClientConnection#destroyConnection(com.google.mediterraneancoin.protocols.channels.PaymentChannelCloseException.CloseReason)}
      * to settle the connection, it does not actually handle connection close logic, and
      * {@link PaymentChannelClient#connectionClosed()} must still be called after the connection fully settles.</p>
      *
@@ -93,7 +93,7 @@ public interface IPaymentChannelClient {
          * however the order of messages must be preserved.</p>
          *
          * <p>If the send fails, no exception should be thrown, however
-         * {@link com.google.bitcoin.protocols.channels.PaymentChannelClient#connectionClosed()} should be called immediately. In the case of messages which
+         * {@link com.google.mediterraneancoin.protocols.channels.PaymentChannelClient#connectionClosed()} should be called immediately. In the case of messages which
          * are a part of initialization, initialization will simply fail and the refund transaction will be broadcasted
          * when it unlocks (if necessary).  In the case of a payment message, the payment will be lost however if the
          * channel is resumed it will begin again from the channel value <i>after</i> the failed payment.</p>
@@ -105,20 +105,20 @@ public interface IPaymentChannelClient {
         /**
          * <p>Requests that the connection to the server be closed. For stateless protocols, note that after this call,
          * no more messages should be received from the server and this object is no longer usable. A
-         * {@link com.google.bitcoin.protocols.channels.PaymentChannelClient#connectionClosed()} event should be generated immediately after this call.</p>
+         * {@link com.google.mediterraneancoin.protocols.channels.PaymentChannelClient#connectionClosed()} event should be generated immediately after this call.</p>
          *
          * <p>Called while holding a lock on the {@link com.google.mediterraneancoin.protocols.channels.PaymentChannelClient} object - be careful about reentrancy</p>
          *
          * @param reason The reason for the closure, see the individual values for more details.
          *               It is usually safe to ignore this and treat any value below
-         *               {@link com.google.bitcoin.protocols.channels.PaymentChannelCloseException.CloseReason#CLIENT_REQUESTED_CLOSE} as "unrecoverable error" and all others as
+         *               {@link com.google.mediterraneancoin.protocols.channels.PaymentChannelCloseException.CloseReason#CLIENT_REQUESTED_CLOSE} as "unrecoverable error" and all others as
          *               "try again once and see if it works then"
          */
         void destroyConnection(PaymentChannelCloseException.CloseReason reason);
 
         /**
          * <p>Indicates the channel has been successfully opened and
-         * {@link com.google.bitcoin.protocols.channels.PaymentChannelClient#incrementPayment(java.math.BigInteger)}
+         * {@link com.google.mediterraneancoin.protocols.channels.PaymentChannelClient#incrementPayment(java.math.BigInteger)}
          * may be called at will.</p>
          *
          * <p>Called while holding a lock on the {@link com.google.mediterraneancoin.protocols.channels.PaymentChannelClient}

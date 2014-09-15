@@ -22,6 +22,17 @@ import com.google.mediterraneancoin.script.ScriptOpCodes;
 import com.google.mediterraneancoin.params.MainNetParams;
 import com.google.mediterraneancoin.params.TestNet3Params;
 import com.google.common.collect.Lists;
+import com.google.mediterraneancoin.core.Address;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.ScriptException;
+import com.google.mediterraneancoin.core.Sha256Hash;
+import com.google.mediterraneancoin.core.Transaction;
+import com.google.mediterraneancoin.core.TransactionInput;
+import com.google.mediterraneancoin.core.TransactionOutPoint;
+import com.google.mediterraneancoin.core.UnsafeByteArrayOutputStream;
+import com.google.mediterraneancoin.core.Utils;
+import com.google.mediterraneancoin.core.VerificationException;
 
 import org.junit.Test;
 import org.spongycastle.util.encoders.Hex;

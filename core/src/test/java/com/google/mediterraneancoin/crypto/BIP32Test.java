@@ -16,8 +16,8 @@
 
 package com.google.mediterraneancoin.crypto;
 
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.Base58;
+import com.google.mediterraneancoin.core.AddressFormatException;
+import com.google.mediterraneancoin.core.Base58;
 import com.google.mediterraneancoin.crypto.ChildNumber;
 import com.google.mediterraneancoin.crypto.DeterministicHierarchy;
 import com.google.mediterraneancoin.crypto.DeterministicKey;

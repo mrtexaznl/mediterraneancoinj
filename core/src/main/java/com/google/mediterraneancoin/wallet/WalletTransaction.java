@@ -16,12 +16,12 @@
 
 package com.google.mediterraneancoin.wallet;
 
-import com.google.bitcoin.core.Transaction;
+import com.google.mediterraneancoin.core.Transaction;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Stores data about a transaction that is only relevant to the {@link com.google.bitcoin.core.Wallet} class.
+ * Stores data about a transaction that is only relevant to the {@link com.google.mediterraneancoin.core.Wallet} class.
  */
 public class WalletTransaction {
     public enum Pool {

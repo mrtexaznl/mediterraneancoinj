@@ -16,9 +16,9 @@
 
 package com.google.mediterraneancoin.net.discovery;
 
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.Base58;
-import com.google.bitcoin.core.Utils;
+import com.google.mediterraneancoin.core.AddressFormatException;
+import com.google.mediterraneancoin.core.Base58;
+import com.google.mediterraneancoin.core.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

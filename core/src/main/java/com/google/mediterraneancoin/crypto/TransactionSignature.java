@@ -16,16 +16,16 @@
 
 package com.google.mediterraneancoin.crypto;
 
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.VerificationException;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.Transaction;
+import com.google.mediterraneancoin.core.VerificationException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 
 /**
- * A TransactionSignature wraps an {@link com.google.bitcoin.core.ECKey.ECDSASignature} and adds methods for handling
+ * A TransactionSignature wraps an {@link com.google.mediterraneancoin.core.ECKey.ECDSASignature} and adds methods for handling
  * the additional SIGHASH mode byte that is used.
  */
 public class TransactionSignature extends ECKey.ECDSASignature {

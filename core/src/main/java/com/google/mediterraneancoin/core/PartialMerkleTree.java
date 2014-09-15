@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
 import java.io.IOException;
 import java.io.OutputStream;

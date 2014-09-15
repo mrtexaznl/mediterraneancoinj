@@ -16,8 +16,8 @@
 
 package com.google.mediterraneancoin.params;
 
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.Utils;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.Utils;
 import org.spongycastle.util.encoders.Hex;
 
 import static com.google.common.base.Preconditions.checkState;

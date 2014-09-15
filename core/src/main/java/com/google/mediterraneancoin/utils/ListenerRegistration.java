@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.utils;
+package com.google.mediterraneancoin.utils;
 
 import java.util.List;
 import java.util.concurrent.Executor;

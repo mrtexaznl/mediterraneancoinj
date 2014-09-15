@@ -16,7 +16,7 @@
 
 package com.google.mediterraneancoin.protocols.channels;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 
 import javax.annotation.Nullable;
 import java.math.BigInteger;
@@ -79,7 +79,7 @@ public class StoredServerChannel {
     }
 
     /**
-     * If a handler is connected, call its {@link com.google.bitcoin.protocols.channels.PaymentChannelServer#close()}
+     * If a handler is connected, call its {@link com.google.mediterraneancoin.protocols.channels.PaymentChannelServer#close()}
      * method thus disconnecting the TCP connection.
      */
     synchronized void closeConnectedHandler() {

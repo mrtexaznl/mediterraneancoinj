@@ -16,11 +16,11 @@
 
 package com.google.mediterraneancoin.protocols.payments;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.params.MainNetParams;
 import com.google.mediterraneancoin.script.ScriptBuilder;
 import com.google.mediterraneancoin.uri.BitcoinURI;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ListenableFuture;

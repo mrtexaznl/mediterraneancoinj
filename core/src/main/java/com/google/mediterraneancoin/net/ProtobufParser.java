@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.net;
+package com.google.mediterraneancoin.net;
 
-import com.google.bitcoin.core.Utils;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.core.Utils;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.MessageLite;

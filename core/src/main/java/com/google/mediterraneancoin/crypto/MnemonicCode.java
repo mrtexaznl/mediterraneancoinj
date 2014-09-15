@@ -16,7 +16,7 @@
 
 package com.google.mediterraneancoin.crypto;
 
-import com.google.bitcoin.core.Sha256Hash;
+import com.google.mediterraneancoin.core.Sha256Hash;
 import com.google.common.base.Joiner;
 import org.spongycastle.util.encoders.Hex;
 

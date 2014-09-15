@@ -15,7 +15,7 @@
  */
 package com.google.mediterraneancoin.net.discovery;
 
-import com.google.bitcoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.NetworkParameters;
 
 import javax.annotation.Nullable;
 import java.net.InetAddress;

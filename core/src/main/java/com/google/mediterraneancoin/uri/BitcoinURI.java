@@ -18,10 +18,10 @@
 
 package com.google.mediterraneancoin.uri;
 
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.Utils;
+import com.google.mediterraneancoin.core.Address;
+import com.google.mediterraneancoin.core.AddressFormatException;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -16,8 +16,8 @@
 
 package com.google.mediterraneancoin.protocols.channels;
 
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.core.*;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.HashMultimap;
 import com.google.protobuf.ByteString;

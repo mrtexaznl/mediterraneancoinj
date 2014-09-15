@@ -1,6 +1,6 @@
 package com.google.mediterraneancoin.wallet;
 
-import com.google.bitcoin.core.TransactionOutput;
+import com.google.mediterraneancoin.core.TransactionOutput;
 
 import java.math.BigInteger;
 import java.util.LinkedList;

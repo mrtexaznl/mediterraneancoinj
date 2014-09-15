@@ -15,9 +15,9 @@
  */
 package com.google.mediterraneancoin.crypto;
 
-import com.google.bitcoin.core.Base58;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Utils;
+import com.google.mediterraneancoin.core.Base58;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.Utils;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;

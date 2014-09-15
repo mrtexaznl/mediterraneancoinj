@@ -16,9 +16,9 @@
 
 package com.google.mediterraneancoin.params;
 
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.Utils;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.Sha256Hash;
+import com.google.mediterraneancoin.core.Utils;
 
 import static com.google.common.base.Preconditions.checkState;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
 import com.google.common.io.ByteStreams;
 import org.spongycastle.util.encoders.Hex;

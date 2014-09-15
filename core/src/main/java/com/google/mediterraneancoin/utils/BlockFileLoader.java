@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.utils;
+package com.google.mediterraneancoin.utils;
 
-import com.google.bitcoin.core.Block;
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.ProtocolException;
-import com.google.bitcoin.core.Utils;
+import com.google.mediterraneancoin.core.Block;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.ProtocolException;
+import com.google.mediterraneancoin.core.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;

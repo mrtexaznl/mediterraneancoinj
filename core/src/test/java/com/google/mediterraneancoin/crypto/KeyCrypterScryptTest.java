@@ -18,8 +18,8 @@ package com.google.mediterraneancoin.crypto;
 import com.google.mediterraneancoin.crypto.KeyCrypterException;
 import com.google.mediterraneancoin.crypto.KeyCrypterScrypt;
 import com.google.mediterraneancoin.crypto.EncryptedPrivateKey;
-import com.google.bitcoin.core.Utils;
-import com.google.bitcoin.utils.BriefLogFormatter;
+import com.google.mediterraneancoin.core.Utils;
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
 import com.google.protobuf.ByteString;
 
 import org.bitcoinj.wallet.Protos;

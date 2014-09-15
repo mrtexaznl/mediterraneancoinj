@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.utils;
+package com.google.mediterraneancoin.utils;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.store.BlockStore;
 import com.google.mediterraneancoin.store.BlockStoreException;
 

@@ -16,12 +16,12 @@
 
 package com.google.mediterraneancoin.protocols.channels;
 
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.InsufficientMoneyException;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.net.NioClient;
-import com.google.bitcoin.net.ProtobufParser;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.InsufficientMoneyException;
+import com.google.mediterraneancoin.core.Sha256Hash;
+import com.google.mediterraneancoin.core.Wallet;
+import com.google.mediterraneancoin.net.NioClient;
+import com.google.mediterraneancoin.net.ProtobufParser;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import org.bitcoin.paymentchannel.Protos;

@@ -16,7 +16,7 @@
 
 package com.google.bitcoin.jni;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 
 import java.util.List;
 

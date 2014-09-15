@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
 import com.google.mediterraneancoin.params.UnitTestParams;
 import com.google.mediterraneancoin.params.RegTestParams;
@@ -33,7 +33,7 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.google.bitcoin.core.Utils.COIN;
+import static com.google.mediterraneancoin.core.Utils.COIN;
 
 /**
  * <p>NetworkParameters contains the data needed for working with an instantiation of a Bitcoin chain.</p>
@@ -60,7 +60,7 @@ public abstract class NetworkParameters implements Serializable {
     /** The string returned by getId() for the testnet. */
     public static final String ID_TESTNET = "org.bitcoin.test";
     /** Unit test network. */
-    public static final String ID_UNITTESTNET = "com.google.bitcoin.unittest";
+    public static final String ID_UNITTESTNET = "com.google.mediterraneancoin.unittest";
 
     /** The string used by the payment protocol to represent the main net. */
     public static final String PAYMENT_PROTOCOL_ID_MAINNET = "main";
@@ -284,7 +284,7 @@ public abstract class NetworkParameters implements Serializable {
     }
 
     /**
-     * First byte of a base58 encoded address. See {@link com.google.bitcoin.core.Address}. This is the same as acceptableAddressCodes[0] and
+     * First byte of a base58 encoded address. See {@link com.google.mediterraneancoin.core.Address}. This is the same as acceptableAddressCodes[0] and
      * is the one used for "normal" addresses. Other types of address may be encountered with version codes found in
      * the acceptableAddressCodes array.
      */
@@ -299,7 +299,7 @@ public abstract class NetworkParameters implements Serializable {
         return p2shHeader;
     }
 
-    /** First byte of a base58 encoded dumped private key. See {@link com.google.bitcoin.core.DumpedPrivateKey}. */
+    /** First byte of a base58 encoded dumped private key. See {@link com.google.mediterraneancoin.core.DumpedPrivateKey}. */
     public int getDumpedPrivateKeyHeader() {
         return dumpedPrivateKeyHeader;
     }
@@ -340,7 +340,7 @@ public abstract class NetworkParameters implements Serializable {
     }
 
     /**
-     * The key used to sign {@link com.google.bitcoin.core.AlertMessage}s. You can use {@link com.google.bitcoin.core.ECKey#verify(byte[], byte[], byte[])} to verify
+     * The key used to sign {@link com.google.mediterraneancoin.core.AlertMessage}s. You can use {@link com.google.mediterraneancoin.core.ECKey#verify(byte[], byte[], byte[])} to verify
      * signatures using it.
      */
     public byte[] getAlertSigningKey() {

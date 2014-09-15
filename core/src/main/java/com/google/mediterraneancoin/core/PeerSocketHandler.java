@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
-import com.google.bitcoin.net.AbstractTimeoutHandler;
-import com.google.bitcoin.net.MessageWriteTarget;
-import com.google.bitcoin.net.StreamParser;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.net.AbstractTimeoutHandler;
+import com.google.mediterraneancoin.net.MessageWriteTarget;
+import com.google.mediterraneancoin.net.StreamParser;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.annotations.VisibleForTesting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +37,7 @@ import static com.google.common.base.Preconditions.*;
 
 /**
  * Handles high-level message (de)serialization for peers, acting as the bridge between the
- * {@link com.google.bitcoin.net} classes and {@link Peer}.
+ * {@link com.google.mediterraneancoin.net} classes and {@link Peer}.
  */
 public abstract class PeerSocketHandler extends AbstractTimeoutHandler implements StreamParser {
     private static final Logger log = LoggerFactory.getLogger(PeerSocketHandler.class);
@@ -185,8 +185,8 @@ public abstract class PeerSocketHandler extends AbstractTimeoutHandler implement
 
     /**
      * Sets the {@link MessageWriteTarget} used to write messages to the peer. This should almost never be called, it is
-     * called automatically by {@link com.google.bitcoin.net.NioClient} or
-     * {@link com.google.bitcoin.net.NioClientManager} once the socket finishes initialization.
+     * called automatically by {@link com.google.mediterraneancoin.net.NioClient} or
+     * {@link com.google.mediterraneancoin.net.NioClientManager} once the socket finishes initialization.
      */
     @Override
     public void setWriteTarget(MessageWriteTarget writeTarget) {

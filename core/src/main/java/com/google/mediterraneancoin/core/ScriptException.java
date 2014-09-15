@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
 @SuppressWarnings("serial")
 public class ScriptException extends VerificationException {

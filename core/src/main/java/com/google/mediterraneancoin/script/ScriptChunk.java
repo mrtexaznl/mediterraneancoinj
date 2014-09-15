@@ -16,7 +16,7 @@
 
 package com.google.mediterraneancoin.script;
 
-import com.google.bitcoin.core.Utils;
+import com.google.mediterraneancoin.core.Utils;
 
 import java.io.IOException;
 import java.io.OutputStream;

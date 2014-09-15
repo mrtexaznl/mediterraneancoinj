@@ -16,7 +16,7 @@
 
 package com.google.mediterraneancoin.net.discovery;
 
-import com.google.bitcoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.NetworkParameters;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

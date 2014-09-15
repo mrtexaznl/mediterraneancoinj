@@ -16,13 +16,13 @@
 
 package com.google.mediterraneancoin.store;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Keeps {@link com.google.bitcoin.core.StoredBlock}s in memory. Used primarily for unit testing.
+ * Keeps {@link com.google.mediterraneancoin.core.StoredBlock}s in memory. Used primarily for unit testing.
  */
 public class MemoryBlockStore implements BlockStore {
     private LinkedHashMap<Sha256Hash, StoredBlock> blockMap = new LinkedHashMap<Sha256Hash, StoredBlock>() {

@@ -17,7 +17,7 @@
 
 package com.google.mediterraneancoin.script;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.crypto.TransactionSignature;
 import com.google.mediterraneancoin.params.MainNetParams;
 import com.google.common.collect.Lists;
@@ -35,7 +35,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 import static com.google.mediterraneancoin.script.ScriptOpCodes.*;
-import static com.google.bitcoin.core.Utils.bytesToHexString;
+import static com.google.mediterraneancoin.core.Utils.bytesToHexString;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 

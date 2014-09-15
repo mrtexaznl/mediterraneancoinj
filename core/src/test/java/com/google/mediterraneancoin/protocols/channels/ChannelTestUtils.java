@@ -3,10 +3,10 @@ package com.google.mediterraneancoin.protocols.channels;
 import com.google.mediterraneancoin.protocols.channels.PaymentChannelServer;
 import com.google.mediterraneancoin.protocols.channels.PaymentChannelClient;
 import com.google.mediterraneancoin.protocols.channels.PaymentChannelCloseException;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.TransactionBroadcaster;
-import com.google.bitcoin.core.Utils;
-import com.google.bitcoin.core.Wallet;
+import com.google.mediterraneancoin.core.Sha256Hash;
+import com.google.mediterraneancoin.core.TransactionBroadcaster;
+import com.google.mediterraneancoin.core.Utils;
+import com.google.mediterraneancoin.core.Wallet;
 import org.bitcoin.paymentchannel.Protos;
 
 import java.math.BigInteger;

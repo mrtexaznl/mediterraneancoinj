@@ -20,6 +20,14 @@ import com.google.mediterraneancoin.wallet.DefaultRiskAnalysis;
 import com.google.mediterraneancoin.wallet.RiskAnalysis;
 import com.google.mediterraneancoin.params.UnitTestParams;
 import com.google.common.collect.ImmutableList;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.Transaction;
+import com.google.mediterraneancoin.core.TransactionConfidence;
+import com.google.mediterraneancoin.core.TransactionInput;
+import com.google.mediterraneancoin.core.TransactionOutput;
+import com.google.mediterraneancoin.core.Utils;
+import com.google.mediterraneancoin.core.Wallet;
 import org.junit.Before;
 import org.junit.Test;
 

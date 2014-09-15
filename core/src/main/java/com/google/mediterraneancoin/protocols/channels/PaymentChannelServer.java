@@ -16,9 +16,9 @@
 
 package com.google.mediterraneancoin.protocols.channels;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.protocols.channels.PaymentChannelCloseException.CloseReason;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.protobuf.ByteString;

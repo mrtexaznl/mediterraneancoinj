@@ -16,12 +16,12 @@
 
 package com.google.mediterraneancoin.protocols.channels;
 
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.TransactionBroadcaster;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.net.NioServer;
-import com.google.bitcoin.net.ProtobufParser;
-import com.google.bitcoin.net.StreamParserFactory;
+import com.google.mediterraneancoin.core.Sha256Hash;
+import com.google.mediterraneancoin.core.TransactionBroadcaster;
+import com.google.mediterraneancoin.core.Wallet;
+import com.google.mediterraneancoin.net.NioServer;
+import com.google.mediterraneancoin.net.ProtobufParser;
+import com.google.mediterraneancoin.net.StreamParserFactory;
 import org.bitcoin.paymentchannel.Protos;
 
 import javax.annotation.Nullable;

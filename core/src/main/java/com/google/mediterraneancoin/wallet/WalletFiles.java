@@ -16,8 +16,8 @@
 
 package com.google.mediterraneancoin.wallet;
 
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.core.Wallet;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

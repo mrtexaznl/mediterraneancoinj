@@ -1,9 +1,9 @@
 package com.google.mediterraneancoin.wallet;
 
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionConfidence;
-import com.google.bitcoin.core.TransactionOutput;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.Transaction;
+import com.google.mediterraneancoin.core.TransactionConfidence;
+import com.google.mediterraneancoin.core.TransactionOutput;
 import com.google.mediterraneancoin.params.RegTestParams;
 import com.google.common.annotations.VisibleForTesting;
 

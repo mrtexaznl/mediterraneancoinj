@@ -50,6 +50,14 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import com.google.mediterraneancoin.net.BlockingClient;
+import com.google.mediterraneancoin.net.BlockingClientManager;
+import com.google.mediterraneancoin.net.ClientConnectionManager;
+import com.google.mediterraneancoin.net.NioClient;
+import com.google.mediterraneancoin.net.NioClientManager;
+import com.google.mediterraneancoin.net.NioServer;
+import com.google.mediterraneancoin.net.StreamParser;
+import com.google.mediterraneancoin.net.StreamParserFactory;
 import static org.junit.Assert.assertTrue;
 
 /**

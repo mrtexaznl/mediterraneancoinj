@@ -16,7 +16,7 @@
 
 package com.google.mediterraneancoin.kits;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.net.discovery.DnsDiscovery;
 import com.google.mediterraneancoin.store.BlockStoreException;
 import com.google.mediterraneancoin.store.SPVBlockStore;

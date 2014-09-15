@@ -16,8 +16,8 @@
 
 package com.google.mediterraneancoin.core.utils;
 
-import com.google.bitcoin.core.Utils;
-import com.google.bitcoin.utils.ExponentialBackoff;
+import com.google.mediterraneancoin.core.Utils;
+import com.google.mediterraneancoin.utils.ExponentialBackoff;
 
 import org.junit.Before;
 import org.junit.Test;

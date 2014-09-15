@@ -1,17 +1,30 @@
 package com.google.mediterraneancoin.store;
 
 
+import com.google.mediterraneancoin.core.AbstractWalletEventListener;
+import com.google.mediterraneancoin.core.Address;
+import com.google.mediterraneancoin.core.Block;
+import com.google.mediterraneancoin.core.BlockChain;
 import com.google.mediterraneancoin.core.BlockTest;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.PeerAddress;
+import com.google.mediterraneancoin.core.Sha256Hash;
+import com.google.mediterraneancoin.core.Transaction;
+import com.google.mediterraneancoin.core.TransactionConfidence;
 import com.google.mediterraneancoin.store.UnreadableWalletException;
 import com.google.mediterraneancoin.store.MemoryBlockStore;
 import com.google.mediterraneancoin.store.WalletProtobufSerializer;
-import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
+import com.google.mediterraneancoin.core.TransactionConfidence.ConfidenceType;
+import com.google.mediterraneancoin.core.Utils;
+import com.google.mediterraneancoin.core.Wallet;
+import com.google.mediterraneancoin.core.WalletExtension;
 import com.google.mediterraneancoin.params.MainNetParams;
 import com.google.mediterraneancoin.params.UnitTestParams;
 import com.google.mediterraneancoin.script.ScriptBuilder;
-import com.google.bitcoin.utils.BriefLogFormatter;
-import com.google.bitcoin.utils.TestUtils;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
+import com.google.mediterraneancoin.utils.TestUtils;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.protobuf.ByteString;
 import org.bitcoinj.wallet.Protos;
 import org.junit.Before;
@@ -26,7 +39,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 
-import static com.google.bitcoin.utils.TestUtils.createFakeTx;
+import static com.google.mediterraneancoin.utils.TestUtils.createFakeTx;
 import static org.junit.Assert.*;
 
 public class WalletProtobufSerializerTest {

@@ -16,8 +16,8 @@
 
 package com.google.mediterraneancoin.script;
 
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.ECKey;
+import com.google.mediterraneancoin.core.Address;
+import com.google.mediterraneancoin.core.ECKey;
 import com.google.mediterraneancoin.crypto.TransactionSignature;
 import com.google.common.collect.Lists;
 
@@ -30,7 +30,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * <p>Tools for the construction of commonly used script types. You don't normally need this as it's hidden behind
- * convenience methods on {@link com.google.bitcoin.core.Transaction}, but they are useful when working with the
+ * convenience methods on {@link com.google.mediterraneancoin.core.Transaction}, but they are useful when working with the
  * protocol at a lower level.</p>
  */
 public class ScriptBuilder {

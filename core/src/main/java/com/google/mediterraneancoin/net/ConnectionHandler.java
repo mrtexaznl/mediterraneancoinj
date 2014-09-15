@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.net;
+package com.google.mediterraneancoin.net;
 
-import com.google.bitcoin.core.Message;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.core.Message;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.base.Throwables;
 import org.slf4j.LoggerFactory;
 

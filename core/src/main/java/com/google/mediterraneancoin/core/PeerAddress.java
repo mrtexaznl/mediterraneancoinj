@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
 import com.google.mediterraneancoin.params.MainNetParams;
 
@@ -25,8 +25,8 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 
-import static com.google.bitcoin.core.Utils.uint32ToByteStreamLE;
-import static com.google.bitcoin.core.Utils.uint64ToByteStreamLE;
+import static com.google.mediterraneancoin.core.Utils.uint32ToByteStreamLE;
+import static com.google.mediterraneancoin.core.Utils.uint64ToByteStreamLE;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**

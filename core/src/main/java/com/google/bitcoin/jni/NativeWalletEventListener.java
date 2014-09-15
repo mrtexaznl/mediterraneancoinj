@@ -16,10 +16,10 @@
 
 package com.google.bitcoin.jni;
 
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.WalletEventListener;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.Transaction;
+import com.google.mediterraneancoin.core.Wallet;
+import com.google.mediterraneancoin.core.WalletEventListener;
 import com.google.mediterraneancoin.script.Script;
 
 import java.math.BigInteger;

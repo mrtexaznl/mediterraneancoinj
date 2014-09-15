@@ -1,6 +1,6 @@
 package com.google.bitcoin.jni;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.protocols.channels.PaymentChannelCloseException;
 import com.google.mediterraneancoin.protocols.channels.ServerConnectionEventHandler;
 

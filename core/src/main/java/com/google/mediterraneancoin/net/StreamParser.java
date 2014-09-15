@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.net;
+package com.google.mediterraneancoin.net;
 
 import java.nio.ByteBuffer;
 
