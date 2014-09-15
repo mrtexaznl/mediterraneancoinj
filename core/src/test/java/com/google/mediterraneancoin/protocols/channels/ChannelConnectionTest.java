@@ -36,7 +36,7 @@ package com.google.bitcoin.protocols.channels;
 
 import com.google.bitcoin.core.*;
 import com.google.bitcoin.store.WalletProtobufSerializer;
-import com.google.bitcoin.testing.TestWithWallet;
+import com.google.mediterraneancoin.testing.TestWithWallet;
 import com.google.bitcoin.utils.Threading;
 import com.google.bitcoin.wallet.WalletFiles;
 >>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/protocols/channels/ChannelConnectionTest.java
@@ -74,7 +74,7 @@ import static com.google.mediterraneancoin.utils.TestUtils.createFakeBlock;
 =======
 import static com.google.bitcoin.core.Coin.*;
 import static com.google.bitcoin.protocols.channels.PaymentChannelCloseException.CloseReason;
-import static com.google.bitcoin.testing.FakeTxBuilder.createFakeBlock;
+import static com.google.mediterraneancoin.testing.FakeTxBuilder.createFakeBlock;
 >>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/protocols/channels/ChannelConnectionTest.java
 import static org.bitcoin.paymentchannel.Protos.TwoWayChannelMessage.MessageType;
 import static org.junit.Assert.*;

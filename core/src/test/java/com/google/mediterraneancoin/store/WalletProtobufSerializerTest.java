@@ -53,7 +53,7 @@ import com.google.bitcoin.crypto.DeterministicKey;
 import com.google.bitcoin.params.MainNetParams;
 import com.google.bitcoin.params.UnitTestParams;
 import com.google.bitcoin.script.ScriptBuilder;
-import com.google.bitcoin.testing.FakeTxBuilder;
+import com.google.mediterraneancoin.testing.FakeTxBuilder;
 import com.google.bitcoin.utils.BriefLogFormatter;
 import com.google.bitcoin.utils.Threading;
 import com.google.mediterraneancoin.wallet.DeterministicKeyChain;
@@ -79,7 +79,7 @@ import java.util.Set;
 import static com.google.mediterraneancoin.utils.TestUtils.createFakeTx;
 =======
 import static com.google.bitcoin.core.Coin.*;
-import static com.google.bitcoin.testing.FakeTxBuilder.createFakeTx;
+import static com.google.mediterraneancoin.testing.FakeTxBuilder.createFakeTx;
 >>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/store/WalletProtobufSerializerTest.java
 import static org.junit.Assert.*;
 

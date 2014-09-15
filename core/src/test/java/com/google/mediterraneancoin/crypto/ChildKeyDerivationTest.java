@@ -28,7 +28,7 @@ import com.google.bitcoin.core.Sha256Hash;
 import org.junit.Test;
 import org.spongycastle.crypto.params.KeyParameter;
 
-import static com.google.bitcoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.core.Utils.HEX;
 import static org.junit.Assert.*;
 
 /**

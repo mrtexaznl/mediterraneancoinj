@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.bitcoin.testing;
+package com.google.mediterraneancoin.testing;
 
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.crypto.ChildNumber;
-import com.google.bitcoin.crypto.DeterministicKey;
-import com.google.bitcoin.signers.CustomTransactionSigner;
+import com.google.mediterraneancoin.core.Sha256Hash;
+import com.google.mediterraneancoin.crypto.ChildNumber;
+import com.google.mediterraneancoin.crypto.DeterministicKey;
+import com.google.mediterraneancoin.signers.CustomTransactionSigner;
 import com.google.mediterraneancoin.wallet.DeterministicKeyChain;
 import com.google.common.collect.ImmutableList;
 

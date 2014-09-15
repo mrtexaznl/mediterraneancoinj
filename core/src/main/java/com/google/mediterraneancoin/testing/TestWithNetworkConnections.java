@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.testing;
+package com.google.mediterraneancoin.testing;
 
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.net.*;
-import com.google.bitcoin.params.UnitTestParams;
-import com.google.bitcoin.store.BlockStore;
-import com.google.bitcoin.store.MemoryBlockStore;
-import com.google.bitcoin.utils.BriefLogFormatter;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.core.*;
+import com.google.mediterraneancoin.net.*;
+import com.google.mediterraneancoin.params.UnitTestParams;
+import com.google.mediterraneancoin.store.BlockStore;
+import com.google.mediterraneancoin.store.MemoryBlockStore;
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.util.concurrent.SettableFuture;
 
 import javax.annotation.Nullable;

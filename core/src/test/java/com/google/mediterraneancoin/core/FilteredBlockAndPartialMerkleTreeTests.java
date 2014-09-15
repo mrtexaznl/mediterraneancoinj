@@ -1,24 +1,4 @@
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/FilteredBlockAndPartialMerkleTreeTests.java
-package com.google.mediterraneancoin.core;
 
-import com.google.mediterraneancoin.core.Block;
-import com.google.mediterraneancoin.core.BloomFilter;
-import com.google.mediterraneancoin.core.ECKey;
-import com.google.mediterraneancoin.core.FilteredBlock;
-import com.google.mediterraneancoin.core.GetDataMessage;
-import com.google.mediterraneancoin.core.InventoryItem;
-import com.google.mediterraneancoin.core.InventoryMessage;
-import com.google.mediterraneancoin.core.NetworkParameters;
-import com.google.mediterraneancoin.core.Ping;
-import com.google.mediterraneancoin.core.Pong;
-import com.google.mediterraneancoin.core.Sha256Hash;
-import com.google.mediterraneancoin.core.StoredBlock;
-import com.google.mediterraneancoin.core.Transaction;
-import com.google.mediterraneancoin.core.TransactionConfidence.ConfidenceType;
-import com.google.mediterraneancoin.core.Wallet;
-import com.google.mediterraneancoin.params.UnitTestParams;
-import com.google.mediterraneancoin.store.MemoryBlockStore;
-=======
 /**
  * Copyright 2012 Matt Corallo
  * Copyright 2014 Andreas Schildbach
@@ -36,15 +16,15 @@ import com.google.mediterraneancoin.store.MemoryBlockStore;
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
-import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.params.UnitTestParams;
-import com.google.bitcoin.store.MemoryBlockStore;
-import com.google.bitcoin.testing.InboundMessageQueuer;
-import com.google.bitcoin.testing.TestWithPeerGroup;
-import com.google.bitcoin.wallet.KeyChainGroup;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/FilteredBlockAndPartialMerkleTreeTests.java
+import com.google.mediterraneancoin.core.TransactionConfidence.ConfidenceType;
+import com.google.mediterraneancoin.params.UnitTestParams;
+import com.google.mediterraneancoin.store.MemoryBlockStore;
+import com.google.mediterraneancoin.testing.InboundMessageQueuer;
+import com.google.mediterraneancoin.testing.TestWithPeerGroup;
+import com.google.mediterraneancoin.wallet.KeyChainGroup;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -55,7 +35,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import static com.google.bitcoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.core.Utils.HEX;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

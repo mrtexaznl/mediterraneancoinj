@@ -30,7 +30,7 @@ package com.google.bitcoin.protocols.channels;
 import com.google.bitcoin.core.*;
 import com.google.bitcoin.script.Script;
 import com.google.bitcoin.script.ScriptBuilder;
-import com.google.bitcoin.testing.TestWithWallet;
+import com.google.mediterraneancoin.testing.TestWithWallet;
 >>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/protocols/channels/PaymentChannelStateTest.java
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -65,8 +65,8 @@ import static com.google.mediterraneancoin.utils.TestUtils.createFakeTx;
 import static com.google.mediterraneancoin.utils.TestUtils.makeSolvedTestBlock;
 =======
 import static com.google.bitcoin.core.Coin.*;
-import static com.google.bitcoin.testing.FakeTxBuilder.createFakeTx;
-import static com.google.bitcoin.testing.FakeTxBuilder.makeSolvedTestBlock;
+import static com.google.mediterraneancoin.testing.FakeTxBuilder.createFakeTx;
+import static com.google.mediterraneancoin.testing.FakeTxBuilder.makeSolvedTestBlock;
 >>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/protocols/channels/PaymentChannelStateTest.java
 import static org.junit.Assert.*;
 

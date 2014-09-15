@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/PeerTest.java
 package com.google.mediterraneancoin.core;
 
 import com.google.mediterraneancoin.core.AbstractPeerEventListener;
@@ -47,17 +46,16 @@ import com.google.mediterraneancoin.core.Utils;
 import com.google.mediterraneancoin.core.VersionMessage;
 import com.google.mediterraneancoin.core.Wallet;
 import com.google.mediterraneancoin.params.TestNet3Params;
-import com.google.mediterraneancoin.utils.TestUtils;
+ 
 import com.google.mediterraneancoin.utils.Threading;
-=======
-package com.google.bitcoin.core;
+ 
 
-import com.google.bitcoin.params.TestNet3Params;
-import com.google.bitcoin.testing.FakeTxBuilder;
-import com.google.bitcoin.testing.InboundMessageQueuer;
-import com.google.bitcoin.testing.TestWithNetworkConnections;
-import com.google.bitcoin.utils.Threading;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/PeerTest.java
+import com.google.mediterraneancoin.params.TestNet3Params;
+import com.google.mediterraneancoin.testing.FakeTxBuilder;
+import com.google.mediterraneancoin.testing.InboundMessageQueuer;
+import com.google.mediterraneancoin.testing.TestWithNetworkConnections;
+import com.google.mediterraneancoin.utils.Threading;
+ 
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
@@ -83,13 +81,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/PeerTest.java
-import static com.google.mediterraneancoin.utils.TestUtils.*;
-=======
-import static com.google.bitcoin.core.Coin.*;
-import static com.google.bitcoin.testing.FakeTxBuilder.*;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/PeerTest.java
+ 
+import static com.google.mediterraneancoin.core.Coin.*;
+import static com.google.mediterraneancoin.testing.FakeTxBuilder.*;
+ 
 import static org.junit.Assert.*;
 
 @RunWith(value = Parameterized.class)

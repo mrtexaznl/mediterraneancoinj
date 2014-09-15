@@ -14,8 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/PeerGroupTest.java
+ 
 package com.google.mediterraneancoin.core;
 
 import com.google.mediterraneancoin.core.AbstractPeerEventListener;
@@ -45,19 +44,18 @@ import com.google.mediterraneancoin.net.discovery.PeerDiscoveryException;
 import com.google.mediterraneancoin.params.MainNetParams;
 import com.google.mediterraneancoin.params.UnitTestParams;
 import com.google.mediterraneancoin.store.MemoryBlockStore;
-import com.google.mediterraneancoin.utils.TestUtils;
+ 
 import com.google.mediterraneancoin.utils.Threading;
-=======
-package com.google.bitcoin.core;
+ 
 
-import com.google.bitcoin.net.discovery.PeerDiscovery;
-import com.google.bitcoin.net.discovery.PeerDiscoveryException;
-import com.google.bitcoin.params.UnitTestParams;
-import com.google.bitcoin.testing.FakeTxBuilder;
-import com.google.bitcoin.testing.InboundMessageQueuer;
-import com.google.bitcoin.testing.TestWithPeerGroup;
-import com.google.bitcoin.utils.Threading;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/PeerGroupTest.java
+import com.google.mediterraneancoin.net.discovery.PeerDiscovery;
+import com.google.mediterraneancoin.net.discovery.PeerDiscoveryException;
+import com.google.mediterraneancoin.params.UnitTestParams;
+import com.google.mediterraneancoin.testing.FakeTxBuilder;
+import com.google.mediterraneancoin.testing.InboundMessageQueuer;
+import com.google.mediterraneancoin.testing.TestWithPeerGroup;
+import com.google.mediterraneancoin.utils.Threading;
+ 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.net.InetAddresses;
@@ -80,8 +78,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.google.bitcoin.core.Coin.COIN;
-import static com.google.bitcoin.core.Coin.valueOf;
+import static com.google.mediterraneancoin.core.Coin.COIN;
+import static com.google.mediterraneancoin.core.Coin.valueOf;
 import static org.junit.Assert.*;
 
 
@@ -135,11 +133,10 @@ public class PeerGroupTest extends TestWithPeerGroup {
                 return m;
             }
         };
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/PeerGroupTest.java
-        super.setUp(new MemoryBlockStore(/*UnitTestParams*/ MainNetParams.get()));
-        peerGroup.addWallet(wallet);
-=======
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/PeerGroupTest.java
+ 
+        //super.setUp(new MemoryBlockStore(/*UnitTestParams*/ MainNetParams.get()));
+        //peerGroup.addWallet(wallet);
+ 
     }
 
     @Override

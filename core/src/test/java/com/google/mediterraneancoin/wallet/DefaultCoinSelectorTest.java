@@ -27,8 +27,8 @@ import com.google.mediterraneancoin.utils.TestWithWallet;
 import com.google.bitcoin.core.*;
 import com.google.bitcoin.params.RegTestParams;
 import com.google.bitcoin.params.UnitTestParams;
-import com.google.bitcoin.testing.FakeTxBuilder;
-import com.google.bitcoin.testing.TestWithWallet;
+import com.google.mediterraneancoin.testing.FakeTxBuilder;
+import com.google.mediterraneancoin.testing.TestWithWallet;
 >>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/wallet/DefaultCoinSelectorTest.java
 import org.junit.After;
 import org.junit.Before;

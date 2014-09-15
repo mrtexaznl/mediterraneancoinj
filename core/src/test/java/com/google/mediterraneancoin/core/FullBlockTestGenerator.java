@@ -1,6 +1,5 @@
 package com.google.mediterraneancoin.core;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/FullBlockTestGenerator.java
+ 
 import com.google.mediterraneancoin.core.Block;
 import com.google.mediterraneancoin.core.ECKey;
 import com.google.mediterraneancoin.core.InventoryItem;
@@ -19,12 +18,12 @@ import com.google.mediterraneancoin.core.VarInt;
 import com.google.mediterraneancoin.core.VerificationException;
 import com.google.mediterraneancoin.script.Script;
 import com.google.mediterraneancoin.script.ScriptBuilder;
-=======
-import com.google.bitcoin.core.Transaction.SigHash;
-import com.google.bitcoin.crypto.TransactionSignature;
-import com.google.bitcoin.script.Script;
-import com.google.bitcoin.script.ScriptBuilder;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/FullBlockTestGenerator.java
+
+import com.google.mediterraneancoin.core.Transaction.SigHash;
+import com.google.mediterraneancoin.crypto.TransactionSignature;
+import com.google.mediterraneancoin.script.Script;
+import com.google.mediterraneancoin.script.ScriptBuilder;
+
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -36,12 +35,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.*;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/FullBlockTestGenerator.java
+ 
+import static com.google.mediterraneancoin.core.Coin.*;
 import static com.google.mediterraneancoin.script.ScriptOpCodes.*;
-=======
-import static com.google.bitcoin.core.Coin.*;
-import static com.google.bitcoin.script.ScriptOpCodes.*;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 import static java.util.Collections.singletonList;
@@ -70,7 +66,7 @@ class Rule {
         this.ruleName = ruleName;
     }
 }
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/FullBlockTestGenerator.java
+
 
 /**
  * Represents a block which is sent to the tested application and which the application must either reject or accept,

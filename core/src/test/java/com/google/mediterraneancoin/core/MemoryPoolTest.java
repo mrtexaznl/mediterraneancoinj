@@ -15,8 +15,7 @@
  */
 
 package com.google.mediterraneancoin.core;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/MemoryPoolTest.java
+ 
 import com.google.mediterraneancoin.core.ECKey;
 import com.google.mediterraneancoin.core.MemoryPool;
 import com.google.mediterraneancoin.core.NetworkParameters;
@@ -25,18 +24,17 @@ import com.google.mediterraneancoin.core.Transaction;
 import com.google.mediterraneancoin.core.Utils;
 import com.google.mediterraneancoin.params.UnitTestParams;
 import com.google.mediterraneancoin.utils.BriefLogFormatter;
-import com.google.mediterraneancoin.utils.TestUtils;
-=======
-import com.google.bitcoin.params.UnitTestParams;
-import com.google.bitcoin.testing.FakeTxBuilder;
-import com.google.bitcoin.utils.BriefLogFormatter;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/MemoryPoolTest.java
+ 
+import com.google.mediterraneancoin.params.UnitTestParams;
+import com.google.mediterraneancoin.testing.FakeTxBuilder;
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import java.net.InetAddress;
 
-import static com.google.bitcoin.core.Coin.COIN;
+import static com.google.mediterraneancoin.core.Coin.COIN;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

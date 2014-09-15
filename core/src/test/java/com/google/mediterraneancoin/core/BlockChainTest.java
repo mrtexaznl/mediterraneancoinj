@@ -14,8 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/BlockChainTest.java
+ 
 package com.google.mediterraneancoin.core;
 
 import com.google.mediterraneancoin.core.AbstractBlockChain;
@@ -38,19 +37,17 @@ import com.google.mediterraneancoin.params.UnitTestParams;
 import com.google.mediterraneancoin.store.BlockStore;
 import com.google.mediterraneancoin.store.MemoryBlockStore;
 import com.google.mediterraneancoin.utils.BriefLogFormatter;
-import com.google.mediterraneancoin.utils.TestUtils;
-=======
-package com.google.bitcoin.core;
-
-import com.google.bitcoin.core.Wallet.BalanceType;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.params.TestNet2Params;
-import com.google.bitcoin.params.UnitTestParams;
-import com.google.bitcoin.store.BlockStore;
-import com.google.bitcoin.store.MemoryBlockStore;
-import com.google.bitcoin.testing.FakeTxBuilder;
-import com.google.bitcoin.utils.BriefLogFormatter;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/BlockChainTest.java
+ 
+ 
+import com.google.mediterraneancoin.core.Wallet.BalanceType;
+import com.google.mediterraneancoin.params.MainNetParams;
+import com.google.mediterraneancoin.params.TestNet2Params;
+import com.google.mediterraneancoin.params.UnitTestParams;
+import com.google.mediterraneancoin.store.BlockStore;
+import com.google.mediterraneancoin.store.MemoryBlockStore;
+import com.google.mediterraneancoin.testing.FakeTxBuilder;
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
+ 
 import com.google.common.util.concurrent.ListenableFuture;
 import org.junit.After;
 import org.junit.Before;
@@ -61,14 +58,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/BlockChainTest.java
-import static com.google.mediterraneancoin.utils.TestUtils.createFakeBlock;
-import static com.google.mediterraneancoin.utils.TestUtils.createFakeTx;
-=======
-import static com.google.bitcoin.core.Coin.*;
-import static com.google.bitcoin.testing.FakeTxBuilder.createFakeBlock;
-import static com.google.bitcoin.testing.FakeTxBuilder.createFakeTx;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/BlockChainTest.java
+ 
+import static com.google.mediterraneancoin.core.Coin.*;
+import static com.google.mediterraneancoin.testing.FakeTxBuilder.createFakeBlock;
+import static com.google.mediterraneancoin.testing.FakeTxBuilder.createFakeTx;
+ 
 import static org.junit.Assert.*;
 
 // Handling of chain splits/reorgs are in ChainSplitTests.

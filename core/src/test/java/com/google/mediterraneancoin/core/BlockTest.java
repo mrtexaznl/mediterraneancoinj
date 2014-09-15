@@ -38,7 +38,7 @@ import java.io.ObjectOutputStream;
 import java.math.BigInteger;
 import java.util.Arrays;
 
-import static com.google.bitcoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.core.Utils.HEX;
 import static org.junit.Assert.*;
 
 public class BlockTest {

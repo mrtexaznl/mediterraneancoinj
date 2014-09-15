@@ -28,7 +28,7 @@ import com.google.common.collect.ImmutableList;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.google.bitcoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.core.Utils.HEX;
 import java.util.List;
 
 public class HDUtilsTest {

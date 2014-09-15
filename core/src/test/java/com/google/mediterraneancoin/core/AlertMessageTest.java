@@ -24,7 +24,7 @@ import com.google.mediterraneancoin.params.UnitTestParams;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.google.bitcoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.core.Utils.HEX;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

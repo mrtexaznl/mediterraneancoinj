@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.bitcoin.testing;
+package com.google.mediterraneancoin.testing;
 
-import com.google.bitcoin.signers.TransactionSigner;
+import com.google.mediterraneancoin.signers.TransactionSigner;
 import com.google.mediterraneancoin.wallet.KeyBag;
 
 public class NopTransactionSigner implements TransactionSigner {

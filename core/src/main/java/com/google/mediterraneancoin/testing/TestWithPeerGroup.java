@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.testing;
+package com.google.mediterraneancoin.testing;
 
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.net.BlockingClientManager;
-import com.google.bitcoin.net.NioClientManager;
-import com.google.bitcoin.params.UnitTestParams;
-import com.google.bitcoin.store.BlockStore;
-import com.google.bitcoin.store.MemoryBlockStore;
+import com.google.mediterraneancoin.core.*;
+import com.google.mediterraneancoin.net.BlockingClientManager;
+import com.google.mediterraneancoin.net.NioClientManager;
+import com.google.mediterraneancoin.params.UnitTestParams;
+import com.google.mediterraneancoin.store.BlockStore;
+import com.google.mediterraneancoin.store.MemoryBlockStore;
 import com.google.common.base.Preconditions;
 
 import java.net.InetSocketAddress;

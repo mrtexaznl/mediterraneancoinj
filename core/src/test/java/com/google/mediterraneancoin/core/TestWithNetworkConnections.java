@@ -102,7 +102,8 @@ public class TestWithNetworkConnections {
         BriefLogFormatter.init();
 
         unitTestParams = MainNetParams.get(); //UnitTestParams.get();
-        Wallet.SendRequest.DEFAULT_FEE_PER_KB = BigInteger.ZERO;
+        Wallet.SendRequest.DEFAULT_FEE_PER_KB = Coin.ZERO;
+                //BigInteger.ZERO;
         this.blockStore = blockStore;
         wallet = new Wallet(unitTestParams);
         key = new ECKey();

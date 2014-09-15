@@ -16,8 +16,7 @@
  */
 
 package com.google.mediterraneancoin.core;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/AddressTest.java
+ 
 import com.google.mediterraneancoin.core.Address;
 import com.google.mediterraneancoin.core.AddressFormatException;
 import com.google.mediterraneancoin.core.NetworkParameters;
@@ -26,18 +25,15 @@ import com.google.mediterraneancoin.core.WrongNetworkException;
 import com.google.mediterraneancoin.params.MainNetParams;
 import com.google.mediterraneancoin.params.TestNet3Params;
 import com.google.mediterraneancoin.script.ScriptBuilder;
-=======
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.params.TestNet3Params;
-import com.google.bitcoin.script.Script;
-import com.google.bitcoin.script.ScriptBuilder;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/AddressTest.java
+ 
+import com.google.mediterraneancoin.script.Script;
+ 
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static com.google.bitcoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.core.Utils.HEX;
 import static org.junit.Assert.*;
 
 public class AddressTest {
@@ -47,18 +43,15 @@ public class AddressTest {
     @Test
     public void stringification() throws Exception {
         // Test a testnet address.
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/AddressTest.java
+ 
         /*
-        Address a = new Address(testParams, Hex.decode("fda79a24e50ff70ff42f7d89585da5bd19d9e5cc"));
-=======
         Address a = new Address(testParams, HEX.decode("fda79a24e50ff70ff42f7d89585da5bd19d9e5cc"));
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/AddressTest.java
+ 
         assertEquals("n4eA2nbYqErp7H6jebchxAN59DmNpksexv", a.toString());
         assertFalse(a.isP2SHAddress());
         */
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/AddressTest.java
-        Address b = new Address(mainParams, Hex.decode("13d2261c348202c4ec65cf0d90edeb58bb8a30e9"));
+ 
+        Address b = new Address(mainParams, HEX.decode("13d2261c348202c4ec65cf0d90edeb58bb8a30e9"));
         
         /*
         System.out.println(b.toString());
@@ -72,10 +65,7 @@ public class AddressTest {
         */
         
         assertEquals("MZ3Zoam3CkaEKGLLVc63PN7S7bnUmVdqs7", b.toString());
-=======
-        Address b = new Address(mainParams, HEX.decode("4a22c3c4cbb31e4d03b15550636762bda0baf85a"));
-        assertEquals("17kzeh4N8g49GFvdDzSf8PjaPfyoD1MndL", b.toString());
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/AddressTest.java
+ 
         assertFalse(b.isP2SHAddress());
     }
     
@@ -83,18 +73,12 @@ public class AddressTest {
     public void decoding() throws Exception {
         /*
         Address a = new Address(testParams, "n4eA2nbYqErp7H6jebchxAN59DmNpksexv");
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/AddressTest.java
         assertEquals("fda79a24e50ff70ff42f7d89585da5bd19d9e5cc", Utils.bytesToHexString(a.getHash160()));
         */
 
         Address b = new Address(mainParams, "MZ3Zoam3CkaEKGLLVc63PN7S7bnUmVdqs7");
-        assertEquals("13d2261c348202c4ec65cf0d90edeb58bb8a30e9", Utils.bytesToHexString(b.getHash160()));
-=======
-        assertEquals("fda79a24e50ff70ff42f7d89585da5bd19d9e5cc", Utils.HEX.encode(a.getHash160()));
+        assertEquals("13d2261c348202c4ec65cf0d90edeb58bb8a30e9", Utils.HEX.encode(b.getHash160()));
 
-        Address b = new Address(mainParams, "17kzeh4N8g49GFvdDzSf8PjaPfyoD1MndL");
-        assertEquals("4a22c3c4cbb31e4d03b15550636762bda0baf85a", Utils.HEX.encode(b.getHash160()));
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/AddressTest.java
     }
     
     @Test

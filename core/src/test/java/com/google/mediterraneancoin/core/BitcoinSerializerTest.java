@@ -14,8 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/BitcoinSerializerTest.java
+ 
 package com.google.mediterraneancoin.core;
 
 
@@ -29,11 +28,7 @@ import com.google.mediterraneancoin.core.ProtocolException;
 import com.google.mediterraneancoin.core.Transaction;
 import com.google.mediterraneancoin.core.Utils;
 import com.google.mediterraneancoin.params.MainNetParams;
-=======
-package com.google.bitcoin.core;
-
-import com.google.bitcoin.params.MainNetParams;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/BitcoinSerializerTest.java
+ 
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -41,15 +36,13 @@ import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-import static com.google.bitcoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.core.Utils.HEX;
 import static org.junit.Assert.*;
 
 public class BitcoinSerializerTest {
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/BitcoinSerializerTest.java
-    private final byte[] addrMessage = Hex.decode("fbc0b6db6164647200000000000000001f000000" +
-=======
-    private final byte[] addrMessage = HEX.decode("f9beb4d96164647200000000000000001f000000" +
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/BitcoinSerializerTest.java
+ 
+    private final byte[] addrMessage = HEX.decode("fbc0b6db6164647200000000000000001f000000" +
+ 
             "ed52399b01e215104d010000000000000000000000000000000000ffff0a000001208d");
 
     private final byte[] txMessage = HEX.withSeparator(" ", 2).decode(
@@ -175,12 +168,8 @@ public class BitcoinSerializerTest {
     @Test
     public void testHeaders1() throws Exception {
         BitcoinSerializer bs = new BitcoinSerializer(MainNetParams.get());
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/BitcoinSerializerTest.java
-        HeadersMessage hm = (HeadersMessage) bs.deserialize(ByteBuffer.wrap(Hex.decode("fbc0b6db686561" +
-=======
-        HeadersMessage hm = (HeadersMessage) bs.deserialize(ByteBuffer.wrap(HEX.decode("f9beb4d9686561" +
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/BitcoinSerializerTest.java
+ 
+        HeadersMessage hm = (HeadersMessage) bs.deserialize(ByteBuffer.wrap(HEX.decode("fbc0b6db686561" +
                 "646572730000000000520000005d4fab8101010000006fe28c0ab6f1b372c1a6a246ae6" +
                 "3f74f931e8365e15a089c68d6190000000000982051fd1e4ba744bbbe680e1fee14677b" +
                 "a1a3c3540bf7b1cdb606e857233e0e61bc6649ffff001d01e3629900")));
@@ -204,12 +193,9 @@ public class BitcoinSerializerTest {
      */
     public void testHeaders2() throws Exception {
         BitcoinSerializer bs = new BitcoinSerializer(MainNetParams.get());
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/BitcoinSerializerTest.java
-        HeadersMessage hm = (HeadersMessage) bs.deserialize(ByteBuffer.wrap(Hex.decode("fbc0b6db6865616465" +
-=======
-        HeadersMessage hm = (HeadersMessage) bs.deserialize(ByteBuffer.wrap(HEX.decode("f9beb4d96865616465" +
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/BitcoinSerializerTest.java
+ 
+        HeadersMessage hm = (HeadersMessage) bs.deserialize(ByteBuffer.wrap(HEX.decode("fbc0b6db6865616465" +
+ 
                 "72730000000000e701000085acd4ea06010000006fe28c0ab6f1b372c1a6a246ae63f74f931e" +
                 "8365e15a089c68d6190000000000982051fd1e4ba744bbbe680e1fee14677ba1a3c3540bf7b1c" +
                 "db606e857233e0e61bc6649ffff001d01e3629900010000004860eb18bf1b1620e37e9490fc8a" +

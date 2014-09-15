@@ -14,8 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/ECKeyTest.java
 package com.google.mediterraneancoin.core;
 
 import com.google.mediterraneancoin.core.Address;
@@ -33,18 +31,14 @@ import com.google.mediterraneancoin.params.MainNetParams;
 import com.google.mediterraneancoin.params.TestNet3Params;
 import com.google.mediterraneancoin.params.UnitTestParams;
 import com.google.mediterraneancoin.utils.BriefLogFormatter;
-=======
-package com.google.bitcoin.core;
 
-import com.google.bitcoin.crypto.EncryptedData;
-import com.google.bitcoin.crypto.KeyCrypter;
-import com.google.bitcoin.crypto.KeyCrypterScrypt;
-import com.google.bitcoin.crypto.TransactionSignature;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.params.TestNet3Params;
-import com.google.bitcoin.params.UnitTestParams;
-import com.google.bitcoin.utils.BriefLogFormatter;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/ECKeyTest.java
+import com.google.mediterraneancoin.crypto.EncryptedData;
+
+import com.google.mediterraneancoin.params.MainNetParams;
+import com.google.mediterraneancoin.params.TestNet3Params;
+import com.google.mediterraneancoin.params.UnitTestParams;
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
+
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -68,14 +62,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/ECKeyTest.java
+ 
+import static com.google.mediterraneancoin.core.Utils.HEX;
 import static com.google.mediterraneancoin.core.Utils.reverseBytes;
-=======
-import static com.google.bitcoin.core.Utils.HEX;
-import static com.google.bitcoin.core.Utils.reverseBytes;
 import static com.google.common.base.Preconditions.checkNotNull;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/ECKeyTest.java
+ 
 import static org.junit.Assert.*;
 
 public class ECKeyTest {

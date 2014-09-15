@@ -24,7 +24,7 @@ import org.junit.Test;
 
 import java.net.InetAddress;
 
-import static com.google.bitcoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.core.Utils.HEX;
 import static org.junit.Assert.assertEquals;
 
 public class PeerAddressTest

@@ -60,7 +60,7 @@ import java.util.*;
 <<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/script/ScriptTest.java
 import static com.google.mediterraneancoin.script.ScriptOpCodes.OP_INVALIDOPCODE;
 =======
-import static com.google.bitcoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.core.Utils.HEX;
 import static com.google.bitcoin.script.ScriptOpCodes.OP_0;
 import static com.google.bitcoin.script.ScriptOpCodes.OP_INVALIDOPCODE;
 import static org.hamcrest.core.IsEqual.equalTo;

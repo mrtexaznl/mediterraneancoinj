@@ -46,7 +46,7 @@ import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
 
-import static com.google.bitcoin.core.Coin.FIFTY_COINS;
+import static com.google.mediterraneancoin.core.Coin.FIFTY_COINS;
 import static org.junit.Assert.*;
 
 /**

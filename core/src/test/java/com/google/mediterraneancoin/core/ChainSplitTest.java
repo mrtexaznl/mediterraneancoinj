@@ -14,8 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/ChainSplitTest.java
+ 
 package com.google.mediterraneancoin.core;
 
 import com.google.mediterraneancoin.core.AbstractWalletEventListener;
@@ -35,19 +34,13 @@ import com.google.mediterraneancoin.core.Wallet;
 import com.google.mediterraneancoin.params.UnitTestParams;
 import com.google.mediterraneancoin.store.MemoryBlockStore;
 import com.google.mediterraneancoin.utils.BriefLogFormatter;
-import com.google.mediterraneancoin.utils.TestUtils;
+ 
 import com.google.mediterraneancoin.utils.Threading;
-=======
-package com.google.bitcoin.core;
-
-import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.params.UnitTestParams;
-import com.google.bitcoin.store.MemoryBlockStore;
-import com.google.bitcoin.testing.FakeTxBuilder;
-import com.google.bitcoin.utils.BriefLogFormatter;
-import com.google.bitcoin.utils.Threading;
-
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/ChainSplitTest.java
+ 
+import com.google.mediterraneancoin.testing.FakeTxBuilder;
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
+import com.google.mediterraneancoin.utils.Threading;
+ 
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -61,7 +54,7 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.google.bitcoin.core.Coin.*;
+import static com.google.mediterraneancoin.core.Coin.*;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.junit.Assert.*;
 

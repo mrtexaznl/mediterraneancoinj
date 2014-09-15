@@ -1,15 +1,3 @@
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/BloomFilterTest.java
-package com.google.mediterraneancoin.core;
-
-import com.google.mediterraneancoin.core.Address;
-import com.google.mediterraneancoin.core.BloomFilter;
-import com.google.mediterraneancoin.core.DumpedPrivateKey;
-import com.google.mediterraneancoin.core.ECKey;
-import com.google.mediterraneancoin.core.NetworkParameters;
-import com.google.mediterraneancoin.core.Transaction;
-import com.google.mediterraneancoin.core.Wallet;
-import com.google.mediterraneancoin.params.MainNetParams;
-=======
 /*
  * Copyright 2012 Matt Corallo
  * Copyright 2014 Andreas Schildbach
@@ -27,16 +15,16 @@ import com.google.mediterraneancoin.params.MainNetParams;
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
+package com.google.mediterraneancoin.core;
 
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.wallet.KeyChainGroup;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/BloomFilterTest.java
+import com.google.mediterraneancoin.params.MainNetParams;
+import com.google.mediterraneancoin.wallet.KeyChainGroup;
+ 
 import org.junit.Test;
 
 import java.util.Arrays;
 
-import static com.google.bitcoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.core.Utils.HEX;
 import static org.junit.Assert.*;
 
 public class BloomFilterTest {

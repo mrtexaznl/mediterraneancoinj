@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.google.bitcoin.testing;
+package com.google.mediterraneancoin.testing;
 
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.store.BlockStore;
-import com.google.bitcoin.store.BlockStoreException;
+import com.google.mediterraneancoin.core.*;
+import com.google.mediterraneancoin.store.BlockStore;
+import com.google.mediterraneancoin.store.BlockStoreException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import static com.google.bitcoin.core.Coin.*;
+import static com.google.mediterraneancoin.core.Coin.*;
 
 public class FakeTxBuilder {
     /**

@@ -1,6 +1,6 @@
-package com.google.bitcoin.testing;
+package com.google.mediterraneancoin.testing;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 import com.google.common.util.concurrent.SettableFuture;
 
 import java.net.InetSocketAddress;

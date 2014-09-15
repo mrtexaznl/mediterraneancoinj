@@ -15,34 +15,16 @@
  * limitations under the License.
  */
 
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/TransactionBroadcastTest.java
+ 
 package com.google.mediterraneancoin.core;
 
-import com.google.mediterraneancoin.core.AbstractWalletEventListener;
-import com.google.mediterraneancoin.core.Address;
-import com.google.mediterraneancoin.core.Block;
-import com.google.mediterraneancoin.core.ECKey;
-import com.google.mediterraneancoin.core.InventoryMessage;
-import com.google.mediterraneancoin.core.Message;
-import com.google.mediterraneancoin.core.NetworkParameters;
-import com.google.mediterraneancoin.core.Transaction;
-import com.google.mediterraneancoin.core.TransactionBroadcast;
-import com.google.mediterraneancoin.core.Utils;
-import com.google.mediterraneancoin.core.VersionMessage;
-import com.google.mediterraneancoin.core.Wallet;
+ 
 import com.google.mediterraneancoin.params.UnitTestParams;
-import com.google.mediterraneancoin.store.MemoryBlockStore;
-import com.google.mediterraneancoin.utils.TestUtils;
+import com.google.mediterraneancoin.testing.FakeTxBuilder;
+import com.google.mediterraneancoin.testing.InboundMessageQueuer;
+import com.google.mediterraneancoin.testing.TestWithPeerGroup;
 import com.google.mediterraneancoin.utils.Threading;
-=======
-package com.google.bitcoin.core;
-
-import com.google.bitcoin.params.UnitTestParams;
-import com.google.bitcoin.testing.FakeTxBuilder;
-import com.google.bitcoin.testing.InboundMessageQueuer;
-import com.google.bitcoin.testing.TestWithPeerGroup;
-import com.google.bitcoin.utils.Threading;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/TransactionBroadcastTest.java
+ 
 import com.google.common.util.concurrent.ListenableFuture;
 import org.junit.After;
 import org.junit.Before;
@@ -54,7 +36,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
 
-import static com.google.bitcoin.core.Coin.*;
+import static com.google.mediterraneancoin.core.Coin.*;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.junit.Assert.*;
 

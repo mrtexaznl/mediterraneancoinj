@@ -1,7 +1,4 @@
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/VersionMessageTest.java
-package com.google.mediterraneancoin.core;
-=======
-/*
+ /*
  * Copyright 2012 Matt Corallo
  * Copyright 2014 Andreas Schildbach
  *
@@ -18,15 +15,15 @@ package com.google.mediterraneancoin.core;
  * limitations under the License.
  */
 
-package com.google.bitcoin.core;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/VersionMessageTest.java
+package com.google.mediterraneancoin.core;
+ 
 
 import com.google.mediterraneancoin.core.NetworkParameters;
 import com.google.mediterraneancoin.core.VersionMessage;
 import com.google.mediterraneancoin.params.UnitTestParams;
 import org.junit.Test;
 
-import static com.google.bitcoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.core.Utils.HEX;
 import static org.junit.Assert.assertTrue;
 
 public class VersionMessageTest {

@@ -14,11 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/WalletTest.java
+ 
 package com.google.mediterraneancoin.core;
 
 
+import com.google.mediterraneancoin.testing.NopTransactionSigner;
+import com.google.mediterraneancoin.testing.FakeTxBuilder;
+import com.google.mediterraneancoin.testing.KeyChainTransactionSigner;
 import com.google.mediterraneancoin.wallet.KeyChain;
 import com.google.mediterraneancoin.wallet.DeterministicUpgradeRequiresPassword;
 import com.google.mediterraneancoin.wallet.KeyBag;
@@ -33,30 +35,25 @@ import com.google.mediterraneancoin.crypto.KeyCrypterException;
 import com.google.mediterraneancoin.crypto.KeyCrypterScrypt;
 import com.google.mediterraneancoin.crypto.TransactionSignature;
 import com.google.mediterraneancoin.store.WalletProtobufSerializer;
-import com.google.mediterraneancoin.utils.MockTransactionBroadcaster;
-import com.google.mediterraneancoin.utils.TestUtils;
-import com.google.mediterraneancoin.utils.TestWithWallet;
+ 
 import com.google.mediterraneancoin.utils.Threading;
 import com.google.mediterraneancoin.wallet.KeyTimeCoinSelector;
 import com.google.mediterraneancoin.wallet.WalletFiles;
-=======
-package com.google.bitcoin.core;
-
-import com.google.bitcoin.core.Wallet.SendRequest;
-import com.google.bitcoin.crypto.*;
-import com.google.bitcoin.signers.StatelessTransactionSigner;
-import com.google.bitcoin.signers.TransactionSigner;
-import com.google.bitcoin.store.BlockStoreException;
-import com.google.bitcoin.store.MemoryBlockStore;
-import com.google.bitcoin.store.WalletProtobufSerializer;
-import com.google.bitcoin.testing.*;
-import com.google.bitcoin.utils.ExchangeRate;
-import com.google.bitcoin.utils.Fiat;
-import com.google.bitcoin.utils.Threading;
-import com.google.bitcoin.wallet.*;
-import com.google.bitcoin.wallet.WalletTransaction.Pool;
+ 
+import com.google.mediterraneancoin.core.Wallet.SendRequest;
+import com.google.mediterraneancoin.crypto.*;
+import com.google.mediterraneancoin.signers.StatelessTransactionSigner;
+import com.google.mediterraneancoin.signers.TransactionSigner;
+import com.google.mediterraneancoin.store.BlockStoreException;
+import com.google.mediterraneancoin.store.MemoryBlockStore;
+import com.google.mediterraneancoin.store.WalletProtobufSerializer;
+import com.google.mediterraneancoin.utils.ExchangeRate;
+import com.google.mediterraneancoin.utils.Fiat;
+import com.google.mediterraneancoin.utils.Threading;
+import com.google.mediterraneancoin.wallet.*;
+import com.google.mediterraneancoin.wallet.WalletTransaction.Pool;
 import com.google.common.collect.ImmutableList;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/WalletTest.java
+ 
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.protobuf.ByteString;
@@ -79,16 +76,13 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/WalletTest.java
-import static com.google.mediterraneancoin.utils.TestUtils.*;
-import static com.google.mediterraneancoin.core.Utils.*;
-=======
-import static com.google.bitcoin.core.Coin.*;
-import static com.google.bitcoin.core.Utils.HEX;
-import static com.google.bitcoin.testing.FakeTxBuilder.*;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/WalletTest.java
+ 
+import static com.google.mediterraneancoin.core.Coin.*;
+import static com.google.mediterraneancoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.testing.FakeTxBuilder.*;
+ 
 import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.mediterraneancoin.testing.TestWithWallet;
 import static org.junit.Assert.*;
 
 public class WalletTest extends TestWithWallet {

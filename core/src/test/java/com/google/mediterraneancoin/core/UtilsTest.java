@@ -15,21 +15,11 @@
  */
 
 package com.google.mediterraneancoin.core;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/UtilsTest.java
-import com.google.mediterraneancoin.core.Utils;
-import org.junit.Assert;
-import org.junit.Test;
-
-=======
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/UtilsTest.java
+ 
+ 
 import java.math.BigInteger;
 import org.junit.Test;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/UtilsTest.java
-import static com.google.mediterraneancoin.core.Utils.*;
-=======
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/UtilsTest.java
+  
 import static org.junit.Assert.*;
 
 public class UtilsTest {

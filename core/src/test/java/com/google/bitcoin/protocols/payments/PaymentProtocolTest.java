@@ -24,7 +24,7 @@ import com.google.bitcoin.protocols.payments.PaymentProtocol.Output;
 import com.google.bitcoin.protocols.payments.PaymentProtocol.PkiVerificationData;
 import com.google.bitcoin.protocols.payments.PaymentProtocolException.PkiVerificationException;
 import com.google.bitcoin.script.ScriptBuilder;
-import com.google.bitcoin.testing.FakeTxBuilder;
+import com.google.mediterraneancoin.testing.FakeTxBuilder;
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoin.protocols.payments.Protos.Payment;
 import org.bitcoin.protocols.payments.Protos.PaymentACK;

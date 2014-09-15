@@ -37,16 +37,12 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
-
-<<<<<<< HEAD:core/src/test/java/com/google/mediterraneancoin/core/LazyParseByteCacheTest.java
-import static com.google.mediterraneancoin.utils.TestUtils.createFakeBlock;
-import static com.google.mediterraneancoin.utils.TestUtils.createFakeTx;
-=======
-import static com.google.bitcoin.core.Coin.*;
-import static com.google.bitcoin.core.Utils.HEX;
-import static com.google.bitcoin.testing.FakeTxBuilder.createFakeBlock;
-import static com.google.bitcoin.testing.FakeTxBuilder.createFakeTx;
->>>>>>> upstream/master:core/src/test/java/com/google/bitcoin/core/LazyParseByteCacheTest.java
+ 
+import static com.google.mediterraneancoin.core.Coin.*;
+import static com.google.mediterraneancoin.core.Utils.HEX;
+import static com.google.mediterraneancoin.testing.FakeTxBuilder.createFakeBlock;
+import static com.google.mediterraneancoin.testing.FakeTxBuilder.createFakeTx;
+ 
 import static org.junit.Assert.*;
 
 public class LazyParseByteCacheTest {
