@@ -18,6 +18,7 @@
 package com.google.mediterraneancoin.core;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Objects.ToStringHelper;
 import com.google.mediterraneancoin.wallet.KeyChain;
 import com.google.mediterraneancoin.wallet.DeterministicUpgradeRequiresPassword;
 import com.google.mediterraneancoin.wallet.KeyBag;
@@ -62,7 +63,7 @@ import org.spongycastle.crypto.params.KeyParameter;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import java.io.*;
-import java.util.*;
+
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
@@ -71,6 +72,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import static com.google.common.base.Preconditions.*;
 import com.google.mediterraneancoin.crypto.ChildNumber;
 import com.google.mediterraneancoin.crypto.DeterministicKey;
+import com.google.mediterraneancoin.params.UnitTestParams;
 import com.google.mediterraneancoin.signers.LocalTransactionSigner;
 import com.google.mediterraneancoin.signers.MissingSigResolutionSigner;
 import com.google.mediterraneancoin.signers.TransactionSigner;
@@ -3181,11 +3183,6 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
     }
 
     /**
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Wallet.java
-     * Convenience wrapper around {@link Wallet#encrypt(com.google.mediterraneancoin.crypto.KeyCrypter,
-     * org.spongycastle.crypto.params.KeyParameter)} which uses the default Scrypt key derivation algorithm and
-     * parameters, derives a key from the given password and returns the created key.
-=======
      * <p>Statelessly creates a transaction that sends the given value to address. The change is sent to
      * {@link Wallet#getChangeAddress()}, so you must have added at least one key.</p>
      *
@@ -3215,7 +3212,6 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
      * @throws DustySendRequested if the resultant transaction would violate the dust rules (an output that's too small to be worthwhile)
      * @throws CouldNotAdjustDownwards if emptying the wallet was requested and the output can't be shrunk for fees without violating a protocol rule.
      * @throws ExceededMaxTransactionSize if the resultant transaction is too big for Bitcoin to process (try breaking up the amounts of value)
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Wallet.java
      */
     public Transaction createSend(Address address, Coin value) throws InsufficientMoneyException {
         SendRequest req = SendRequest.to(address, value);
@@ -3226,15 +3222,10 @@ public class Wallet extends BaseTaggableObject implements Serializable, BlockCha
     }
 
     /**
-<<<<<<< HEAD:core/src/main/java/com/google/mediterraneancoin/core/Wallet.java
-     * Encrypt the wallet using the KeyCrypter and the AES key. A good default KeyCrypter to use is
-     * {@link com.google.mediterraneancoin.crypto.KeyCrypterScrypt}.
-=======
      * Sends coins to the given address but does not broadcast the resulting pending transaction. It is still stored
      * in the wallet, so when the wallet is added to a {@link PeerGroup} or {@link Peer} the transaction will be
      * announced to the network. The given {@link SendRequest} is completed first using
      * {@link Wallet#completeTx(Wallet.SendRequest)} to make it valid.
->>>>>>> upstream/master:core/src/main/java/com/google/bitcoin/core/Wallet.java
      *
      * @return the Transaction that was created
      * @throws InsufficientMoneyException if the request could not be completed due to not enough balance.
