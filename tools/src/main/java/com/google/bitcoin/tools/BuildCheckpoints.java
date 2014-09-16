@@ -105,7 +105,7 @@ public class BuildCheckpoints {
         
         System.out.println("checkpoint file: " + checkpointsFile);
         
-        if (checkpointsFile.exists()) {
+        if (checkpointsFile != null && checkpointsFile.exists()) {
                 // Replace path to the file here.
             FileInputStream stream = new FileInputStream(checkpointsFile);
             CheckpointManager.checkpoint(PARAMS, stream, store, now);
@@ -114,12 +114,13 @@ public class BuildCheckpoints {
         
         final BlockChain chain = new BlockChain(PARAMS, store);
         peerGroup = new PeerGroup(PARAMS, chain);
-        //peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("192.168.0.50") );
+        peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("10.2.75.2") );
         
-        peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node1.mediterraneancoin.org") );
-        peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node2.mediterraneancoin.org") );
-        peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node3.mediterraneancoin.org") );
-        peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node4.mediterraneancoin.org") );
+        
+        // peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node1.mediterraneancoin.org") );
+        // peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node2.mediterraneancoin.org") );
+        // peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node3.mediterraneancoin.org") );
+        // peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node4.mediterraneancoin.org") );
  
         /*
         // Sorted map of block height to StoredBlock object.
@@ -160,7 +161,7 @@ public class BuildCheckpoints {
                     checkpoints.put(height, block);
                     
                     try {
-                                writeCheckpointFile(new File("/opt/checkpoints_new_" + height), checkpoints);
+                                writeCheckpointFile(new File("/opt/checkpoints/checkpoints_new_" + height), checkpoints);
                         } catch (NoSuchAlgorithmException e) {
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();
@@ -222,10 +223,10 @@ public class BuildCheckpoints {
 
         // Write checkpoint data out.
 
-        //final FileOutputStream fileOutputStream = new FileOutputStream(fileName /*"/opt/checkpoints_new"*/, false);
+        //final FileOutputStream fileOutputStream = new FileOutputStream(fileName , false);
         
-        writeBinaryCheckpoints(checkpoints, PLAIN_CHECKPOINTS_FILE);
-        writeTextualCheckpoints(checkpoints, TEXTUAL_CHECKPOINTS_FILE);
+        writeBinaryCheckpoints(checkpoints, /*PLAIN_CHECKPOINTS_FILE*/ fileName);
+        writeTextualCheckpoints(checkpoints, /*TEXTUAL_CHECKPOINTS_FILE*/ new File( fileName.getAbsolutePath() + ".txt" ));
 
         peerGroup.stopAsync();
         peerGroup.awaitTerminated();
