@@ -248,6 +248,11 @@ public class BitcoinSerializerTest {
         Transaction transaction = new Transaction(MainNetParams.get(), decode);
 
         System.out.println(transaction);
+        
+        for (TransactionInput txin :  transaction.getInputs()) {
+            System.out.println(txin);
+
+        }
         /*
         ByteBuffer wrap = ByteBuffer.wrap(decode);
  
