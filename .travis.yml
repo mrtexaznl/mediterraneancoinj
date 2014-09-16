@@ -1,4 +1,4 @@
-# configuration for https://travis-ci.org/bitcoinj/bitcoinj
+# configuration for https://travis-ci.org/mrtexaznl/mediterraneancoinj
 language: java
 jdk: openjdk6
 before_install: lsb_release -a
@@ -11,5 +11,5 @@ script:
 
 notifications:
   irc:
-    channels: "irc.freenode.net#bitcoinj"
+    channels: "irc.freenode.net#mediterraneancoinj"
     skip_join: true
