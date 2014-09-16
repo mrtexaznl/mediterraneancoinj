@@ -369,4 +369,12 @@ public abstract class NetworkParameters implements Serializable {
     public byte[] getAlertSigningKey() {
         return alertSigningKey;
     }
+    
+
+    public void setDnsSeeds(String[] dnsSeeds) {
+        this.dnsSeeds = dnsSeeds;
+    }
+
+        
+    
 }

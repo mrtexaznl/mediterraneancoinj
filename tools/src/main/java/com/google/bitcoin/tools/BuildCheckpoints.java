@@ -17,12 +17,12 @@
 
 package com.google.bitcoin.tools;
 
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.params.MainNetParams;
 import com.google.mediterraneancoin.store.BlockStore;
 import com.google.mediterraneancoin.store.MemoryBlockStore;
-import com.google.bitcoin.utils.BriefLogFormatter;
-import com.google.bitcoin.utils.Threading;
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
+import com.google.mediterraneancoin.utils.Threading;
 import com.google.common.base.Charsets;
 
 import java.io.DataOutputStream;
@@ -31,11 +31,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-<<<<<<< HEAD
-=======
+
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
->>>>>>> upstream/master
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.security.DigestOutputStream;
@@ -45,13 +43,15 @@ import java.util.Date;
 import java.util.TreeMap;
 
 import static com.google.common.base.Preconditions.checkState;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Downloads and verifies a full chain from your local peer, emitting checkpoints at each difficulty transition period
  * to a file which is then signed with your key.
  */
 public class BuildCheckpoints {
-<<<<<<< HEAD
+ 
 	
 	public static File findMostRecentCheckpointFile(File folder) {	
 		
@@ -79,29 +79,28 @@ public class BuildCheckpoints {
 		
 	}
 	
-	
-=======
+ 
 
     private static final NetworkParameters PARAMS = MainNetParams.get();
     private static final File PLAIN_CHECKPOINTS_FILE = new File("checkpoints");
     private static final File TEXTUAL_CHECKPOINTS_FILE = new File("checkpoints.txt");
-
->>>>>>> upstream/master
+ 
+    private static BlockStore store;
+    private static PeerGroup peerGroup;
+    
     public static void main(String[] args) throws Exception {
         BriefLogFormatter.init();
-
-<<<<<<< HEAD
-
+ 
         // Sorted map of UNIX time of block to StoredBlock object.
         final TreeMap<Integer, StoredBlock> checkpoints = new TreeMap<Integer, StoredBlock>();        
 
         // Configure bitcoinj to fetch only headers, not save them to disk, connect to a local fully synced/validated
         // node and to save block headers that are on interval boundaries, as long as they are <1 hour old.
-        final BlockStore store = new MemoryBlockStore(params);
+        store = new MemoryBlockStore(PARAMS);
         
         long now = new Date().getTime() / 1000;
         
-        File checkpointsFile =  findMostRecentCheckpointFile(new File("/opt/"));
+        File checkpointsFile =  findMostRecentCheckpointFile(new File("/opt/checkpoints/"));
         		//new File("/opt/checkpoints");
         
         System.out.println("checkpoint file: " + checkpointsFile);
@@ -109,20 +108,20 @@ public class BuildCheckpoints {
         if (checkpointsFile.exists()) {
                 // Replace path to the file here.
             FileInputStream stream = new FileInputStream(checkpointsFile);
-            CheckpointManager.checkpoint(params, stream, store, now);
-        }                
+            CheckpointManager.checkpoint(PARAMS, stream, store, now);
+        }
         
         
-        final BlockChain chain = new BlockChain(params, store);
-        final PeerGroup peerGroup = new PeerGroup(params, chain);
-        peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("192.168.0.50") );
+        final BlockChain chain = new BlockChain(PARAMS, store);
+        peerGroup = new PeerGroup(PARAMS, chain);
+        //peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("192.168.0.50") );
         
         peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node1.mediterraneancoin.org") );
         peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node2.mediterraneancoin.org") );
         peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node3.mediterraneancoin.org") );
         peerGroup.addAddress(/*InetAddress.getLocalHost()*/  InetAddress.getByName("node4.mediterraneancoin.org") );
-        
-=======
+ 
+        /*
         // Sorted map of block height to StoredBlock object.
         final TreeMap<Integer, StoredBlock> checkpoints = new TreeMap<Integer, StoredBlock>();
 
@@ -133,7 +132,8 @@ public class BuildCheckpoints {
         final PeerGroup peerGroup = new PeerGroup(PARAMS, chain);
         peerGroup.addAddress(InetAddress.getLocalHost());
         long now = new Date().getTime() / 1000;
->>>>>>> upstream/master
+        */
+ 
         peerGroup.setFastCatchupTimeSecs(now);
 
         final long oneHourAgo = now - 3600;//(86400 * 1);
@@ -150,24 +150,26 @@ public class BuildCheckpoints {
             @Override
             public void notifyNewBestBlock(StoredBlock block) throws VerificationException {
                 int height = block.getHeight();
-<<<<<<< HEAD
-                if (height % params.getInterval() == 0 && block.getHeader().getTimeSeconds() <= oneHourAgo) {
-=======
-                if (height % PARAMS.getInterval() == 0 && block.getHeader().getTimeSeconds() <= oneMonthAgo) {
->>>>>>> upstream/master
+
+                if (height % PARAMS.getInterval() == 0 && block.getHeader().getTimeSeconds() <= oneHourAgo) {
+
+                //if (height % PARAMS.getInterval() == 0 && block.getHeader().getTimeSeconds() <= oneMonthAgo) {
+
                     System.out.println(String.format("Checkpointing block %s at height %d",
                             block.getHeader().getHash(), block.getHeight()));
                     checkpoints.put(height, block);
                     
                     try {
-						writeCheckpointFile(new File("/opt/checkpoints_new_" + height), checkpoints);
-					} catch (NoSuchAlgorithmException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+                                writeCheckpointFile(new File("/opt/checkpoints_new_" + height), checkpoints);
+                        } catch (NoSuchAlgorithmException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        } catch (IOException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        } catch (Exception ex) {
+                        Logger.getLogger(BuildCheckpoints.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     
                 } else {
                 	if (height % 100 == 0)
@@ -184,9 +186,11 @@ public class BuildCheckpoints {
 
         peerGroup.stopAndWait();
         store.close();
+        
+        checkpointsFile =  findMostRecentCheckpointFile(new File("/opt/checkpoints/"));
 
         // Sanity check the created file.
-        CheckpointManager manager = new CheckpointManager(params, new FileInputStream("/opt/checkpoints"));
+        CheckpointManager manager = new CheckpointManager(PARAMS, new FileInputStream(checkpointsFile));
         checkState(manager.numCheckpoints() == checkpoints.size());
         StoredBlock test = manager.getCheckpointBefore(/*1348310800*/ System.currentTimeMillis() - 1000 * 3600 * 24L * 2);  // Just after block 200,000
         
@@ -210,17 +214,16 @@ public class BuildCheckpoints {
         //checkState(test.getHeader().getHashAsString().equals("000000000000002e00a243fe9aa49c78f573091d17372c2ae0ae5e0f24f55b52"));
     }
     
-    public static void writeCheckpointFile(File fileName , TreeMap<Integer, StoredBlock> checkpoints) throws NoSuchAlgorithmException, IOException {
+    public static void writeCheckpointFile(File fileName , TreeMap<Integer, StoredBlock> checkpoints) throws NoSuchAlgorithmException, IOException, Exception {
     	
     	
 
         checkState(checkpoints.size() > 0);
 
         // Write checkpoint data out.
-<<<<<<< HEAD
-        final FileOutputStream fileOutputStream = new FileOutputStream(fileName /*"/opt/checkpoints_new"*/, false);
+
+        //final FileOutputStream fileOutputStream = new FileOutputStream(fileName /*"/opt/checkpoints_new"*/, false);
         
-=======
         writeBinaryCheckpoints(checkpoints, PLAIN_CHECKPOINTS_FILE);
         writeTextualCheckpoints(checkpoints, TEXTUAL_CHECKPOINTS_FILE);
 
@@ -235,7 +238,7 @@ public class BuildCheckpoints {
 
     private static void writeBinaryCheckpoints(TreeMap<Integer, StoredBlock> checkpoints, File file) throws Exception {
         final FileOutputStream fileOutputStream = new FileOutputStream(file, false);
->>>>>>> upstream/master
+ 
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         
         final DigestOutputStream digestOutputStream = new DigestOutputStream(fileOutputStream, digest);
@@ -258,10 +261,7 @@ public class BuildCheckpoints {
         Sha256Hash checkpointsHash = new Sha256Hash(digest.digest());
         System.out.println("Hash of checkpoints data is " + checkpointsHash);
         digestOutputStream.close();
-<<<<<<< HEAD
-        fileOutputStream.close();    	
-    	
-=======
+ 
         fileOutputStream.close();
         System.out.println("Checkpoints written to '" + file.getCanonicalPath() + "'.");
     }
@@ -296,6 +296,6 @@ public class BuildCheckpoints {
             checkState(test.getHeader().getHashAsString()
                     .equals("0000000000035ae7d5025c2538067fe7adb1cf5d5d9c31b024137d9090ed13a9"));
         }
->>>>>>> upstream/master
+ 
     }
 }

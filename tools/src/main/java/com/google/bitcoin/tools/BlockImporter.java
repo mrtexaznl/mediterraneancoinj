@@ -7,10 +7,10 @@ import com.google.mediterraneancoin.store.H2FullPrunedBlockStore;
 import com.google.mediterraneancoin.store.MemoryFullPrunedBlockStore;
 import com.google.mediterraneancoin.store.FullPrunedBlockStore;
 import com.google.mediterraneancoin.store.SPVBlockStore;
-import com.google.bitcoin.core.*;
+import com.google.mediterraneancoin.core.*;
 import com.google.mediterraneancoin.params.MainNetParams;
 import com.google.mediterraneancoin.params.TestNet3Params;
-import com.google.bitcoin.utils.BlockFileLoader;
+import com.google.mediterraneancoin.utils.BlockFileLoader;
 import com.google.common.base.Preconditions;
 
 import java.io.File;

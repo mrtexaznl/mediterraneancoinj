@@ -16,12 +16,12 @@
 
 package com.google.bitcoin.tools;
 
-import com.google.bitcoin.crypto.TrustStoreLoader;
-import com.google.bitcoin.protocols.payments.PaymentProtocol;
-import com.google.bitcoin.protocols.payments.PaymentProtocolException;
-import com.google.bitcoin.protocols.payments.PaymentSession;
-import com.google.bitcoin.uri.BitcoinURI;
-import com.google.bitcoin.uri.BitcoinURIParseException;
+import com.google.mediterraneancoin.crypto.TrustStoreLoader;
+import com.google.mediterraneancoin.protocols.payments.PaymentProtocol;
+import com.google.mediterraneancoin.protocols.payments.PaymentProtocolException;
+import com.google.mediterraneancoin.protocols.payments.PaymentSession;
+import com.google.mediterraneancoin.uri.BitcoinURI;
+import com.google.mediterraneancoin.uri.BitcoinURIParseException;
 import org.bitcoin.protocols.payments.Protos;
 
 import java.io.FileInputStream;

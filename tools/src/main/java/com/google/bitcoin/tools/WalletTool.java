@@ -23,8 +23,7 @@ import com.google.mediterraneancoin.store.BlockStoreException;
 import com.google.mediterraneancoin.store.H2FullPrunedBlockStore;
 import com.google.mediterraneancoin.store.FullPrunedBlockStore;
 import com.google.mediterraneancoin.store.SPVBlockStore;
-import com.google.bitcoin.core.*;
-<<<<<<< HEAD
+ 
 import com.google.mediterraneancoin.crypto.KeyCrypterException;
 import com.google.mediterraneancoin.net.discovery.DnsDiscovery;
 import com.google.mediterraneancoin.net.discovery.PeerDiscovery;
@@ -35,26 +34,11 @@ import com.google.mediterraneancoin.protocols.payments.PaymentRequestException;
 import com.google.mediterraneancoin.protocols.payments.PaymentSession;
 import com.google.mediterraneancoin.uri.BitcoinURI;
 import com.google.mediterraneancoin.uri.BitcoinURIParseException;
-=======
-import com.google.bitcoin.crypto.DeterministicKey;
-import com.google.bitcoin.crypto.KeyCrypterException;
-import com.google.bitcoin.crypto.MnemonicCode;
-import com.google.bitcoin.crypto.MnemonicException;
-import com.google.bitcoin.net.discovery.DnsDiscovery;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.params.RegTestParams;
-import com.google.bitcoin.params.TestNet3Params;
-import com.google.bitcoin.protocols.payments.PaymentProtocol;
-import com.google.bitcoin.protocols.payments.PaymentProtocolException;
-import com.google.bitcoin.protocols.payments.PaymentSession;
-import com.google.bitcoin.store.*;
-import com.google.bitcoin.uri.BitcoinURI;
-import com.google.bitcoin.uri.BitcoinURIParseException;
->>>>>>> upstream/master
-import com.google.bitcoin.utils.BriefLogFormatter;
-import com.google.bitcoin.wallet.DeterministicSeed;
-import com.google.bitcoin.wallet.DeterministicUpgradeRequiredException;
-import com.google.bitcoin.wallet.DeterministicUpgradeRequiresPassword;
+ 
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
+import com.google.mediterraneancoin.wallet.DeterministicSeed;
+import com.google.mediterraneancoin.wallet.DeterministicUpgradeRequiredException;
+import com.google.mediterraneancoin.wallet.DeterministicUpgradeRequiresPassword;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
@@ -88,8 +72,36 @@ import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 
-import static com.google.bitcoin.core.Coin.parseCoin;
+import static com.google.mediterraneancoin.core.Coin.parseCoin;
 import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.mediterraneancoin.core.AbstractBlockChain;
+import com.google.mediterraneancoin.core.AbstractPeerEventListener;
+import com.google.mediterraneancoin.core.AbstractWalletEventListener;
+import com.google.mediterraneancoin.core.Address;
+import com.google.mediterraneancoin.core.AddressFormatException;
+import com.google.mediterraneancoin.core.Block;
+import com.google.mediterraneancoin.core.BlockChain;
+import com.google.mediterraneancoin.core.Coin;
+import com.google.mediterraneancoin.core.DownloadListener;
+import com.google.mediterraneancoin.core.DumpedPrivateKey;
+import com.google.mediterraneancoin.core.ECKey;
+import com.google.mediterraneancoin.core.FullPrunedBlockChain;
+import com.google.mediterraneancoin.core.InsufficientMoneyException;
+import com.google.mediterraneancoin.core.NetworkParameters;
+import com.google.mediterraneancoin.core.Peer;
+import com.google.mediterraneancoin.core.PeerAddress;
+import com.google.mediterraneancoin.core.PeerGroup;
+import com.google.mediterraneancoin.core.ScriptException;
+import com.google.mediterraneancoin.core.Transaction;
+import com.google.mediterraneancoin.core.Utils;
+import com.google.mediterraneancoin.core.VerificationException;
+import com.google.mediterraneancoin.core.Wallet;
+import com.google.mediterraneancoin.core.WrongNetworkException;
+import com.google.mediterraneancoin.crypto.DeterministicKey;
+import com.google.mediterraneancoin.crypto.MnemonicCode;
+import com.google.mediterraneancoin.crypto.MnemonicException;
+import com.google.mediterraneancoin.protocols.payments.PaymentProtocol;
+import com.google.mediterraneancoin.protocols.payments.PaymentProtocolException;
 
 /**
  * A command line tool for manipulating wallets and working with Bitcoin.
@@ -514,7 +526,7 @@ public class WalletTool {
         }
     }
 
-    private static void send(List<String> outputs, Coin fee, String lockTimeStr, boolean allowUnconfirmed) throws VerificationException {
+    private static void send(List<String> outputs, Coin fee, String lockTimeStr, boolean allowUnconfirmed) throws VerificationException, InsufficientMoneyException {
         try {
             // Convert the input strings to outputs.
             Transaction t = new Transaction(params);

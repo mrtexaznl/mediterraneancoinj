@@ -1,9 +1,9 @@
 package com.google.bitcoin.tools;
 
-import com.google.bitcoin.core.*;
-import com.google.bitcoin.kits.WalletAppKit;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.utils.BriefLogFormatter;
+import com.google.mediterraneancoin.core.*;
+import com.google.mediterraneancoin.kits.WalletAppKit;
+import com.google.mediterraneancoin.params.MainNetParams;
+import com.google.mediterraneancoin.utils.BriefLogFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
