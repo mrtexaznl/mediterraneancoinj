@@ -1,4 +1,4 @@
-Build status: [![Build Status](https://travis-ci.org/bitcoinj/bitcoinj.png?branch=master)](https://travis-ci.org/bitcoinj/bitcoinj)
+Build status: [![Build Status](https://travis-ci.org/mrtexaznl/mediterraneancoinj.png?branch=master)](https://travis-ci.org/mrtexaznl/mediterraneancoinj)
 
 ### Welcome to bitcoinj
 
