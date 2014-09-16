@@ -23,7 +23,7 @@
         <groupId>com.google</groupId>
 
         <artifactId>mediterraneancoinj-parent</artifactId>
-        <version>0.12-SNAPSHOT</version>
+        <version>0.11.3</version>
 
     </parent>
 
@@ -47,8 +47,8 @@
     <!-- Dummy block to make Maven Central happy: authors list is in AUTHORS -->
     <developers>
         <developer>
-            <name>The bitcoinj team</name>
-            <email>bitcoinj@googlegroups.com</email>
+            <name>The mediterraneancoinj team</name>
+            <email>meddevteam@gmail.com</email>
         </developer>
     </developers>
 
@@ -249,8 +249,8 @@
                                 <artifactItem>
                                     <outputDirectory>target/test-classes/</outputDirectory>
                                     <groupId>com.google</groupId>
-                                    <artifactId>bitcoinj</artifactId>
-                                    <version>0.12-SNAPSHOT</version>
+                                    <artifactId>mediterraneancoinj</artifactId>
+                                    <version>0.11.3</version>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
