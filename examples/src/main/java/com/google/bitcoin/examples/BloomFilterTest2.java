@@ -125,7 +125,8 @@ public class BloomFilterTest2 extends AbstractIdleService  {
                 if (vWalletFile.exists()) {
                     Wallet wallet = new Wallet(params);
                     FileInputStream stream = new FileInputStream(vWalletFile);
-                    new WalletProtobufSerializer().readWallet(WalletProtobufSerializer.parseToProto(stream), wallet);
+                    new WalletProtobufSerializer().
+                            readWallet(WalletProtobufSerializer.parseToProto(stream), wallet);
                     time = wallet.getEarliestKeyCreationTime();
                     
                     System.out.println("earliest key creation time: " + new Date(time));
