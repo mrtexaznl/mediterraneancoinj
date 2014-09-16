@@ -228,6 +228,7 @@ public class BuildCheckpoints {
         writeBinaryCheckpoints(checkpoints, /*PLAIN_CHECKPOINTS_FILE*/ fileName);
         writeTextualCheckpoints(checkpoints, /*TEXTUAL_CHECKPOINTS_FILE*/ new File( fileName.getAbsolutePath() + ".txt" ));
 
+        /*
         peerGroup.stopAsync();
         peerGroup.awaitTerminated();
         store.close();
@@ -235,6 +236,7 @@ public class BuildCheckpoints {
         // Sanity check the created files.
         sanityCheck(PLAIN_CHECKPOINTS_FILE, checkpoints.size());
         sanityCheck(TEXTUAL_CHECKPOINTS_FILE, checkpoints.size());
+                */
     }
 
     private static void writeBinaryCheckpoints(TreeMap<Integer, StoredBlock> checkpoints, File file) throws Exception {
