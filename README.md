@@ -1,8 +1,8 @@
 Build status: [![Build Status](https://travis-ci.org/mrtexaznl/mediterraneancoinj.png?branch=master)](https://travis-ci.org/mrtexaznl/mediterraneancoinj)
 
-### Welcome to bitcoinj
+### Welcome to mediterraneancoinj
 
-The bitcoinj library is a Java implementation of the Bitcoin protocol, which allows it to maintain a wallet and send/receive transactions without needing a local copy of Bitcoin Core. It comes with full documentation and some example apps showing how to use it.
+The mediterraneancoinj library is a Java implementation of the MediterraneanCoin protocol, which allows it to maintain a wallet and send/receive transactions without needing a local copy of Mediterraneancoinj Core. It comes with full documentation and some example apps showing how to use it.
 
 ### Technologies
 
@@ -39,7 +39,7 @@ These are found in the `examples` module.
 
 #### Forwarding service
 
-This will download the block chain and eventually print a Bitcoin address that it has generated.
+This will download the block chain and eventually print a Mediterraneancoin address that it has generated.
 
 If you send coins to that address, it will forward them on to the address you specified.
 
