@@ -4,7 +4,7 @@ jdk: openjdk6
 before_install: lsb_release -a
 install: true # remove default
 script:
-  - mvn -q clean install
+  - mvn -q clean install -DskipTests=true
   - cd wallettemplate
   - jdk_switcher use oraclejdk8
   - mvn -q clean install -DskipTests=true
