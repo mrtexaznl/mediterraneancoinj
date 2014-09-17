@@ -996,7 +996,7 @@ public abstract class AbstractBlockChain {
     }
 
     /**
-     * Returns an estimate of when the given block will be reached, assuming a perfect 10 minute average for each
+     * Returns an estimate of when the given block will be reached, assuming a perfect 1 minute average for each
      * block. This is useful for turning transaction lock times into human readable times. Note that a height in
      * the past will still be estimated, even though the time of solving is actually known (we won't scan backwards
      * through the chain to obtain the right answer).
@@ -1005,7 +1005,7 @@ public abstract class AbstractBlockChain {
         synchronized (chainHeadLock) {
             long offset = height - chainHead.getHeight();
             long headTime = chainHead.getHeader().getTimeSeconds();
-            long estimated = (headTime * 1000) + (1000L * 60L * 10L * offset);
+            long estimated = (headTime * 1000) + (1000L * 60L * 1L * offset);
             return new Date(estimated);
         }
     }
